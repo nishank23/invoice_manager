@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "637411239582",
+    "firebase_url": "https://invoicemanager-909f5-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "invoicemanager-909f5",
+    "storage_bucket": "invoicemanager-909f5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:637411239582:android:06b210b78f8ba4d3b6fd8f",
+        "android_client_info": {
+          "package_name": "com.querosys.invoicegenerator"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "637411239582-noc13kdi4o2p9enk5tq0mk0dlo3am3vg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB7He7-TbEr2-vhVJPsPXXMguY5fi-QOBI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "637411239582-0a8d1eksctgltmbvafr63psn93vtj404.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "637411239582-aioiom7lopopohjmk1r1ejcfl9bk49vu.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.querosys.invoicegenerator"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
