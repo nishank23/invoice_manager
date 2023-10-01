@@ -214,7 +214,7 @@ class CreateEstimatedView extends GetView<CreateEstimatedController> {
                 onPageChanged: (value) {
                   controller.updateActive(value);
                 },
-                children: controller.pages.value,
+                children: controller.pages,
               ),
             ),
           ],

@@ -13,7 +13,6 @@ import '../../../../global/widgets/custom_dialog.dart';
 import '../../controllers/create_estimated_controller.dart';
 
 class EstAddClientController extends GetxController {
-  //TODO: Implement EstAddClientController
 
   final count = 0.obs;
 
@@ -117,10 +116,6 @@ class EstAddClientController extends GetxController {
       update();
     }
   }
-
-
-
-
   CountryData? selectedCountry;
   Future<void> pickCountry(BuildContext context) async {
     final countryModelBottomSheetController =
@@ -167,7 +162,7 @@ class EstAddClientController extends GetxController {
       successCallback: (response, message) {
         app.resolve<CustomDialogs>().hideCircularDialog(context);
         myClientList.clear();
-        clientList.value.clear();
+        clientList.clear();
 
         GetAllClients getAllClients = GetAllClients.fromJson(response);
         clientList.value = getAllClients.clientData!;

@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:focus_detector/focus_detector.dart';
 import 'package:get/get.dart';
+import 'package:invoice_generator/app/global/widgets/myButton.dart';
 
 import '../../../global/constants/app_asset.dart';
 import '../../../global/constants/app_color.dart';
@@ -62,8 +63,7 @@ class ClientsView extends GetView<ClientsController> {
                                 enableDrag: true,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(30.r),
-                                        topRight: Radius.circular(30.r))),
+                                        topLeft: Radius.circular(30.r), topRight: Radius.circular(30.r))),
                                 backgroundColor: Colors.transparent,
                                 context: context,
                                 isScrollControlled: true,
@@ -117,7 +117,6 @@ class ClientsView extends GetView<ClientsController> {
                     height: 56.h,
                     controller: controller.searchController.value,
                     onChanged: (value) {
-
                       controller.searchClients(value);
                     },
                   ).paddingSymmetric(horizontal: 20.h),
@@ -142,10 +141,8 @@ class ClientsView extends GetView<ClientsController> {
                             return Future.delayed(const Duration(seconds: 3));
                           },
                           child: ListView.builder(
-                            physics: const BouncingScrollPhysics(
-                                parent: AlwaysScrollableScrollPhysics()),
-                            padding: EdgeInsets.symmetric(horizontal: 20.w)
-                                .copyWith(bottom: 70.h),
+                            physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+                            padding: EdgeInsets.symmetric(horizontal: 20.w).copyWith(bottom: 70.h),
                             itemCount: controller.filteredList.length,
                             shrinkWrap: true,
                             itemBuilder: (context, index) {
@@ -155,11 +152,108 @@ class ClientsView extends GetView<ClientsController> {
                                 // overlayColor: MaterialStatePropertyAll(Colors.red),
 
                                 borderRadius: BorderRadius.circular(20.r),
-                                onTap: () {},
+                                onTap: () {
+                                  print("apjdf");
+                                  showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          insetPadding: EdgeInsets.zero,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(20),
+                                          ),
+                                          actions: [
+                                            SizedBox(
+                                              width: MediaQuery.of(context).size.width * .8,
+                                              child: Column(
+                                                children: [
+                                                  Stack(
+                                                    children: [
+                                                      const SizedBox(),
+                                                      Align(
+                                                        alignment: Alignment.center,
+                                                        child: Text(
+                                                          "Estimated",
+                                                          style: text700_18,
+                                                        ),
+                                                      ),
+                                                      Align(
+                                                        alignment: Alignment.topRight,
+                                                        child: GestureDetector(
+                                                          onTap: () {
+                                                            Get.back();
+                                                          },
+                                                          child: const Icon(Icons.close),
+                                                        ),
+                                                      )
+                                                    ],
+                                                  ),
+                                                  SizedBox(
+                                                    height: 12.w,
+                                                  ),
+                                                  Container(
+                                                    padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 16.h),
+                                                    decoration: BoxDecoration(
+                                                      color: AppColor.searchgrey,
+                                                      borderRadius: BorderRadius.circular(20.r),
+                                                    ),
+                                                    child: Row(
+                                                      children: [
+                                                        SvgPicture.asset(
+                                                          AppAsset.clientsPersonFillIcon,
+                                                          height: 50.h,
+                                                          width: 50.w,
+                                                        ),
+                                                        SizedBox(
+                                                          width: 10.w,
+                                                        ),
+                                                        Text(
+                                                          controller.filteredList[index].company!.personName.toString(),
+                                                          style:
+                                                              text400_16grey.copyWith(color: const Color(0xff1D1B20)),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    height: 16.h,
+                                                  ),
+                                                  Row(
+                                                    children: [
+                                                      Expanded(
+                                                          child: mybutton(
+                                                              onTap: () {
+                                                                print("IDDDDD ${controller.filteredList[index].id}");
+                                                                Get.back();
+
+                                                                Get.toNamed(Routes.ADD_NEW_CLIENT,
+                                                                    arguments: controller.filteredList[index].id);
+                                                              },
+                                                              title: "Edit",
+                                                              backgroundColor: Colors.white,
+                                                              borderColor: const Color(0x4C97A1B1),
+                                                              textStyle: text400_16grey.copyWith(color: Colors.black))),
+                                                      SizedBox(
+                                                        width: 8.w,
+                                                      ),
+                                                      Expanded(
+                                                          child: mybutton(
+                                                              onTap: () {},
+                                                              title: "Yes, Delete",
+                                                              textStyle: text400_14.copyWith(color: AppColor.white),
+                                                              backgroundColor: const Color(0xFFFF8080)))
+                                                    ],
+                                                  )
+                                                ],
+                                              ),
+                                            ).paddingAll(20.h)
+                                          ],
+                                        );
+                                      });
+                                },
                                 focusColor: AppColor.searchgrey,
                                 child: Container(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 10.w, vertical: 16.h),
+                                  padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 16.h),
                                   decoration: const BoxDecoration(
                                       // color: AppColor.searchgrey,
 
@@ -175,27 +269,19 @@ class ClientsView extends GetView<ClientsController> {
                                         width: 10.w,
                                       ),
                                       Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                            controller.filteredList[index]
-                                                .company!.personName
-                                                .toString(),
-                                            style: text400_16grey.copyWith(
-                                                color: const Color(0xff1D1B20)),
+                                            controller.filteredList[index].company!.personName.toString(),
+                                            style: text400_16grey.copyWith(color: const Color(0xff1D1B20)),
                                           ),
                                           SizedBox(
                                             height: 9.h,
                                           ),
                                           Text(
-                                            controller.filteredList[index]
-                                                .company!.mobileNumber
-                                                .toString(),
-                                            style: text400_13grey.copyWith(
-                                                color: const Color(0xff758090)),
+                                            controller.filteredList[index].company!.mobileNumber.toString(),
+                                            style: text400_13grey.copyWith(color: const Color(0xff758090)),
                                           ),
                                         ],
                                       )

@@ -26,7 +26,7 @@ class CreateInvoiceController extends GetxController {
 
   final RxList<Widget> pages = [
     Builder(
-      builder: (context) =>  InvoiceAddClientView(),
+      builder: (context) => InvoiceAddClientView(),
     ),
     Builder(
       builder: (context) => const InvoiceAddressView(),
@@ -38,19 +38,4 @@ class CreateInvoiceController extends GetxController {
       builder: (context) => const InvoiceAddSignView(),
     ),
   ].obs;
-
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
 }

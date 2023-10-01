@@ -9,7 +9,6 @@ import '../../../../global/widgets/productPicker/AddProductBottomSheetController
 import '../../controllers/create_estimated_controller.dart';
 
 class EstAddItemsController extends GetxController {
-  //TODO: Implement EstAddItemsController
   RxList<ProductData> myaddedProductsList = <ProductData>[].obs;
 
   final count = 0.obs;
@@ -37,13 +36,10 @@ class EstAddItemsController extends GetxController {
       // Return the "%" sign when the discount is in percentage
     } else {
       // Calculate the discount amount and format it as a price with a thousand separator
-      double discountAmount = subtotal - double.parse(dscCntlr.text
-          .trim()
-          .isEmpty ? "0" : dscCntlr.text.trim());
+      double discountAmount = subtotal - double.parse(dscCntlr.text.trim().isEmpty ? "0" : dscCntlr.text.trim());
       return discountAmount.toString();
     }
   }
-
 
   String get getFinalTotal {
     num afterdiscount = num.parse(afterDiscountText);
@@ -53,9 +49,7 @@ class EstAddItemsController extends GetxController {
       allTaxes = value['value'] + allTaxes;
     }
 
-
     afterdiscount = afterdiscount + allTaxes;
-
 
     return afterdiscount.toString();
   }
@@ -96,42 +90,35 @@ class EstAddItemsController extends GetxController {
 
     final addcontroller = Get.put(EstAddClientController());
     selectedEstimateCurrency = addcontroller.selectedCurrency.value.toString();
-    String flat =
-        "Flat (${addcontroller.selectedCurrency.value})";
+    String flat = "Flat (${addcontroller.selectedCurrency.value})";
     menuItems.add(flat);
-    if(parentCon.id!=null) {
-      onEditItems(parentCon.estimation.value!);
+    if (parentCon.id != null) {
+      onEditItems(parentCon.estimation.value!
+      );
     }
 
     update();
   }
 
-
   onEditItems(Estimation est) async {
-    final addProducts =
-    Get.put(AddProductBottomSheetController());
+    final addProducts = Get.put(AddProductBottomSheetController());
     print("myItemsEstimation${est.itemTotal}");
 
+    if (est.discountType == 0) {
+      selectedDiscount.value = menuItems[0];
 
-
-      if(est.discountType==0){
-        selectedDiscount.value = menuItems[0];
-
-        dscCntlr.text =(est.itemTotal!/est.discount!).toString();
-      }else{
-        selectedDiscount.value = menuItems[1];
-        dscCntlr.text = est.discount.toString();
-
-      }
-
-
-    for (var editpro in est.products!) {
-      myaddedProductsList.add(ProductData(id:editpro.product!.id));
+      dscCntlr.text = (est.itemTotal! / est.discount!).toString();
+    } else {
+      selectedDiscount.value = menuItems[1];
+      dscCntlr.text = est.discount.toString();
     }
 
-    List<ProductData>? products =await addProducts.editProducts(
-        context: Get.context!,
-        myalreadyadded: myaddedProductsList);
+    for (var editpro in est.products!) {
+      myaddedProductsList.add(ProductData(id: editpro.product!.id));
+    }
+
+    List<ProductData>? products =
+        await addProducts.editProducts(context: Get.context!, myalreadyadded: myaddedProductsList);
 
     myaddedProductsList.clear();
 
@@ -141,12 +128,11 @@ class EstAddItemsController extends GetxController {
       }
     }
 
-    for(var data in est.taxes!){
-
-      Map<String,dynamic> myMap = Map();
-      myMap["taxValue"]=data.percentage!;
-      myMap["taxType"]=data.name!;
-      myMap["value"]=data.amount;
+    for (var data in est.taxes!) {
+      Map<String, dynamic> myMap = {};
+      myMap["taxValue"] = data.percentage!;
+      myMap["taxType"] = data.name!;
+      myMap["value"] = data.amount;
       myTextList.add(myMap);
     }
 
@@ -162,14 +148,8 @@ class EstAddItemsController extends GetxController {
     super.onReady();
   }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
   String extractedValue(String text) {
-    final RegExp regExp =
-    RegExp(r'\((.*?)\)'); // Matches the value inside parentheses
+    final RegExp regExp = RegExp(r'\((.*?)\)'); // Matches the value inside parentheses
     final match = regExp.firstMatch(text);
     if (match != null && match.groupCount >= 1) {
       return match.group(1) ?? '';
@@ -183,8 +163,7 @@ class EstAddItemsController extends GetxController {
   Rx<String?> myformattedDiscount = "%".obs;
 
   Rx<TextEditingController> taxTypeController = TextEditingController().obs;
-  Rx<TextEditingController> taxPercentageController =
-      TextEditingController().obs;
+  Rx<TextEditingController> taxPercentageController = TextEditingController().obs;
 
   RxList myTextList = <Map<String, dynamic>>[].obs;
 }

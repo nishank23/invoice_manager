@@ -98,7 +98,7 @@ class CltAddressInfoView extends GetView<CltAddressInfoController> {
                     return CustomDropdown(
                       prefixIcon: SvgPicture.asset(AppAsset.countryIcon),
                       items: controller.mycountryDataList,
-                      value: controller.selectedCountry!.value,
+                      value: controller.selectedCountry.value,
                       lableText: 'Country',
                       onChanged: (value) {
                         controller.setSelectedCountry(value!);
@@ -112,7 +112,7 @@ class CltAddressInfoView extends GetView<CltAddressInfoController> {
                     return CustomDropdown(
                       prefixIcon: SvgPicture.asset(AppAsset.stateIcon),
                       items: controller.mystateDataList,
-                      value: controller.selectedState!.value,
+                      value: controller.selectedState.value,
                       lableText: 'State',
                       onChanged: (value) {
                         controller.setSelectedState(value!);
@@ -126,10 +126,10 @@ class CltAddressInfoView extends GetView<CltAddressInfoController> {
                     return CustomDropdown(
                       prefixIcon: SvgPicture.asset(AppAsset.cityIcon),
                       items: controller.mycityDataList,
-                      value: controller.selectedCity!.value,
+                      value: controller.selectedCity.value,
                       lableText: 'City',
                       onChanged: (value) {
-                        controller.selectedCity!.value = value!;
+                        controller.selectedCity.value = value!;
                         controller.update();
                       },
                     );

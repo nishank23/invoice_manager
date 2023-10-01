@@ -9,7 +9,7 @@ import '../../../global/constants/constants.dart';
 
 
 class SplashController extends GetxController {
-  //TODO: Implement SplashController
+  
   String? uid;
 
   @override

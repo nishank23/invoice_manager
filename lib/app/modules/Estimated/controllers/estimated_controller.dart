@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_overrides, non_constant_identifier_names, unnecessary_string_interpolations, avoid_print
+
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -9,8 +11,6 @@ import '../../../global/constants/api_const.dart';
 import '../../../global/widgets/custom_dialog.dart';
 
 class EstimatedController extends GetxController {
-  //TODO: Implement EstimatedController
-
   final count = 0.obs;
   @override
   void onInit() {
@@ -19,6 +19,7 @@ class EstimatedController extends GetxController {
 
   @override
   void onReady() {
+    
     super.onReady();
     ApiGetAllEstimate( context: Get.context!,);
   }
@@ -40,6 +41,7 @@ class EstimatedController extends GetxController {
 
   ApiGetAllEstimate({required BuildContext context}) async {
     FocusScope.of(context).unfocus();
+
 /*
     app.resolve<CustomDialogs>().showCircularDialog(context);
 */

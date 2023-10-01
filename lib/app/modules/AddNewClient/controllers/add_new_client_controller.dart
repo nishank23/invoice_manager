@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:invoice_generator/Models/client_by_id_model.dart';
+import 'package:invoice_generator/app/global/constants/api_const.dart';
 import 'package:invoice_generator/app/modules/AddNewClient/clt_addressInfo/views/clt_address_info_view.dart';
 import 'package:invoice_generator/app/modules/AddNewClient/clt_businessInfo/views/clt_business_info_view.dart';
+import 'package:invoice_generator/services/Connectivity/networkClient.dart';
 
 import '../../AddressInfo/views/address_info_view.dart';
 import '../../BusinessInfo/views/business_info_view.dart';
 
-class AddNewClientController extends GetxController
-    with SingleGetTickerProviderMixin {
+class AddNewClientController extends GetxController with SingleGetTickerProviderMixin {
   //TODO: Implement AddNewClientController
   TabController? tabController;
-
+  Rx<ClientDataById?> clientById = Rxn<ClientDataById>();
   final count = 0.obs;
-
+  String? id = Get.arguments;
+  RxBool hasData = false.obs;
   @override
   void onInit() {
     tabController = TabController(length: myTabs.value.length, vsync: this);
@@ -22,6 +25,25 @@ class AddNewClientController extends GetxController
   @override
   void onReady() {
     super.onReady();
+    if (id != null) {
+      callApiForGetClientById(context: Get.context!, id: id.toString());
+      //get client by id
+    }
+  }
+
+  callApiForGetClientById({required BuildContext context, required String id}) {
+    FocusScope.of(context).unfocus();
+
+    return NetworkClient.getInstance.callApi(context, baseURL, "${ApiConstant.getAllClients}/$id", MethodType.Get,
+        headers: NetworkClient.getInstance.getAuthHeaders(), successCallback: (response, message) async {
+      ClientDataByIdModel eventData = ClientDataByIdModel.fromJson(response);
+      clientById.value = eventData.clientDataById;
+
+      hasData.value = true;
+      print("::::::::::::::::::::$response");
+    }, failureCallback: (status, message) {
+      hasData.value = true;
+    });
   }
 
   @override
@@ -33,24 +55,17 @@ class AddNewClientController extends GetxController
   RxList<Tab> myTabs = <Tab>[
     const Tab(
       text: "Business Info",
-
     ),
     const Tab(
       text: "Address",
-
     ),
-
   ].obs;
 
   final screens = [
-
-
-     CltBusinessInfoView(),
-     CltAddressInfoView(),
-
+    CltBusinessInfoView(),
+    CltAddressInfoView(),
 
     //business info // true
     // address info // true
-
   ];
 }

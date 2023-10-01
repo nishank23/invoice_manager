@@ -265,7 +265,7 @@ class CreateInvoiceView extends GetView<CreateInvoiceController> {
                 onPageChanged: (value) {
                   controller.updateActive(value);
                 },
-                children: controller.pages.value,
+                children: controller.pages,
               ),
             ),
           ],

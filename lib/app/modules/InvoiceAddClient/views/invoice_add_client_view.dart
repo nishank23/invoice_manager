@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -36,7 +38,7 @@ class InvoiceAddClientView extends GetView<InvoiceAddClientController> {
         child: Form(
           key: formKey,
           child: Column(children: [
-            // Divider(thickness: 2.h,height: 2.h,),
+            
 
             myTitleWidget(title: "Add Client").marginSymmetric( vertical: 20.h,),
 
@@ -51,10 +53,10 @@ class InvoiceAddClientView extends GetView<InvoiceAddClientController> {
                 prefixIcon: Icon(Icons.person_outline_rounded,
                     color: AppColor.filedIcon, size: 22.w),
                 items: controller.myClientList,
-                value: controller.selectedAddClient!.value,
+                value: controller.selectedAddClient.value,
                 lableText: 'Add client',
                 onChanged: (value) {
-                  controller.selectedAddClient!.value = value!;
+                  controller.selectedAddClient.value = value!;
                   controller.update();
                 },
               );
