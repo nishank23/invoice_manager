@@ -10,7 +10,7 @@ import 'package:invoice_generator/services/Connectivity/networkClient.dart';
 
 class AddNewClientController extends GetxController with SingleGetTickerProviderMixin {
   TabController? tabController;
-  Rx<ClientDataById?> clientById = Rxn<ClientDataById>();
+  Rx<ClientDataById?> clientById = Rxn<ClientDataById>(null);
   final count = 0.obs;
   String? id = Get.arguments;
   RxBool hasData = false.obs;

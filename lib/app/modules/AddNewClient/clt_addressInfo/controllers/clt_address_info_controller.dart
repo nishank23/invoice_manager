@@ -61,6 +61,8 @@ class CltAddressInfoController extends GetxController {
     ship_selectedCountry.value = addNewClientController.clientById.value!.shippingAddress!.country!;
     ship_selectedState.value = addNewClientController.clientById.value!.shippingAddress!.state!;
     // ship_selectedCity.value=addNewClientController.clientById.value.sh
+    update();
+    refresh();
   }
 
   Rx<TextEditingController> nameBillController = TextEditingController().obs;

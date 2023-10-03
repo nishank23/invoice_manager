@@ -6,6 +6,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:invoice_generator/app/modules/CreateEstimated/controllers/create_estimated_controller.dart';
 import 'package:invoice_generator/app/modules/Estimated/controllers/estimated_controller.dart';
 import 'package:invoice_generator/app/routes/app_pages.dart';
 import 'package:path/path.dart' as path;
@@ -18,12 +19,12 @@ import '../../../../global/widgets/ImagePickerDialog.dart';
 import '../../../../global/widgets/custom_dialog.dart';
 
 class EstAddSignController extends GetxController {
-  EstimatedController estimatedController = Get.put(EstimatedController());
-
+  CreateEstimatedController createEstimatedController = Get.put(CreateEstimatedController());
   final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
+    // createEstimatedController.ApiEstimatePreview(context: Get.context!);
   }
 
   @override

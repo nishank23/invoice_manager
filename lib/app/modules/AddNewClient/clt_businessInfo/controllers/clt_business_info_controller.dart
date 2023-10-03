@@ -7,7 +7,6 @@ import 'package:invoice_generator/app/modules/AddNewClient/controllers/add_new_c
 import '../../../../global/widgets/ImagePickerDialog.dart';
 
 class CltBusinessInfoController extends GetxController {
-
   AddNewClientController addNewClientController = Get.put(AddNewClientController());
   final count = 0.obs;
   Rx<TextEditingController> companyNameController = TextEditingController().obs;
@@ -42,22 +41,15 @@ class CltBusinessInfoController extends GetxController {
     gstController.value.text = addNewClientController.clientById.value!.company!.gstNumber!;
     businessEmailController.value.text = addNewClientController.clientById.value!.company!.email!;
     businessWebsiteController.value.text = addNewClientController.clientById.value!.company!.website!;
+    update();
+    refresh();
   }
 
   @override
   void onInit() {
     super.onInit();
-    getData();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
+    ever(addNewClientController.clientById, (callback) => getData());
+    // getData();
   }
 
   void increment() => count.value++;

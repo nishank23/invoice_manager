@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -133,11 +135,10 @@ class EstAddSignView extends GetView<EstAddSignController> {
                       decoration: BoxDecoration(
                           border: Border.all(color: Colors.grey.withOpacity(0.5)),
                           borderRadius: BorderRadius.circular(10)),
-                          child: CachedNetworkImage(
+                      child: CachedNetworkImage(
                         fit: BoxFit.cover,
-                        imageUrl: "",
-                        placeholder: (context, url) => Center(
-                            child: CircularProgressIndicator()),
+                        imageUrl: "${controller.createEstimatedController.estimation.value?.sign}",
+                        placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
                         errorWidget: (context, url, error) => const Icon(Icons.error),
                       ),
                     );
@@ -150,32 +151,21 @@ class EstAddSignView extends GetView<EstAddSignController> {
                 return mybutton(
                   onTap: () {
                     print("taped");
-
                     Map<String, dynamic> mydata = {};
-
                     List<Map<String, dynamic>> myproductlist = [];
                     List<Map<String, dynamic>> mytaxlist = [];
-
                     EstAddClientController myClientController = Get.put(EstAddClientController());
                     EstAddItemsController myItemsController = Get.put(EstAddItemsController());
-
                     mydata["client"] = myClientController.selectedAddClient.value;
-
                     for (var data in myItemsController.myaddedProductsList) {
                       Map<String, dynamic> myproductData = {};
-
                       myproductData["product"] = data.id;
                       myproductData["quantity"] = data.qty;
-
                       myproductlist.add(myproductData);
                     }
-
                     mydata["products"] = myproductlist;
-
                     mydata["estimationDate"] = myClientController.selectedDate.toString();
-
                     mydata["currency"] = myClientController.selectedCountry!.currencySymbol.toString();
-
                     mydata["currencyId"] = myClientController.selectedCountry!.id.toString();
 
                     mydata["itemTotal"] = myItemsController.subtotal.toString();
@@ -191,7 +181,6 @@ class EstAddSignView extends GetView<EstAddSignController> {
                       mydata["discount"] = myItemsController.dscCntlr.text;
                       mydata["discountType"] = "1";
                     }
-
                     for (var data in myItemsController.myTextList) {
                       Map<String, dynamic> mytaxdata = {};
 
@@ -201,7 +190,6 @@ class EstAddSignView extends GetView<EstAddSignController> {
 
                       mytaxlist.add(mytaxdata);
                     }
-
                     mydata["taxes"] = mytaxlist;
 
                     mydata["totalAmount"] = myItemsController.getFinalTotal;
