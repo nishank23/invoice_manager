@@ -6,10 +6,7 @@ const String ibaseURL = "http://165.22.218.255:3000/";
  const String baseURL = "http://10.0.2.2:3000/api/v1/";
 */
 
-
- const String baseURL = "http://165.22.218.255:3000/api/v1/";
-
-
+const String baseURL = "http://165.22.218.255:3000/api/v1/";
 
 /*
 const String baseURL = "https://invoicetest-m7na.onrender.com/api/v1/";
@@ -22,62 +19,37 @@ const String baseURL = "https://invoicetest-m7na.onrender.com/api/v1/";
 class ApiConstant {
   // static const LoginUser = "users/login";
 
-   static const SignInEmail = "signin/email";
+  static const SignInEmail = "signin/email";
 
-   static const SignUpEmail = "signup/email";
+  static const SignUpEmail = "signup/email";
 
-   static const SignInGoogle = "signin/google";
+  static const SignInGoogle = "signin/google";
 
+  static const SignUpGoogle = "signup/google";
 
-   static const SignUpGoogle = "signup/google";
+  static const ForgotPassword = "forgotpassword";
 
+  static const ResetPassword = "resetpassword";
 
+  static const createUpdateProfile = "user-profile";
+  static const getProfile = "user-profile";
 
-   static const ForgotPassword = "forgotpassword";
+  static const createUpdateClient = "clients";
 
+  static const getAllClients = "clients";
+  static const getAllProducts = "products";
+  static const products = "products";
+  static const createUpdateProduct = "products/";
 
-   static const ResetPassword = "resetpassword";
+  static const getAllCountry = "countries";
 
+  static const getAllStates = "states";
 
-   static const createUpdateProfile = "user-profile";
-   static const getProfile = "user-profile";
+  static const getAllCities = "cities";
+  static const getCurrEst = "curr-est";
 
-
-
-   static const createUpdateClient = "clients";
-
-   static const getAllClients = "clients";
-   static const getAllProducts = "products";
-   static const products = "products";
-   static const createUpdateProduct = "products/";
-
-
-   static const getAllCountry = "countries";
-
-
-   static const getAllStates= "states";
-
-   static const getAllCities= "cities";
-   static const getCurrEst= "curr-est";
-
-   static const createEst= "create-est";
-   static const getEstByUser= "allest";
-   static const getEstPreview= "get-est";
-   static const getEstPdf= "estpreview";
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  static const createEst = "create-est";
+  static const getEstByUser = "allest";
+  static const getEstPreview = "get-est";
+  static const getEstPdf = "estpreview";
 }

@@ -73,6 +73,7 @@ dependencies:
   floating_bubbles: ^2.5.1
   shared_preferences: ^2.2.0
   flutter_cache_manager: ^3.3.1
+  cached_network_image: ^3.3.0
 
 dev_dependencies:
   flutter_test:

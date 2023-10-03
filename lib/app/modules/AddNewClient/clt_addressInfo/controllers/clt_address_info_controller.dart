@@ -47,6 +47,9 @@ class CltAddressInfoController extends GetxController {
     mobileBillNumController.value.text = addNewClientController.clientById.value!.company!.mobileNumber!;
     addressBillController.value.text = addNewClientController.clientById.value!.shippingAddress!.addressLine!;
     zipBillController.value.text = addNewClientController.clientById.value!.shippingAddress!.postalCode!;
+    selectedCity.value = addNewClientController.clientById.value!.billingAddress!.city!;
+    selectedCountry.value = addNewClientController.clientById.value!.billingAddress!.country!;
+    selectedState.value = addNewClientController.clientById.value!.billingAddress!.state!;
 
     //shipping
 
@@ -54,6 +57,10 @@ class CltAddressInfoController extends GetxController {
     mobileNumShipController.value.text = addNewClientController.clientById.value!.company!.mobileNumber!;
     addressShipController.value.text = addNewClientController.clientById.value!.shippingAddress!.addressLine!;
     zipShipController.value.text = addNewClientController.clientById.value!.shippingAddress!.postalCode!;
+    ship_selectedCity.value = addNewClientController.clientById.value!.shippingAddress!.city!;
+    ship_selectedCountry.value = addNewClientController.clientById.value!.shippingAddress!.country!;
+    ship_selectedState.value = addNewClientController.clientById.value!.shippingAddress!.state!;
+    // ship_selectedCity.value=addNewClientController.clientById.value.sh
   }
 
   Rx<TextEditingController> nameBillController = TextEditingController().obs;

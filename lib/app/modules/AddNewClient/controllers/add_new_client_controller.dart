@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:invoice_generator/Models/client_by_id_model.dart';
@@ -6,11 +8,7 @@ import 'package:invoice_generator/app/modules/AddNewClient/clt_addressInfo/views
 import 'package:invoice_generator/app/modules/AddNewClient/clt_businessInfo/views/clt_business_info_view.dart';
 import 'package:invoice_generator/services/Connectivity/networkClient.dart';
 
-import '../../AddressInfo/views/address_info_view.dart';
-import '../../BusinessInfo/views/business_info_view.dart';
-
 class AddNewClientController extends GetxController with SingleGetTickerProviderMixin {
-  //TODO: Implement AddNewClientController
   TabController? tabController;
   Rx<ClientDataById?> clientById = Rxn<ClientDataById>();
   final count = 0.obs;
@@ -23,10 +21,10 @@ class AddNewClientController extends GetxController with SingleGetTickerProvider
   }
 
   @override
-  void onReady() {
+  Future<void> onReady() async {
     super.onReady();
     if (id != null) {
-      callApiForGetClientById(context: Get.context!, id: id.toString());
+      await callApiForGetClientById(context: Get.context!, id: id.toString());
       //get client by id
     }
   }
@@ -64,8 +62,5 @@ class AddNewClientController extends GetxController with SingleGetTickerProvider
   final screens = [
     CltBusinessInfoView(),
     CltAddressInfoView(),
-
-    //business info // true
-    // address info // true
   ];
 }

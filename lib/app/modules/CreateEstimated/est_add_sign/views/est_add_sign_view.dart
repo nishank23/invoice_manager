@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -40,17 +41,15 @@ class EstAddSignView extends GetView<EstAddSignController> {
               borderRadius: BorderRadius.all(Radius.circular(20.r)),
               child: DottedBorder(
                 strokeWidth: 1.5,
-                dashPattern: [8, 8, 8, 8],
+                dashPattern: const [8, 8, 8, 8],
                 color: const Color(0xff758090),
                 borderPadding: EdgeInsets.zero,
-                radius: Radius.circular(20),
+                radius: const Radius.circular(20),
                 borderType: BorderType.RRect,
                 child: Container(
                   width: double.infinity,
                   height: 110.h,
-                  decoration: BoxDecoration(
-                      color: const Color(0xFFF8F9FA),
-                      borderRadius: BorderRadius.circular(18.r)),
+                  decoration: BoxDecoration(color: const Color(0xFFF8F9FA), borderRadius: BorderRadius.circular(18.r)),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -103,27 +102,23 @@ class EstAddSignView extends GetView<EstAddSignController> {
                                       controller.refresh();
                                     },
                                     child: Padding(
-                                        padding: EdgeInsets.all(10),
-                                        child: SvgPicture.asset(
-                                            AppAsset.closeSign)),
+                                        padding: const EdgeInsets.all(10), child: SvgPicture.asset(AppAsset.closeSign)),
                                   ),
                                 ),
                                 Align(
                                   alignment: Alignment.center,
                                   child: Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          vertical: 24, horizontal: 40),
+                                      padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 40),
                                       child: Container(
-                                        color: Colors.white,
-                                        width: double.infinity,
-                                        height: double.infinity,
-                                        child: controller.selectedSign != null
-                                            ? Image.file(
-                                                controller.selectedSign!,
-                                                fit: BoxFit.fill,
-                                              )
-                                            : SizedBox(),
-                                      )),
+                                          color: Colors.white,
+                                          width: double.infinity,
+                                          height: double.infinity,
+                                          child: controller.selectedSign != null
+                                              ? Image.file(
+                                                  controller.selectedSign!,
+                                                  fit: BoxFit.fill,
+                                                )
+                                              : const SizedBox())),
                                 ),
 
                                 /* SizedBox(
@@ -131,11 +126,23 @@ class EstAddSignView extends GetView<EstAddSignController> {
                               child: mybutton(onTap: (){},title: "Browse"))*/
                               ],
                             )
-                          : SizedBox(),
-                    )
-                  : SizedBox();
+                          : const SizedBox())
+                  : Container(
+                      height: 150,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey.withOpacity(0.5)),
+                          borderRadius: BorderRadius.circular(10)),
+                          child: CachedNetworkImage(
+                        fit: BoxFit.cover,
+                        imageUrl: "",
+                        placeholder: (context, url) => Center(
+                            child: CircularProgressIndicator()),
+                        errorWidget: (context, url, error) => const Icon(Icons.error),
+                      ),
+                    );
             }),
-            SizedBox(
+            const SizedBox(
               height: 12,
             ),
             GetBuilder(
@@ -144,21 +151,18 @@ class EstAddSignView extends GetView<EstAddSignController> {
                   onTap: () {
                     print("taped");
 
-                    Map<String, dynamic> mydata = Map();
+                    Map<String, dynamic> mydata = {};
 
                     List<Map<String, dynamic>> myproductlist = [];
                     List<Map<String, dynamic>> mytaxlist = [];
 
-                    EstAddClientController myClientController =
-                        Get.put(EstAddClientController());
-                    EstAddItemsController myItemsController =
-                        Get.put(EstAddItemsController());
+                    EstAddClientController myClientController = Get.put(EstAddClientController());
+                    EstAddItemsController myItemsController = Get.put(EstAddItemsController());
 
-                    mydata["client"] =
-                        myClientController.selectedAddClient.value;
+                    mydata["client"] = myClientController.selectedAddClient.value;
 
                     for (var data in myItemsController.myaddedProductsList) {
-                      Map<String, dynamic> myproductData = Map();
+                      Map<String, dynamic> myproductData = {};
 
                       myproductData["product"] = data.id;
                       myproductData["quantity"] = data.qty;
@@ -168,23 +172,17 @@ class EstAddSignView extends GetView<EstAddSignController> {
 
                     mydata["products"] = myproductlist;
 
-                    mydata["estimationDate"] =
-                        myClientController.selectedDate.toString();
+                    mydata["estimationDate"] = myClientController.selectedDate.toString();
 
-                    mydata["currency"] = myClientController
-                        .selectedCountry!.currencySymbol
-                        .toString();
+                    mydata["currency"] = myClientController.selectedCountry!.currencySymbol.toString();
 
-                    mydata["currencyId"] =
-                        myClientController.selectedCountry!.id.toString();
+                    mydata["currencyId"] = myClientController.selectedCountry!.id.toString();
 
                     mydata["itemTotal"] = myItemsController.subtotal.toString();
 
-                    print(
-                        "myitemsTotal" + myItemsController.subtotal.toString());
+                    print("myitemsTotal${myItemsController.subtotal}");
 
-                    mydata["subTotal"] =
-                        myItemsController.afterDiscountText.toString();
+                    mydata["subTotal"] = myItemsController.afterDiscountText.toString();
 
                     if (myItemsController.myformattedDiscount.value == "%") {
                       mydata["discount"] = myItemsController.dscCntlr.value.text;
@@ -195,7 +193,7 @@ class EstAddSignView extends GetView<EstAddSignController> {
                     }
 
                     for (var data in myItemsController.myTextList) {
-                      Map<String, dynamic> mytaxdata = Map();
+                      Map<String, dynamic> mytaxdata = {};
 
                       mytaxdata["percentage"] = data['taxValue'];
                       mytaxdata["name"] = data['taxType'];
@@ -213,9 +211,7 @@ class EstAddSignView extends GetView<EstAddSignController> {
                     controller.ApiCreateEstimate(
                         context: context,
                         formData: mydata,
-                        filePaths: controller.selectedSign == null
-                            ? ""
-                            : controller.selectedSign!.path);
+                        filePaths: controller.selectedSign == null ? "" : controller.selectedSign!.path);
                   },
                   title: "Submit",
                 );

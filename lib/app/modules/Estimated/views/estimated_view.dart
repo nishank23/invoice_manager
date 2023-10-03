@@ -340,7 +340,6 @@ class EstimatedView extends GetView<EstimatedController> {
                                                       Expanded(
                                                           child: mybutton(
                                                               onTap: () {
-
                                                                 Get.back();
 
                                                                 Get.toNamed(Routes.CREATE_ESTIMATED,arguments:data.id);
