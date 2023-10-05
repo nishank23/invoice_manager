@@ -38,7 +38,9 @@ class CltAddressInfoController extends GetxController {
 
     ApiGetAllShipCountry(context: Get.context!);
 
-    getData();
+    if (addNewClientController.id != null) {
+      getData();
+    }
   }
 
   getData() {
@@ -48,7 +50,11 @@ class CltAddressInfoController extends GetxController {
     addressBillController.value.text = addNewClientController.clientById.value!.shippingAddress!.addressLine!;
     zipBillController.value.text = addNewClientController.clientById.value!.shippingAddress!.postalCode!;
     selectedCity.value = addNewClientController.clientById.value!.billingAddress!.city!;
+
     selectedCountry.value = addNewClientController.clientById.value!.billingAddress!.country!;
+
+    setSelectedCountry(selectedCountry.value.toString());
+
     selectedState.value = addNewClientController.clientById.value!.billingAddress!.state!;
 
     //shipping
@@ -91,6 +97,7 @@ class CltAddressInfoController extends GetxController {
 
   Map<String, dynamic> requestData = {};
   CltBusinessInfoController businesscntlr = Get.find();
+  AddNewClientController addnewcntlr = Get.find();
 
   RxList<Map<String, dynamic>> mycountryshipDataList = RxList<Map<String, dynamic>>();
 
@@ -327,6 +334,10 @@ class CltAddressInfoController extends GetxController {
     update();
 
     ApiGetAllStates(context: Get.context!, countryId: int.parse(value.toString()));
+    if (addNewClientController.id != null) {
+      setSelectedState(addNewClientController.clientById.value!.billingAddress!.state!);
+      update();
+    }
   }
 
   setSelectedState(String value) {
@@ -334,6 +345,10 @@ class CltAddressInfoController extends GetxController {
     update();
 
     ApiGetAllCity(context: Get.context!, stateId: int.parse(value.toString()));
+    if (addNewClientController.id != null) {
+      selectedCity.value = addNewClientController.clientById.value!.billingAddress!.city!.toString();
+      update();
+    }
   }
 
   ApiGetAllStates({required BuildContext context, int? countryId}) async {
