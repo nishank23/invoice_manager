@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -7,9 +9,9 @@ import 'package:get/get.dart';
 import '../../../../global/constants/app_asset.dart';
 import '../../../../global/constants/app_color.dart';
 import '../../../../global/constants/app_fonts.dart';
-import '../../../../global/widgets/TitleWidget.dart';
-import '../../../../global/widgets/myButton.dart';
-import '../../../../global/widgets/myDropDown.dart';
+import '../../../../global/widgets/title_widget.dart';
+import '../../../../global/widgets/my_button.dart';
+import '../../../../global/widgets/my_dropdown.dart';
 import '../../../../global/widgets/mytextfiled.dart';
 import '../../controllers/tabs_controller.dart';
 import '../controllers/profile_address_controller.dart';
@@ -20,7 +22,6 @@ class ProfileAddressView extends GetView<ProfileAddressController> {
 
   @override
   Widget build(BuildContext context) {
-
     GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
     final TabsController ctabsController = Get.find();
@@ -96,42 +97,42 @@ class ProfileAddressView extends GetView<ProfileAddressController> {
               SizedBox(
                 height: 20.h,
               ),
-              Obx(() =>  CustomDropdown(
-                prefixIcon: SvgPicture.asset(AppAsset.countryIcon),
-                items: controller.mycountryDataList,
-                value: controller.selectedCountry!.value,
-                lableText: 'Country',
-                onChanged: (value) {
-                  controller.selectedCountry!.value = value!;
-                  controller.update();
+              Obx(
+                () => CustomDropdown(
+                  prefixIcon: SvgPicture.asset(AppAsset.countryIcon),
+                  items: controller.mycountryDataList,
+                  value: controller.selectedCountry!.value,
+                  lableText: 'Country',
+                  onChanged: (value) {
+                    controller.selectedCountry!.value = value!;
+                    controller.update();
 
-                  controller.ApiGetAllStates(
-                      context: context,
-                      countryId: int.parse(value.toString()));
-                  controller.update();
-                  controller.refresh();
-                },
-              ),
+                    controller.apiGetAllStates(
+                        context: context,
+                        countryId: int.parse(value.toString()));
+                    controller.update();
+                    // controller.refresh();
+                  },
+                ),
               ),
               SizedBox(
                 height: 16.h,
               ),
+              Obx(
+                () => CustomDropdown(
+                  prefixIcon: SvgPicture.asset(AppAsset.stateIcon),
+                  items: controller.mystateDataList,
+                  value: controller.selectedState!.value,
+                  lableText: 'State',
+                  onChanged: (value) {
+                    controller.selectedState!.value = value!;
+                    controller.update();
 
-              Obx(() =>  CustomDropdown(
-                prefixIcon: SvgPicture.asset(AppAsset.stateIcon),
-                items: controller.mystateDataList,
-                value: controller.selectedState!.value,
-                lableText: 'State',
-                onChanged: (value) {
-                  controller.selectedState!.value = value!;
-                  controller.update();
-
-                  controller.ApiGetAllCity(
-                      context: context, stateId: int.parse(value.toString()));
-                },
+                    controller.apiGetAllCity(
+                        context: context, stateId: int.parse(value.toString()));
+                  },
+                ),
               ),
-              ),
-
               SizedBox(
                 height: 16.h,
               ),
@@ -234,14 +235,15 @@ class ProfileAddressView extends GetView<ProfileAddressController> {
                       SizedBox(
                         height: 20.h,
                       ),
-                      GetBuilder<ProfileAddressController>(builder: (controller) {
+                      GetBuilder<ProfileAddressController>(
+                          builder: (controller) {
                         return CustomDropdown(
                           prefixIcon: SvgPicture.asset(AppAsset.countryIcon),
                           items: controller.dropdownItems,
-                          value: controller.ship_selectedCountry!.value,
+                          value: controller.shipSelectedCountry!.value,
                           lableText: 'Country',
                           onChanged: (value) {
-                            controller.ship_selectedCountry!.value = value!;
+                            controller.shipSelectedCountry!.value = value!;
                             controller.update();
                           },
                         );
@@ -249,14 +251,15 @@ class ProfileAddressView extends GetView<ProfileAddressController> {
                       SizedBox(
                         height: 16.h,
                       ),
-                      GetBuilder<ProfileAddressController>(builder: (controller) {
+                      GetBuilder<ProfileAddressController>(
+                          builder: (controller) {
                         return CustomDropdown(
                           prefixIcon: SvgPicture.asset(AppAsset.stateIcon),
                           items: controller.dropdownItems,
-                          value: controller.ship_selectedState!.value,
+                          value: controller.shipSelectedState!.value,
                           lableText: 'State',
                           onChanged: (value) {
-                            controller.ship_selectedState!.value = value!;
+                            controller.shipSelectedState!.value = value!;
                             controller.update();
                           },
                         );
@@ -264,14 +267,15 @@ class ProfileAddressView extends GetView<ProfileAddressController> {
                       SizedBox(
                         height: 16.h,
                       ),
-                      GetBuilder<ProfileAddressController>(builder: (controller) {
+                      GetBuilder<ProfileAddressController>(
+                          builder: (controller) {
                         return CustomDropdown(
                           prefixIcon: SvgPicture.asset(AppAsset.cityIcon),
                           items: controller.dropdownItems,
-                          value: controller.ship_selectedCity!.value,
+                          value: controller.shipSelectedCity!.value,
                           lableText: 'City',
                           onChanged: (value) {
-                            controller.ship_selectedCity!.value = value!;
+                            controller.shipSelectedCity!.value = value!;
                             controller.update();
                           },
                         );
@@ -313,7 +317,7 @@ class ProfileAddressView extends GetView<ProfileAddressController> {
                     visible: isAdded,
                     replacement: mybutton(
                       onTap: () {
-                        print("taped");
+                        debugPrint("taped");
 
                         ctabsController.tabController!
                             .animateTo(2, curve: Curves.easeInOutQuint);
@@ -323,7 +327,7 @@ class ProfileAddressView extends GetView<ProfileAddressController> {
                     ),
                     child: mybutton(
                       onTap: () {
-                        print("taped");
+                        debugPrint("taped");
 
                         if (formKey.currentState!.validate()) {
                           controller.submitProfileData(context);

@@ -55,7 +55,7 @@ class NetworkClient {
     String token = "";
     if (box.read(Constant.tokenKey) != null) {
       token = box.read(Constant.tokenKey);
-      print(token);
+      debugPrint(token);
       // token =
       //     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6IkFkbWluIiwiaWF0IjoxNjUxNTAzNDExLCJleHAiOjE2NTE1ODk4MTF9.DkJhSf78gpX86gzruLiTs_PKSXl4Slj-XzELfztLa6k";
     }
@@ -220,7 +220,7 @@ class NetworkClient {
   parseResponse(BuildContext context, Response response,
       {Function(dynamic response, String message)? successCallback,
       Function(dynamic statusCode, String message)? failureCallback}) {
-    print(response.data.runtimeType);
+    debugPrint("${response.data.runtimeType}");
     dynamic message = response.data is String
         ? "200"
         : response.data.containsKey('message')
@@ -235,8 +235,7 @@ class NetworkClient {
         response.statusCode == 203) {
       if (response.data is Map<String, dynamic> ||
           response.data is List<dynamic> ||
-          response.data is List<Map<String, dynamic>> ||
-          response.data is dynamic) {
+          response.data is List<Map<String, dynamic>>) {
         successCallback!(response.data, message);
         return;
       }

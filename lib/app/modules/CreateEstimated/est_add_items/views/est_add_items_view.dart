@@ -8,18 +8,18 @@ import 'package:get/get.dart';
 import 'package:invoice_generator/app/global/constants/app_asset.dart';
 import 'package:invoice_generator/app/global/constants/app_color.dart';
 import 'package:invoice_generator/app/global/widgets/mytextfiled.dart';
-import 'package:invoice_generator/app/global/widgets/productPicker/AddProductBottomSheetController.dart';
+import 'package:invoice_generator/app/global/widgets/productPicker/add_product_bottomsheet_controller.dart';
 
-import '../../../../../Models/getAllProducts.dart';
+import '../../../../../Models/get_all_products.dart';
 import '../../../../global/constants/api_const.dart';
 import '../../../../global/constants/app_fonts.dart';
-import '../../../../global/widgets/TitleWidget.dart';
-import '../../../../global/widgets/myButton.dart';
+import '../../../../global/widgets/title_widget.dart';
+import '../../../../global/widgets/my_button.dart';
 import '../../controllers/create_estimated_controller.dart';
 import '../controllers/est_add_items_controller.dart';
 
 class EstAddItemsView extends GetView<EstAddItemsController> {
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+ final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   EstAddItemsView({Key? key}) : super(key: key);
 
@@ -47,7 +47,7 @@ class EstAddItemsView extends GetView<EstAddItemsController> {
                       Get.put(AddProductBottomSheetController());
 
                   List<ProductData>? products =
-                      await addProducts.GetProductBottomSheett(
+                      await addProducts.getProductBottomSheett(
                           context: context,
                           myalreadyadded: controller.myaddedProductsList);
 
@@ -61,8 +61,8 @@ class EstAddItemsView extends GetView<EstAddItemsController> {
 
                   controller.getSubTotal();
                   controller.update();
-                  controller.refresh();
-                  print(controller.myaddedProductsList);
+                  // controller.refresh();
+                  debugPrint("${controller.myaddedProductsList}");
                 },
                 backgroundColor: const Color(0x0C663CEF),
                 widget: Row(
@@ -88,7 +88,7 @@ class EstAddItemsView extends GetView<EstAddItemsController> {
                   primary: false,
                   padding: EdgeInsets.symmetric(vertical: 20.h),
                   itemBuilder: (context, index) {
-                    RxInt qty = 0.obs;
+                    // RxInt qty = 0.obs;
 
                     final product = controller.myaddedProductsList[index];
 
@@ -187,7 +187,7 @@ class EstAddItemsView extends GetView<EstAddItemsController> {
                                         controller.getSubTotal();
 
                                         controller.update();
-                                        controller.refresh();
+                                        // controller.refresh();
                                       }
                                     },
                                     child: Container(
@@ -236,7 +236,7 @@ class EstAddItemsView extends GetView<EstAddItemsController> {
                                       controller.getSubTotal();
 
                                       controller.update();
-                                      controller.refresh();
+                                      // controller.refresh();
                                     },
                                     child: Container(
                                       width: 25,
@@ -282,7 +282,7 @@ class EstAddItemsView extends GetView<EstAddItemsController> {
                                       .remove(product);
                                   controller.getSubTotal();
                                   controller.update();
-                                  controller.refresh();
+                                  // controller.refresh();
                                 },
                                 child: Container(
                                   padding: EdgeInsets.symmetric(
@@ -378,7 +378,8 @@ class EstAddItemsView extends GetView<EstAddItemsController> {
                                     child: TextField(
                                         maxLines: 1,
                                         onChanged: (value) {
-                                          if (controller.myformattedDiscount.value ==
+                                          if (controller
+                                                  .myformattedDiscount.value ==
                                               "%") {
                                             controller.getDiscountAmount();
                                           }
@@ -435,7 +436,7 @@ class EstAddItemsView extends GetView<EstAddItemsController> {
                                                   Text(item,
                                                       style: TextStyle(
                                                           color: controller
-                                                                      .selectedDiscount ==
+                                                                      .selectedDiscount.value ==
                                                                   item
                                                               ? AppColor
                                                                   .primaryBlue
@@ -446,7 +447,7 @@ class EstAddItemsView extends GetView<EstAddItemsController> {
                                                   const Spacer(),
                                                   Icon(
                                                     size: 18,
-                                                    controller.selectedDiscount ==
+                                                    controller.selectedDiscount.value ==
                                                             item
                                                         ? Icons.check
                                                         : null,
@@ -465,9 +466,10 @@ class EstAddItemsView extends GetView<EstAddItemsController> {
                                             controller
                                                 .extractedValue(selectedItem);
 
-                                        print(controller.selectedDiscount
+                                        debugPrint(controller.selectedDiscount
                                             .toString());
-                                        print(controller.myformattedDiscount
+                                        debugPrint(controller
+                                            .myformattedDiscount
                                             .toString());
 
                                         controller.update();
@@ -481,7 +483,7 @@ class EstAddItemsView extends GetView<EstAddItemsController> {
                       SizedBox(
                         height: 24.h,
                       ),
-                      controller.myformattedDiscount == "%"
+                      controller.myformattedDiscount.value == "%"
                           ? Column(
                               children: [
                                 Row(
@@ -526,8 +528,11 @@ class EstAddItemsView extends GetView<EstAddItemsController> {
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
                           itemBuilder: (context, index) {
-
-                            controller.myTextList[index]['value'] = num.parse(controller.afterDiscountText) * (num.parse(controller.myTextList[index]['taxValue']) /100) ;
+                            controller.myTextList[index]['value'] =
+                                num.parse(controller.afterDiscountText) *
+                                    (num.parse(controller.myTextList[index]
+                                            ['taxValue']) /
+                                        100);
 
                             return Row(
                               children: [
@@ -545,7 +550,7 @@ class EstAddItemsView extends GetView<EstAddItemsController> {
                                 ),
                                 Text(
                                     controller
-                                        .myTextList.value[index]['taxType']
+                                        .myTextList[index]['taxType']
                                         .toString(),
                                     style: text400_16black),
                                 SizedBox(
@@ -562,7 +567,7 @@ class EstAddItemsView extends GetView<EstAddItemsController> {
                                     children: [
                                       Text(
                                           controller.myTextList
-                                              .value[index]['taxValue']
+                                            [index]['taxValue']
                                               .toString(),
                                           style: text400_16black),
                                       SizedBox(
@@ -575,7 +580,11 @@ class EstAddItemsView extends GetView<EstAddItemsController> {
                                   ),
                                 ),
                                 const Spacer(),
-                                Text(controller.formatPriceWithThousandSeparator(controller.selectedEstimateCurrency, controller.myTextList[index]['value']), style: text400_16black),
+                                Text(
+                                    controller.formatPriceWithThousandSeparator(
+                                        controller.selectedEstimateCurrency,
+                                        controller.myTextList[index]['value']),
+                                    style: text400_16black),
                               ],
                             );
                           },
@@ -727,9 +736,9 @@ class EstAddItemsView extends GetView<EstAddItemsController> {
                                                           .taxPercentageController
                                                           .value
                                                           .text,
-                                                      "value":0.00
+                                                      "value": 0.00
                                                     });
-                                                    print(
+                                                    debugPrint(
                                                         "=============================================");
 
                                                     Get.back();
@@ -742,8 +751,8 @@ class EstAddItemsView extends GetView<EstAddItemsController> {
                                                         .taxPercentageController
                                                         .value
                                                         .clear();
-                                                    print(
-                                                        controller.myTextList);
+                                                    debugPrint(
+                                                        "${controller.myTextList}");
                                                   }
                                                 },
                                                 title: "Add"))
@@ -789,14 +798,17 @@ class EstAddItemsView extends GetView<EstAddItemsController> {
                         ).marginSymmetric(vertical: 16.h),
                       ),
                       Obx(
-                        () =>  Row(
+                        () => Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text('Total Amount',
                                 style: text700_18.copyWith(fontSize: 16.sp)),
-                            Text(num.parse(controller.getFinalTotal).toStringAsFixed(2),
+                            Text(
+                                num.parse(controller.getFinalTotal)
+                                    .toStringAsFixed(2),
                                 style: text700_18.copyWith(
-                                    fontSize: 16.sp, color: AppColor.primaryBlue))
+                                    fontSize: 16.sp,
+                                    color: AppColor.primaryBlue))
                           ],
                         ),
                       ),
@@ -816,7 +828,7 @@ class EstAddItemsView extends GetView<EstAddItemsController> {
                 return mybutton(
                   onTap: () {
                     myController.updateActive(2);
-                    print("taped");
+                    debugPrint("taped");
                   },
                   title: "Next",
                 );

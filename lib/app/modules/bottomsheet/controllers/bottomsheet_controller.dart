@@ -1,4 +1,5 @@
-import 'package:currency_picker/currency_picker.dart';
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -9,12 +10,10 @@ import 'package:invoice_generator/app/global/constants/constants.dart';
 import 'package:invoice_generator/app/routes/app_pages.dart';
 
 import '../../../global/constants/app_asset.dart';
-import '../../../global/constants/app_fonts.dart';
-import '../../../global/widgets/mytextfiled.dart';
-import '../views/MenuItem.dart';
+import '../views/menu_item.dart';
 
 class BottomsheetController extends GetxController {
-  RxInt selected_index = 0.obs;
+  RxInt selectedIndex = 0.obs;
 
   Rx<String> companyName = "".obs;
   Rx<String> userProfile = "".obs;
@@ -23,10 +22,10 @@ class BottomsheetController extends GetxController {
   GetStorage box = GetStorage();
 
   void onTapped(int index) {
-    selected_index.value = index;
+    selectedIndex.value = index;
     Get.back(closeOverlays: true);
     update();
-    print(selected_index);
+    debugPrint("$selectedIndex");
   }
 
   @override
@@ -44,16 +43,6 @@ class BottomsheetController extends GetxController {
     super.onInit();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
   List<MenuItem> menuItems = [
     MenuItem(
       title: "Dashboard",
@@ -63,7 +52,7 @@ class BottomsheetController extends GetxController {
         width: 16.w,
         color: const Color(0xff49454F),
       ),
-      selected_icon: SvgPicture.asset(
+      selectedIcon: SvgPicture.asset(
         AppAsset.dashboardIcon,
         height: 18.h,
         width: 18.w,
@@ -71,7 +60,7 @@ class BottomsheetController extends GetxController {
       ),
       onTap: () {
         Get.offNamed(Routes.HOME);
-        print("Dashboard tapped");
+        debugPrint("Dashboard tapped");
       },
     ),
     MenuItem(
@@ -81,7 +70,7 @@ class BottomsheetController extends GetxController {
         height: 16.h,
         width: 16.w,
       ),
-      selected_icon: SvgPicture.asset(
+      selectedIcon: SvgPicture.asset(
         AppAsset.clientIcon,
         height: 18.h,
         width: 18.w,
@@ -89,7 +78,7 @@ class BottomsheetController extends GetxController {
       ),
       onTap: () {
         Get.offNamed(Routes.CLIENTS);
-        print("Clients tapped");
+        debugPrint("Clients tapped");
       },
     ),
     MenuItem(
@@ -99,7 +88,7 @@ class BottomsheetController extends GetxController {
         height: 16.h,
         width: 16.w,
       ),
-      selected_icon: SvgPicture.asset(
+      selectedIcon: SvgPicture.asset(
         AppAsset.estimatedIcon,
         height: 18.h,
         width: 18.w,
@@ -108,7 +97,7 @@ class BottomsheetController extends GetxController {
       onTap: () {
         Get.offNamed(Routes.ESTIMATED);
 
-        print("Estimated tapped");
+        debugPrint("Estimated tapped");
       },
     ),
     MenuItem(
@@ -118,14 +107,14 @@ class BottomsheetController extends GetxController {
         height: 16.h,
         width: 16.w,
       ),
-      selected_icon: SvgPicture.asset(
+      selectedIcon: SvgPicture.asset(
         AppAsset.myProductsIcon,
         height: 18.h,
         width: 18.w,
       ),
       onTap: () {
         Get.offNamed(Routes.MY_PRODUCTS);
-        print("My Products tapped");
+        debugPrint("My Products tapped");
       },
     ),
     MenuItem(
@@ -135,7 +124,7 @@ class BottomsheetController extends GetxController {
         height: 16.h,
         width: 16.w,
       ),
-      selected_icon: SvgPicture.asset(
+      selectedIcon: SvgPicture.asset(
         AppAsset.InvoicesIcon,
         height: 18.h,
         width: 18.w,
@@ -150,11 +139,11 @@ class BottomsheetController extends GetxController {
         //   showCurrencyName: true,
         //   showCurrencyCode: true,
         //   onSelect: (Currency currency) {
-        //     print('Select currency: ${currency.name}');
+        //     debugPrint('Select currency: ${currency.name}');
         //   },
         //   favorite: ['SEK'],
         // );
-        print("Invoices tapped");
+        debugPrint("Invoices tapped");
       },
     ),
     MenuItem(
@@ -164,7 +153,7 @@ class BottomsheetController extends GetxController {
         height: 16.h,
         width: 16.w,
       ),
-      selected_icon: SvgPicture.asset(
+      selectedIcon: SvgPicture.asset(
         AppAsset.backupIcon,
         height: 18.h,
         width: 18.w,
@@ -269,7 +258,7 @@ class BottomsheetController extends GetxController {
         // );
         Get.offNamed(Routes.BACKUP_RESTORE);
 
-        print("Backup & Restore tapped");
+        debugPrint("Backup & Restore tapped");
       },
     ),
     MenuItem(
@@ -279,14 +268,14 @@ class BottomsheetController extends GetxController {
         height: 16.h,
         width: 16.w,
       ),
-      selected_icon: SvgPicture.asset(
+      selectedIcon: SvgPicture.asset(
         AppAsset.personIcon,
         height: 18.h,
         width: 18.w,
       ),
       onTap: () {
         Get.toNamed(Routes.TABS);
-        print("My Profile tapped");
+        debugPrint("My Profile tapped");
       },
     ),
   ];

@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,13 +9,13 @@ import 'package:get/get.dart';
 
 import '../../../../global/constants/app_asset.dart';
 import '../../../../global/constants/app_color.dart';
-import '../../../../global/widgets/myButton.dart';
+import '../../../../global/widgets/my_button.dart';
 import '../../../../global/widgets/mytextfiled.dart';
 import '../../controllers/add_new_client_controller.dart';
 import '../controllers/clt_business_info_controller.dart';
 
 class CltBusinessInfoView extends GetView<CltBusinessInfoController> {
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+final  GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   CltBusinessInfoView({Key? key}) : super(key: key);
   @override

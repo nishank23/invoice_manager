@@ -4,7 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:get/get.dart';
-import 'package:invoice_generator/app/global/widgets/myButton.dart';
+import 'package:invoice_generator/app/global/widgets/my_button.dart';
 import 'package:invoice_generator/app/global/widgets/mytextfiled.dart';
 
 import '../../../global/constants/app_asset.dart';
@@ -34,7 +34,7 @@ class ResetPasswordView extends GetView<ResetPasswordController> {
                   child: GestureDetector(
                     onTap: () {
                       Get.back();
-                      print("hello");
+                      debugPrint("hello");
                     },
                     child: SizedBox(
                       child: SvgPicture.asset(AppAsset.backIcon),
@@ -69,7 +69,6 @@ class ResetPasswordView extends GetView<ResetPasswordController> {
                         return null;
                       }
                     },
-
                     suffixIcon: InkWell(
                       borderRadius: BorderRadius.circular(100.0),
                       onTap: () {
@@ -97,7 +96,6 @@ class ResetPasswordView extends GetView<ResetPasswordController> {
                   height: 4.h,
                 ),
                 Visibility(
-
                   visible: false,
                   child: Text(
                     "Must be at least 8 characters.",
@@ -158,33 +156,30 @@ class ResetPasswordView extends GetView<ResetPasswordController> {
                 SizedBox(
                   height: 20.h,
                 ),
-                mybutton(title: "Reset Password", onTap: () {
-                  String password =
-                      controller.passwordController.value.text;
-                  String confirmPassword =
-                      controller.confirmPasswordController.value.text;
+                mybutton(
+                    title: "Reset Password",
+                    onTap: () {
+                      String password =
+                          controller.passwordController.value.text;
+                      String confirmPassword =
+                          controller.confirmPasswordController.value.text;
 
-                  if (password.length < 8) {
-                    Fluttertoast.showToast(
-                        msg:
-                        'Must be at least 8 characters.');
-                  } else if (password.length < 8) {
-                    Fluttertoast.showToast(
-                        msg:
-                        'Must be at least 8 characters.');
-                  } else if (password != confirmPassword) {
-                    // Password and confirm password fields do not match
-                    Fluttertoast.showToast(
-                        msg:
-                        'Both password must match.');
-                  } else {
-                    controller.ApiResetPassword(
-                        context: Get.context!,
-                        password:
-                        controller.passwordController.value.text);
-                  }
-
-                })
+                      if (password.length < 8) {
+                        Fluttertoast.showToast(
+                            msg: 'Must be at least 8 characters.');
+                      } else if (password.length < 8) {
+                        Fluttertoast.showToast(
+                            msg: 'Must be at least 8 characters.');
+                      } else if (password != confirmPassword) {
+                        // Password and confirm password fields do not match
+                        Fluttertoast.showToast(
+                            msg: 'Both password must match.');
+                      } else {
+                        controller.apiResetPassword(
+                            context: Get.context!,
+                            password: controller.passwordController.value.text);
+                      }
+                    })
               ],
             ),
           ),

@@ -3,15 +3,12 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
 import '../../../../main.dart';
-import '../../../../services/Connectivity/networkClient.dart';
+import '../../../../services/Connectivity/network_client.dart';
 import '../../../global/constants/api_const.dart';
-import '../../../global/constants/constants.dart';
 import '../../../global/widgets/custom_dialog.dart';
 import '../../../routes/app_pages.dart';
 
 class ResetPasswordController extends GetxController {
-  //TODO: Implement ResetPasswordController
-
   RxBool isShow = true.obs;
   RxBool isConfirmShow = true.obs;
 
@@ -21,12 +18,7 @@ class ResetPasswordController extends GetxController {
 
   final passwordToken = Get.arguments as String?;
 
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
-  ApiResetPassword(
+  apiResetPassword(
       {required BuildContext context, required String password}) async {
     FocusScope.of(context).unfocus();
     app.resolve<CustomDialogs>().showCircularDialog(context);
@@ -37,7 +29,7 @@ class ResetPasswordController extends GetxController {
     return NetworkClient.getInstance.callApi(
       context,
       baseURL,
-      ApiConstant.ResetPassword + "/$passwordToken",
+      "${ApiConstant.ResetPassword}/$passwordToken",
       MethodType.Post,
       params: dict,
       successCallback: (response, message) {

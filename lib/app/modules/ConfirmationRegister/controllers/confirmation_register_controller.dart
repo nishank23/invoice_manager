@@ -1,35 +1,27 @@
 import 'dart:async';
-import 'dart:convert';
-import 'dart:developer';
 
 import 'package:external_app_launcher/external_app_launcher.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
-import '../../../../services/Connectivity/networkClient.dart';
+import '../../../../services/Connectivity/network_client.dart';
 import '../../../global/constants/api_const.dart';
 import '../../../global/constants/constants.dart';
 import '../../../routes/app_pages.dart';
 
 class ConfirmationRegisterController extends GetxController {
-  //TODO: Implement ConfirmationRegisterController
   Timer? periodicTimer; // Timer variable
   GetStorage box = GetStorage();
   final count = 0.obs;
 
-  final userId = Get.arguments??"";
+  final userId = Get.arguments ?? "";
 
   @override
   void onInit() {
     super.onInit();
 
     startPeriodicCheck(); // Start the periodic check when the controller is initialized
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
   }
 
   @override
@@ -44,7 +36,7 @@ class ConfirmationRegisterController extends GetxController {
 
   void startPeriodicCheck() {
     periodicTimer = Timer.periodic(const Duration(seconds: 5), (timer) {
-      ApiCheckVerification(context: Get.context!,userId:userId );
+      apiCheckVerification(context: Get.context!, userId: userId);
     });
   }
 
@@ -64,7 +56,7 @@ class ConfirmationRegisterController extends GetxController {
     );
   }
 
-  ApiCheckVerification({required BuildContext context, required userId}) async {
+  apiCheckVerification({required BuildContext context, required userId}) async {
     FocusScope.of(context).unfocus();
     Map<String, dynamic> dict = {};
 
@@ -78,20 +70,16 @@ class ConfirmationRegisterController extends GetxController {
       MethodType.Post,
       params: dict,
       successCallback: (response, message) {
-
-
-        bool isVerified =response['data']['isEmailVerified'];
+        bool isVerified = response['data']['isEmailVerified'];
         if (isVerified) {
           box.write(Constant.tokenKey, response["token"]);
           box.write(Constant.userId, response['data']['_id']);
 
-
           Get.offAllNamed(Routes.TABS);
-
         }
       },
       failureCallback: (status, message) {
-        print("error");
+        debugPrint("error");
       },
     );
   }

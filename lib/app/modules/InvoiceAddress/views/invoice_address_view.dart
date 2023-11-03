@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:get/get.dart';
 import 'package:invoice_generator/app/global/constants/app_color.dart';
 import 'package:invoice_generator/app/global/constants/app_fonts.dart';
-import 'package:invoice_generator/app/global/widgets/myButton.dart';
+import 'package:invoice_generator/app/global/widgets/my_button.dart';
 import 'package:invoice_generator/app/routes/app_pages.dart';
 
-import '../../../global/widgets/TitleWidget.dart';
+import '../../../global/widgets/title_widget.dart';
 import '../../CreateInvoice/controllers/create_invoice_controller.dart';
 import '../controllers/invoice_address_controller.dart';
 
@@ -70,13 +69,12 @@ class InvoiceAddressView extends GetView<InvoiceAddressController> {
                   ),
                   GestureDetector(
                     onTap: () {
-
                       String title = "Billing Address";
                       var id = "#INV3347";
-                      Get.toNamed(Routes.EDIT_ADDRESS,arguments:{
+                      Get.toNamed(Routes.EDIT_ADDRESS, arguments: {
                         'id': id,
                         'title': title,
-                      } );
+                      });
                     },
                     child: Text('Edit Address',
                         style:
@@ -136,14 +134,12 @@ class InvoiceAddressView extends GetView<InvoiceAddressController> {
                   ),
                   GestureDetector(
                     onTap: () {
-
                       String title = "Shipping Address";
                       var id = "#INV000";
-                      Get.toNamed(Routes.EDIT_ADDRESS,arguments:{
+                      Get.toNamed(Routes.EDIT_ADDRESS, arguments: {
                         'id': id,
                         'title': title,
-                      } );
-
+                      });
                     },
                     child: Text('Edit Address',
                         style:
@@ -152,21 +148,20 @@ class InvoiceAddressView extends GetView<InvoiceAddressController> {
                 ],
               ),
             ),
-            Spacer(),
+            const Spacer(),
             GetBuilder(
               builder: (CreateInvoiceController controller) {
                 return mybutton(
                   onTap: () {
                     controller.updateActive(2);
 
-                    print("taped");
+                    debugPrint("taped");
                   },
                   title: "Next",
                 );
               },
             ),
           ],
-        ).paddingSymmetric(horizontal: 20.h).paddingOnly(bottom: 16.h)
-    );
+        ).paddingSymmetric(horizontal: 20.h).paddingOnly(bottom: 16.h));
   }
 }

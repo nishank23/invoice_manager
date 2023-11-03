@@ -30,7 +30,7 @@ class _InternateConnectionState extends State<InternateConnection> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Container(
+                      SizedBox(
                         height: 112,
                         width: 197,
                         // decoration: BoxDecoration(image: DecorationImage(image: AssetImage(AppAsset.logo))),
@@ -38,7 +38,7 @@ class _InternateConnectionState extends State<InternateConnection> {
                       SizedBox(
                         height: 50,
                       ),
-                      Container(
+                      SizedBox(
                         height: 220,
                         width: 220,
 

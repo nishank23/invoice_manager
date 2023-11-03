@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
-import 'package:invoice_generator/app/global/widgets/myButton.dart';
+import 'package:invoice_generator/app/global/widgets/my_button.dart';
 
 import '../../../global/constants/app_fonts.dart';
 import '../../bottomsheet/controllers/bottomsheet_controller.dart';
@@ -24,7 +24,7 @@ class InvoicesView extends GetView<InvoicesController> {
       onWillPop: () {
         Get.offAllNamed(Routes.HOME);
         final bottomsheetController = Get.put(BottomsheetController());
-        bottomsheetController.selected_index.value = 0;
+        bottomsheetController.selectedIndex.value = 0;
         return Future.value(false);
       },
       child: Scaffold(
@@ -102,7 +102,7 @@ class InvoicesView extends GetView<InvoicesController> {
                 Divider(
                   height: 20.h,
                 ),
-                mySearchFiled(
+                MySearchFiled(
                   texthint: "Search invoice...",
                   height: 56.h,
                   controller: controller.searchController.value,

@@ -11,7 +11,7 @@ import '../../../global/constants/app_fonts.dart';
 import '../controllers/invoice_pdf_controller.dart';
 
 class InvoicePdfView extends GetView<InvoicePdfController> {
-  InvoicePdfView({Key? key}) : super(key: key);
+  const InvoicePdfView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -59,23 +59,21 @@ class InvoicePdfView extends GetView<InvoicePdfController> {
                 ],
               ),
               Expanded(
-                child: Container(
-                  child: InteractiveViewer(
-                    minScale: .5,
-                    maxScale: 2,
-                    child: SfTheme(
-                      data: SfThemeData(
-                          pdfViewerThemeData: SfPdfViewerThemeData(
-                              progressBarColor: AppColor.primaryBlue)),
-                      child: SfPdfViewer.network(
-                        canShowPageLoadingIndicator: true,
-                        controller.bytes!,
-                        onDocumentLoadFailed: (details) {
-                          print(details.description);
-                          print(details.error);
-                          print(details.error);
-                        },
-                      ),
+                child: InteractiveViewer(
+                  minScale: .5,
+                  maxScale: 2,
+                  child: SfTheme(
+                    data: SfThemeData(
+                        pdfViewerThemeData: SfPdfViewerThemeData(
+                            progressBarColor: AppColor.primaryBlue)),
+                    child: SfPdfViewer.network(
+                      canShowPageLoadingIndicator: true,
+                      controller.bytes!,
+                      onDocumentLoadFailed: (details) {
+                        debugPrint(details.description);
+                        debugPrint(details.error);
+                        debugPrint(details.error);
+                      },
                     ),
                   ),
                 ),

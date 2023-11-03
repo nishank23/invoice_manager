@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 
 import 'package:flutter/widgets.dart';
@@ -7,7 +9,7 @@ import 'package:invoice_generator/app/modules/AddressInfo/controllers/address_in
 import 'package:invoice_generator/app/modules/BusinessInfo/controllers/business_info_controller.dart';
 
 import '../../../../main.dart';
-import '../../../../services/Connectivity/networkClient.dart';
+import '../../../../services/Connectivity/network_client.dart';
 import '../../../global/constants/api_const.dart';
 import '../../../global/constants/constants.dart';
 import '../../../global/widgets/custom_dialog.dart';
@@ -15,28 +17,13 @@ import '../../../routes/app_pages.dart';
 
 import 'package:path/path.dart' as path;
 
-import 'package:dio/dio.dart' as DIO;
+import 'package:dio/dio.dart' as dio;
+
 class BankInfoController extends GetxController {
-  //TODO: Implement BankInfoController
 
   final count = 0.obs;
   AddressInfoController addresscntlr = Get.find();
   BusinessInfoController businesscntlr = Get.find();
-
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
 
   Rx<TextEditingController> bankNameController = TextEditingController().obs;
   Rx<TextEditingController> accNumController = TextEditingController().obs;
@@ -58,10 +45,10 @@ class BankInfoController extends GetxController {
     };
     requestData['address'] = {
       'addressLine': addresscntlr.addressBillController.value.text,
-      'city': addresscntlr.selectedCity!.value,
-      'state': addresscntlr.selectedState!.value,
-      'country': addresscntlr.selectedCountry!.value,
-      'postalCode': addresscntlr.zipBillController!.value.text,
+      'city': addresscntlr.selectedCity.value,
+      'state': addresscntlr.selectedState.value,
+      'country': addresscntlr.selectedCountry.value,
+      'postalCode': addresscntlr.zipBillController.value.text,
     };
     requestData['bankInfo'] = {
       'bankName': bankNameController.value.text,
@@ -69,30 +56,26 @@ class BankInfoController extends GetxController {
       'ifscCode': ifscController.value.text,
     };
 
+    var selectedphoto = businesscntlr.selectedPhoto == null
+        ? ""
+        : businesscntlr.selectedPhoto!.path;
 
-    var selectedphoto = businesscntlr.selectedPhoto==null?"":businesscntlr.selectedPhoto!.path;
-
-
-    ApiCallUpdateProfile(context: context,filepath: selectedphoto, requestBody: requestData);
+    apiCallUpdateProfile(
+        context: context, filepath: selectedphoto, requestBody: requestData);
   }
 
-  ApiCallUpdateProfile(
+  apiCallUpdateProfile(
       {required BuildContext context,
-        String? filepath,
+      String? filepath,
       required Map<String, dynamic> requestBody}) async {
-
-
-    final form = DIO.FormData();
-
+    final form = dio.FormData();
 
     if (filepath != null && filepath.isNotEmpty) {
-
-      final file = await DIO.MultipartFile.fromFile(
+      final file = await dio.MultipartFile.fromFile(
         filepath,
         filename: path.basename(filepath),
       );
       form.files.add(MapEntry('file', file));
-
     }
 
     requestBody.forEach((key, value) {
@@ -104,7 +87,6 @@ class BankInfoController extends GetxController {
         form.fields.add(MapEntry<String, String>(key, jsonString));
       }
     });
-
 
     FocusScope.of(context).unfocus();
     app.resolve<CustomDialogs>().showCircularDialog(context);
@@ -120,13 +102,15 @@ class BankInfoController extends GetxController {
         app.resolve<CustomDialogs>().hideCircularDialog(context);
 
         box.write(Constant.isProfileUpdated, true);
-        box.write(Constant.companyName, businesscntlr.companyNameController.value.text);
-        box.write(Constant.mobilenumber, businesscntlr.mobileNumberController.value.text);
+        box.write(Constant.companyName,
+            businesscntlr.companyNameController.value.text);
+        box.write(Constant.mobilenumber,
+            businesscntlr.mobileNumberController.value.text);
 
-        if(businesscntlr.selectedPhoto!=null){
-          box.write(Constant.userPhoto, businesscntlr.selectedPhoto!.path.toString());
+        if (businesscntlr.selectedPhoto != null) {
+          box.write(
+              Constant.userPhoto, businesscntlr.selectedPhoto!.path.toString());
         }
-
 
         Fluttertoast.showToast(msg: "Profile Updated Successfully");
         Get.offNamed(Routes.HOME);
@@ -135,7 +119,7 @@ class BankInfoController extends GetxController {
         app.resolve<CustomDialogs>().hideCircularDialog(context);
 
         app.resolve<CustomDialogs>().getDialog(title: "Failed", desc: message);
-        print("error");
+        debugPrint("error");
       },
     );
   }

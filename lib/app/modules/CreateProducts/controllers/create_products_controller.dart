@@ -1,26 +1,28 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 import 'dart:developer' show log;
 import 'dart:io';
 
-import 'package:dio/dio.dart' as DIO;
+import 'package:dio/dio.dart' as dio;
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:invoice_generator/Models/getProduct.dart';
+import 'package:invoice_generator/Models/get_product.dart';
 import 'package:path/path.dart' as path;
 
 import '../../../../main.dart';
-import '../../../../services/Connectivity/networkClient.dart';
+import '../../../../services/Connectivity/network_client.dart';
 import '../../../global/constants/api_const.dart';
-import '../../../global/widgets/countryPicker/CountryModelBottomSheetController.dart';
+import '../../../global/widgets/countryPicker/country_model_bottomsheet_controller.dart';
 import '../../../global/widgets/custom_dialog.dart';
 
 class CreateProductsController extends GetxController {
   String title = "Create New Product";
-  Map<String, dynamic> mymap = Get.arguments ?? Map();
+  Map<String, dynamic> mymap = Get.arguments ?? {};
 
   bool isEdit = false;
 
@@ -30,19 +32,9 @@ class CreateProductsController extends GetxController {
     if (mymap['isEdit'] != null && mymap['isEdit']) {
       mymap['isEdit'] ? title = "Edit Product" : "";
       isEdit = true;
-      ApiGetProduct(context: Get.context!, productId: mymap["id"]);
+      apiGetProduct(context: Get.context!, productId: mymap["id"]);
       refresh();
     }
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
   }
 
   Rx<TextEditingController> productTitleController =
@@ -54,37 +46,36 @@ class CreateProductsController extends GetxController {
 
   final ImagePicker imagePicker = ImagePicker();
 
-  RxString selected_Currency = "Select".obs;
-  RxString selected_Symbol = "Rs".obs;
+  RxString selectedCurrency = "Select".obs;
+  RxString selectedSymbol = "Rs".obs;
 
   showCurrencyPicker(BuildContext context) async {
     final countryModelBottomSheetController =
         Get.put(CountryModelBottomSheetController());
 
-    final selectedCountry =
-        await countryModelBottomSheetController.GetCountryModelSheet(
-            context: context);
+    final selectedCountry = await countryModelBottomSheetController
+        .getCountryModelSheet(context: context);
     if (selectedCountry != null) {
       // Handle the selected country
-      print(selectedCountry.currency);
+      debugPrint(selectedCountry.currency);
 
-      selected_Currency.value = selectedCountry.currency.toString();
-      selected_Symbol.value = selectedCountry.currencySymbol.toString();
+      selectedCurrency.value = selectedCountry.currency.toString();
+      selectedSymbol.value = selectedCountry.currencySymbol.toString();
       update();
     }
   }
 
-  ApiAddProduct(
+  apiAddProduct(
       {required BuildContext context,
       List<String>? filePaths,
       Map<String, dynamic>? formData}) async {
     FocusScope.of(context).unfocus();
     app.resolve<CustomDialogs>().showCircularDialog(context);
-    final form = DIO.FormData();
+    final form = dio.FormData();
 
     if (filePaths != null && filePaths.isNotEmpty) {
       for (final filePath in filePaths) {
-        final file = await DIO.MultipartFile.fromFile(
+        final file = await dio.MultipartFile.fromFile(
           filePath,
           filename: path.basename(filePath),
         );
@@ -98,9 +89,9 @@ class CreateProductsController extends GetxController {
         final jsonString = jsonEncode(value);
         form.fields.add(MapEntry(key, jsonString));
 
-        log("myvalues" + value.toString());
+        log("myvalues$value");
       } else {
-        log("my" + value.toString());
+        log("my$value");
         form.fields.add(MapEntry(key, value.toString()));
       }
     });
@@ -122,22 +113,22 @@ class CreateProductsController extends GetxController {
         app.resolve<CustomDialogs>().hideCircularDialog(context);
 
         app.resolve<CustomDialogs>().getDialog(title: "Failed", desc: message);
-        print("error");
+        debugPrint("error");
       },
     );
   }
 
-  ApiEditProduct(
+  apiEditProduct(
       {required BuildContext context,
       List<String>? filePaths,
       Map<String, dynamic>? formData}) async {
     FocusScope.of(context).unfocus();
     app.resolve<CustomDialogs>().showCircularDialog(context);
-    final form = DIO.FormData();
+    final form = dio.FormData();
 
     if (filePaths != null && filePaths.isNotEmpty) {
       for (final filePath in filePaths) {
-        final file = await DIO.MultipartFile.fromFile(
+        final file = await dio.MultipartFile.fromFile(
           filePath,
           filename: path.basename(filePath),
         );
@@ -151,9 +142,9 @@ class CreateProductsController extends GetxController {
         final jsonString = jsonEncode(value);
         form.fields.add(MapEntry(key, jsonString));
 
-        log("myvalues" + value.toString());
+        log("myvalues$value");
       } else {
-        log("my" + value.toString());
+        log("my$value");
         form.fields.add(MapEntry(key, value.toString()));
       }
     });
@@ -175,7 +166,7 @@ class CreateProductsController extends GetxController {
         app.resolve<CustomDialogs>().hideCircularDialog(context);
 
         app.resolve<CustomDialogs>().getDialog(title: "Failed", desc: message);
-        print("error");
+        debugPrint("error");
       },
     );
   }
@@ -183,13 +174,13 @@ class CreateProductsController extends GetxController {
   GetProduct? editProduct;
   RxList<File>? imageFileList = <File>[].obs;
 
-  ApiGetProduct({required BuildContext context, dynamic productId}) async {
+  apiGetProduct({required BuildContext context, dynamic productId}) async {
     FocusScope.of(context).unfocus();
 
     return NetworkClient.getInstance.callApiForm(
       context,
       baseURL,
-      "${ApiConstant.products}/${productId}",
+      "${ApiConstant.products}/$productId",
       MethodType.Get,
       headers: NetworkClient.getInstance.getAuthHeaders(),
       successCallback: (response, message) async {
@@ -202,8 +193,8 @@ class CreateProductsController extends GetxController {
         productDescriptionController.value.text =
             editProduct!.description.toString();
         productPriceController.value.text = editProduct!.price.toString();
-        selected_Currency.value = editProduct!.productCurrency.toString();
-        selected_Symbol.value = editProduct!.currencySymbol.toString();
+        selectedCurrency.value = editProduct!.productCurrency.toString();
+        selectedSymbol.value = editProduct!.currencySymbol.toString();
 
         for (String imageUrl in editProduct!.images!) {
           FileInfo? fileInfo =
@@ -213,10 +204,8 @@ class CreateProductsController extends GetxController {
             fileInfo =
                 await DefaultCacheManager().downloadFile(ibaseURL + imageUrl);
           }
-          if (fileInfo != null) {
-            // Add the cached image file to your list
-            imageFileList!.add(fileInfo.file);
-          }
+          // Add the cached image file to your list
+          imageFileList!.add(fileInfo.file);
         }
 
         update();
@@ -224,7 +213,7 @@ class CreateProductsController extends GetxController {
       },
       failureCallback: (status, message) {
         app.resolve<CustomDialogs>().getDialog(title: "Failed", desc: message);
-        print("error");
+        debugPrint("error");
       },
     );
   }

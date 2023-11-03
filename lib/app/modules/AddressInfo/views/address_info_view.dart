@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -5,19 +7,18 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:invoice_generator/app/global/constants/app_color.dart';
 import 'package:invoice_generator/app/global/constants/app_fonts.dart';
-import 'package:invoice_generator/app/global/widgets/TitleWidget.dart';
-import 'package:invoice_generator/app/global/widgets/myButton.dart';
+import 'package:invoice_generator/app/global/widgets/title_widget.dart';
+import 'package:invoice_generator/app/global/widgets/my_button.dart';
 import 'package:invoice_generator/app/global/widgets/mytextfiled.dart';
-import 'package:material_dialogs/material_dialogs.dart';
 
 import '../../../global/constants/app_asset.dart';
-import '../../../global/widgets/myDropDown.dart';
+import '../../../global/widgets/my_dropdown.dart';
 import '../../Tabs/controllers/tabs_controller.dart';
 import '../controllers/address_info_controller.dart';
 
 class AddressInfoView extends GetView<AddressInfoController> {
   final RxBool isAdded;
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+ final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   AddressInfoView({
     Key? key,
@@ -112,7 +113,7 @@ class AddressInfoView extends GetView<AddressInfoController> {
                   return CustomDropdown(
                     prefixIcon: SvgPicture.asset(AppAsset.countryIcon),
                     items: controller.mycountryDataList,
-                    value: controller.selectedCountry!.value,
+                    value: controller.selectedCountry.value,
                     lableText: 'Country',
                     onChanged: (value) {
                       controller.setSelectedCountry(value!);
@@ -126,7 +127,7 @@ class AddressInfoView extends GetView<AddressInfoController> {
                   return CustomDropdown(
                     prefixIcon: SvgPicture.asset(AppAsset.stateIcon),
                     items: controller.mystateDataList,
-                    value: controller.selectedState!.value,
+                    value: controller.selectedState.value,
                     lableText: 'State',
                     onChanged: (value) {
                       controller.setSelectedState(value!);
@@ -140,10 +141,10 @@ class AddressInfoView extends GetView<AddressInfoController> {
                   return CustomDropdown(
                     prefixIcon: SvgPicture.asset(AppAsset.cityIcon),
                     items: controller.mycityDataList,
-                    value: controller.selectedCity!.value,
+                    value: controller.selectedCity.value,
                     lableText: 'City',
                     onChanged: (value) {
-                      controller.selectedCity!.value = value!;
+                      controller.selectedCity.value = value!;
                       controller.update();
                     },
                   );
@@ -158,9 +159,11 @@ class AddressInfoView extends GetView<AddressInfoController> {
                   onValidator: (value) {
                     if (value!.isEmpty) {
                       return 'ZIP/Postal code cannot be empty';
-                    }  if (value.length < 6) {
+                    }
+                    if (value.length < 6) {
                       return 'ZIP/Postal code should be at least 6 digits';
-                    }  if (value!.contains(RegExp(r'[^0-9]'))) {
+                    }
+                    if (value!.contains(RegExp(r'[^0-9]'))) {
                       return 'ZIP/Postal code should contain only numeric digits';
                     }
                     return null;
@@ -174,8 +177,6 @@ class AddressInfoView extends GetView<AddressInfoController> {
                     ),
                   ),
                 ),
-
-
                 Visibility(
                     visible: isAdded.value,
                     child: Column(
@@ -243,12 +244,12 @@ class AddressInfoView extends GetView<AddressInfoController> {
                           return CustomDropdown(
                             prefixIcon: SvgPicture.asset(AppAsset.countryIcon),
                             items: controller.mycountryshipDataList,
-                            value: controller.ship_selectedCountry!.value,
+                            value: controller.shipSelectedCountry.value,
                             lableText: 'Country',
                             onChanged: (value) {
-                              controller.ship_selectedCountry!.value = value!;
+                              controller.shipSelectedCountry.value = value!;
                               controller.update();
-                              controller.ApiGetAllShipStates(
+                              controller.apiGetAllShipStates(
                                   context: Get.context!,
                                   countryId: int.parse(value.toString()));
                             },
@@ -262,14 +263,14 @@ class AddressInfoView extends GetView<AddressInfoController> {
                           return CustomDropdown(
                             prefixIcon: SvgPicture.asset(AppAsset.stateIcon),
                             items: controller.mystateshipDataList,
-                            value: controller.ship_selectedState!.value,
+                            value: controller.shipSelectedState.value,
                             lableText: 'State',
                             onChanged: (value) {
-                              controller.ship_selectedState!.value = value!;
+                              controller.shipSelectedState.value = value!;
 
                               controller.update();
 
-                              controller.ApiGetAllShipCity(
+                              controller.apiGetAllShipCity(
                                   context: Get.context!,
                                   stateId: int.parse(value.toString()));
                             },
@@ -283,10 +284,10 @@ class AddressInfoView extends GetView<AddressInfoController> {
                           return CustomDropdown(
                             prefixIcon: SvgPicture.asset(AppAsset.cityIcon),
                             items: controller.mycityshipDataList,
-                            value: controller.ship_selectedCity!.value,
+                            value: controller.shipSelectedCity.value,
                             lableText: 'City',
                             onChanged: (value) {
-                              controller.ship_selectedCity!.value = value!;
+                              controller.shipSelectedCity.value = value!;
                               controller.update();
                             },
                           );
@@ -328,7 +329,7 @@ class AddressInfoView extends GetView<AddressInfoController> {
                       visible: isAdded.value,
                       replacement: mybutton(
                         onTap: () {
-                          print("taped");
+                          debugPrint("taped");
                           if (formKey.currentState!.validate()) {
                             ctabsController.tabController!
                                 .animateTo(2, curve: Curves.easeInOutQuint);
@@ -339,15 +340,14 @@ class AddressInfoView extends GetView<AddressInfoController> {
                       ),
                       child: mybutton(
                         onTap: () {
-                          print("taped");
+                          debugPrint("taped");
 
+                          debugPrint("taped");
 
-                            print("taped");
-
-                            if (formKey.currentState!.validate()) {
-                              controller.submitProfileData(context);
-                            }
-                            // tabsController.screens[1];
+                          if (formKey.currentState!.validate()) {
+                            controller.submitProfileData(context);
+                          }
+                          // tabsController.screens[1];
 
                           /*Dialogs.materialDialog(
                             color: Colors.white,

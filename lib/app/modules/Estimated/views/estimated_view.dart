@@ -4,7 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:focus_detector/focus_detector.dart';
 import 'package:get/get.dart';
 import 'package:invoice_generator/app/global/constants/app_fonts.dart';
-import 'package:invoice_generator/app/global/widgets/myButton.dart';
+import 'package:invoice_generator/app/global/widgets/my_button.dart';
 
 import '../../../global/constants/app_asset.dart';
 import '../../../global/constants/app_color.dart';
@@ -24,7 +24,7 @@ class EstimatedView extends GetView<EstimatedController> {
       onWillPop: () {
         Get.offAllNamed(Routes.HOME);
         final bottomsheetController = Get.put(BottomsheetController());
-        bottomsheetController.selected_index.value = 0;
+        bottomsheetController.selectedIndex.value = 0;
         return Future.value(false);
       },
       child: Scaffold(
@@ -106,7 +106,7 @@ class EstimatedView extends GetView<EstimatedController> {
                   Divider(
                     height: 20.h,
                   ),
-                  mySearchFiled(
+                  MySearchFiled(
                     texthint: "Search estimates...",
                     height: 56.h,
                     controller: controller.searchController.value,
@@ -418,12 +418,7 @@ class EstimatedView extends GetView<EstimatedController> {
                                           Row(
                                             children: [
                                               Text(
-                                                  data.currency.toString() +
-                                                      " " +
-                                                      data.totalAmount!
-                                                          .abs()
-                                                          .toStringAsFixed(0) +
-                                                      " • ",
+                                                  "${data.currency} ${data.totalAmount!.abs().toStringAsFixed(0)} • ",
                                                   style: text600_16.copyWith(
                                                       color: Colors.black)),
                                               Text(

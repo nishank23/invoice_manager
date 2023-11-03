@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -137,7 +139,7 @@ class ImagePickerDialog {
                 List<XFile>? files = await ImagePicker().pickMultiImage(
                   imageQuality: 10,
                 );
-                if (files != null && files.isNotEmpty) {
+                if (files.isNotEmpty) {
                   FocusManager.instance.primaryFocus!.unfocus();
                   Get.back(closeOverlays: true);
 

@@ -3,34 +3,22 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:invoice_generator/Models/getAllProducts.dart';
+import 'package:invoice_generator/Models/get_all_products.dart';
 
 import '../../../../main.dart';
-import '../../../../services/Connectivity/networkClient.dart';
+import '../../../../services/Connectivity/network_client.dart';
 import '../../../global/constants/api_const.dart';
 import '../../../global/widgets/custom_dialog.dart';
 
 class MyProductsController extends GetxController {
-  //TODO: Implement MyProductsController
-
   final count = 0.obs;
 
   TextEditingController searchController = TextEditingController();
 
   @override
   void onInit() {
-    ApiGetAllProducts(context: Get.context!);
+    apiGetAllProducts(context: Get.context!);
     super.onInit();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
   }
 
   RxBool isLoading = false.obs;
@@ -52,15 +40,15 @@ class MyProductsController extends GetxController {
     update();
   }
 
-  ApiGetAllProducts({required BuildContext context}) async {
+  apiGetAllProducts({required BuildContext context}) async {
     FocusScope.of(context).unfocus();
-    productList.value.clear();
+    productList.clear();
     isLoading = true.obs;
 
     return NetworkClient.getInstance.callApi(
       context,
       baseURL,
-      "${ApiConstant.getAllProducts}",
+      ApiConstant.getAllProducts,
       MethodType.Get,
       headers: NetworkClient.getInstance.getAuthHeaders(),
       successCallback: (response, message) {
@@ -75,19 +63,19 @@ class MyProductsController extends GetxController {
       },
       failureCallback: (status, message) {
         app.resolve<CustomDialogs>().getDialog(title: "Failed", desc: message);
-        print("error");
+        debugPrint("error");
       },
     );
   }
 
-  ApiDeleteProduct(
+  apiDeleteProduct(
       {required BuildContext context, required String productId}) async {
     FocusScope.of(context).unfocus();
 
     return NetworkClient.getInstance.callApi(
       context,
       baseURL,
-      "${ApiConstant.products}/${productId}",
+      "${ApiConstant.products}/$productId",
       MethodType.Delete,
       headers: NetworkClient.getInstance.getAuthHeaders(),
       successCallback: (response, message) {
@@ -95,7 +83,7 @@ class MyProductsController extends GetxController {
 
         Get.back();
 
-        ApiGetAllProducts(context: context);
+        apiGetAllProducts(context: context);
       },
       failureCallback: (status, message) {},
     );

@@ -9,7 +9,7 @@ import 'package:flutter_svg/svg.dart';
 import '../../../global/constants/app_asset.dart';
 import '../../../global/constants/app_color.dart';
 import '../../../global/constants/app_fonts.dart';
-import '../../../global/widgets/myButton.dart';
+import '../../../global/widgets/my_button.dart';
 import '../controllers/restore_controller.dart';
 
 class RestoreView extends GetView<RestoreController> {

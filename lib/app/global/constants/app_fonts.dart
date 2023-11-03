@@ -157,7 +157,7 @@ final text300_16black = TextStyle(
     fontWeight: w300);
 
 final text300_15 = TextStyle(
-    color: Color(0xFF663CEF),
+    color: const Color(0xFF663CEF),
     fontSize: 15.sp,
     fontFamily: fontFamily,
     fontWeight: w300);

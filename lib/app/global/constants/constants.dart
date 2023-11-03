@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class Constant {
   static const mobilenumber = "mobileNumber";
 
@@ -21,7 +23,7 @@ class Constant {
 
     if (!emailRegex.hasMatch(email)) {
       // Invalid email format
-      print('Invalid email address.');
+      debugPrint('Invalid email address.');
       return false;
     }
 

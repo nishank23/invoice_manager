@@ -14,9 +14,9 @@ class DatePicker {
 
     final DateTime? picked = await showDatePicker(
       context: context,
-      initialDate: initialDate ?? DateTime.now(),
-      firstDate: firstDate ?? DateTime(2010),
-      lastDate: lastDate ?? DateTime(2030),
+      initialDate: initialDate,
+      firstDate: firstDate,
+      lastDate: lastDate ,
       builder: (context, child) {
         return Theme(
           data: customizedTheme,

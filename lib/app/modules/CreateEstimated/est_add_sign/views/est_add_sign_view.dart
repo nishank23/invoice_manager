@@ -10,12 +10,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:invoice_generator/app/global/constants/app_asset.dart';
 import 'package:invoice_generator/app/global/constants/app_fonts.dart';
-import 'package:invoice_generator/app/global/widgets/ImagePickerDialog.dart';
+import 'package:invoice_generator/app/global/widgets/image_picker_dialog.dart';
 import 'package:invoice_generator/app/modules/CreateEstimated/est_add_client/controllers/est_add_client_controller.dart';
 
 import '../../../../global/constants/app_color.dart';
-import '../../../../global/widgets/TitleWidget.dart';
-import '../../../../global/widgets/myButton.dart';
+import '../../../../global/widgets/title_widget.dart';
+import '../../../../global/widgets/my_button.dart';
 import '../../controllers/create_estimated_controller.dart';
 import '../../est_add_items/controllers/est_add_items_controller.dart';
 import '../controllers/est_add_sign_controller.dart';
@@ -73,7 +73,7 @@ class EstAddSignView extends GetView<EstAddSignController> {
                                       controller.selectedSign = p0;
 
                                       controller.update();
-                                      controller.refresh();
+                                      // controller.refresh();
                                     },
                                   );
                                 },
@@ -104,7 +104,7 @@ class EstAddSignView extends GetView<EstAddSignController> {
                                     onTap: () {
                                       controller.selectedSign = null;
                                       controller.update();
-                                      controller.refresh();
+                                      // controller.refresh();
                                     },
                                     child: Padding(
                                         padding: const EdgeInsets.all(10),
@@ -160,7 +160,7 @@ class EstAddSignView extends GetView<EstAddSignController> {
               builder: (EstAddSignController controller) {
                 return mybutton(
                   onTap: () {
-                    print("taped");
+                    debugPrint("taped");
                     Map<String, dynamic> mydata = {};
                     List<Map<String, dynamic>> myproductlist = [];
                     List<Map<String, dynamic>> mytaxlist = [];
@@ -187,7 +187,7 @@ class EstAddSignView extends GetView<EstAddSignController> {
 
                     mydata["itemTotal"] = myItemsController.subtotal.toString();
 
-                    print("myitemsTotal${myItemsController.subtotal}");
+                    debugPrint("myitemsTotal${myItemsController.subtotal}");
 
                     mydata["subTotal"] =
                         myItemsController.afterDiscountText.toString();
@@ -213,7 +213,7 @@ class EstAddSignView extends GetView<EstAddSignController> {
 
                     mydata["totalAmount"] = myItemsController.getFinalTotal;
 
-                    print(jsonEncode(mydata));
+                    debugPrint(jsonEncode(mydata));
                     String? id = Get.find<CreateEstimatedController>().id;
                     id != null
                         ? controller.ApiEditEstimate(

@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:focus_detector/focus_detector.dart';
 import 'package:get/get.dart';
-import 'package:invoice_generator/app/global/widgets/myButton.dart';
+import 'package:invoice_generator/app/global/widgets/my_button.dart';
 
 import '../../../global/constants/app_asset.dart';
 import '../../../global/constants/app_color.dart';
@@ -23,7 +23,7 @@ class ClientsView extends GetView<ClientsController> {
       onWillPop: () {
         Get.offAllNamed(Routes.HOME);
         final bottomsheetController = Get.put(BottomsheetController());
-        bottomsheetController.selected_index.value = 0;
+        bottomsheetController.selectedIndex.value = 0;
         return Future.value(false);
       },
       child: Scaffold(
@@ -42,7 +42,7 @@ class ClientsView extends GetView<ClientsController> {
           extendBody: true,
           body: FocusDetector(
             onFocusGained: () {
-              controller.ApiGetAllClients(context: context);
+              controller.apiGetAllClients(context: context);
             },
             child: SafeArea(
               child: SizedBox(
@@ -113,7 +113,7 @@ class ClientsView extends GetView<ClientsController> {
                   Divider(
                     height: 20.h,
                   ),
-                  mySearchFiled(
+                  MySearchFiled(
                     texthint: "Search estimates...",
                     height: 56.h,
                     controller: controller.searchController.value,
@@ -138,7 +138,7 @@ class ClientsView extends GetView<ClientsController> {
                         child: RefreshIndicator(
                           color: AppColor.primaryBlue,
                           onRefresh: () {
-                            controller.ApiGetAllClients(context: context);
+                            controller.apiGetAllClients(context: context);
                             return Future.delayed(const Duration(seconds: 3));
                           },
                           child: ListView.builder(
@@ -156,7 +156,7 @@ class ClientsView extends GetView<ClientsController> {
 
                                 borderRadius: BorderRadius.circular(20.r),
                                 onTap: () {
-                                  print("apjdf");
+                                  debugPrint("apjdf");
                                   showDialog(
                                       context: context,
                                       builder: (BuildContext context) {
@@ -247,7 +247,7 @@ class ClientsView extends GetView<ClientsController> {
                                                       Expanded(
                                                           child: mybutton(
                                                               onTap: () {
-                                                                print(
+                                                                debugPrint(
                                                                     "IDDDDD ${controller.filteredList[index].id}");
                                                                 Get.back();
 

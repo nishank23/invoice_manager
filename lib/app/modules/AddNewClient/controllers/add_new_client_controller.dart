@@ -6,9 +6,10 @@ import 'package:invoice_generator/Models/client_by_id_model.dart';
 import 'package:invoice_generator/app/global/constants/api_const.dart';
 import 'package:invoice_generator/app/modules/AddNewClient/clt_addressInfo/views/clt_address_info_view.dart';
 import 'package:invoice_generator/app/modules/AddNewClient/clt_businessInfo/views/clt_business_info_view.dart';
-import 'package:invoice_generator/services/Connectivity/networkClient.dart';
+import 'package:invoice_generator/services/Connectivity/network_client.dart';
 
-class AddNewClientController extends GetxController with SingleGetTickerProviderMixin {
+class AddNewClientController extends GetxController
+    with SingleGetTickerProviderMixin {
   TabController? tabController;
   Rx<ClientDataById?> clientById = Rxn<ClientDataById>(null);
   final count = 0.obs;
@@ -16,7 +17,7 @@ class AddNewClientController extends GetxController with SingleGetTickerProvider
   RxBool hasData = false.obs;
   @override
   void onInit() {
-    tabController = TabController(length: myTabs.value.length, vsync: this);
+    tabController = TabController(length: myTabs.length, vsync: this);
     super.onInit();
   }
 
@@ -32,13 +33,15 @@ class AddNewClientController extends GetxController with SingleGetTickerProvider
   callApiForGetClientById({required BuildContext context, required String id}) {
     FocusScope.of(context).unfocus();
 
-    return NetworkClient.getInstance.callApi(context, baseURL, "${ApiConstant.getAllClients}/$id", MethodType.Get,
-        headers: NetworkClient.getInstance.getAuthHeaders(), successCallback: (response, message) async {
+    return NetworkClient.getInstance.callApi(
+        context, baseURL, "${ApiConstant.getAllClients}/$id", MethodType.Get,
+        headers: NetworkClient.getInstance.getAuthHeaders(),
+        successCallback: (response, message) async {
       ClientDataByIdModel eventData = ClientDataByIdModel.fromJson(response);
       clientById.value = eventData.clientDataById;
 
       hasData.value = true;
-      print("::::::::::::::::::::$response");
+      debugPrint("::::::::::::::::::::$response");
     }, failureCallback: (status, message) {
       hasData.value = true;
     });

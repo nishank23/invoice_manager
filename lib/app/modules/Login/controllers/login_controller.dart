@@ -8,107 +8,68 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:http/http.dart' as http;
 
 import '../../../../main.dart';
-import '../../../../services/Connectivity/networkClient.dart';
+import '../../../../services/Connectivity/network_client.dart';
 import '../../../global/constants/api_const.dart';
 import '../../../global/constants/constants.dart';
 import '../../../global/widgets/custom_dialog.dart';
 import '../../../routes/app_pages.dart';
 
 class LoginController extends GetxController {
-  //TODO: Implement LoginController
-
   RxBool isShow = false.obs;
 
-
-  Rx<TextEditingController> emailController =  TextEditingController().obs;
-  Rx<TextEditingController> passwordController =  TextEditingController().obs;
+  Rx<TextEditingController> emailController = TextEditingController().obs;
+  Rx<TextEditingController> passwordController = TextEditingController().obs;
 
   final GoogleSignIn _googleSignIn = GoogleSignIn(
-    scopes: [
-      'email',
-      'openid'
-    ],
+    scopes: ['email', 'openid'],
   );
-
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
 
   Future<void> signInwithGoogle(BuildContext context) async {
     try {
       if (await _googleSignIn.isSignedIn()) {
         await _googleSignIn.signOut();
       }
-      final GoogleSignInAccount? googleSignInAccount = await _googleSignIn.signIn();
-      final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount!.authentication;
+      final GoogleSignInAccount? googleSignInAccount =
+          await _googleSignIn.signIn();
+      final GoogleSignInAuthentication googleSignInAuthentication =
+          await googleSignInAccount!.authentication;
       String? email = googleSignInAccount.email;
 
       String? googleId = googleSignInAccount.id;
 
-
-      print(googleSignInAuthentication.idToken);
-      print(email);
+      debugPrint(googleSignInAuthentication.idToken);
+      debugPrint(email);
 
       // ignore: use_build_context_synchronously
-      ApiSignInGoogle(context: context, email: email, googleId: googleId);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+      apiSignInGoogle(context: context, email: email, googleId: googleId);
 
       // callApiForGoogleSignInFirebase(
       //     context: Get.context!,
       //     token: idTokenGenerate,
       //     email: usercredential.user!.email!,
       //     name: usercredential.user!.displayName!);
-    } catch(err){
+    } catch (err) {
       debugPrint("GoogleAuthException : $err");
     }
-    return null;
+    return;
   }
-
 
   Future<UserCredential> signInWithFacebook() async {
     final LoginResult loginResult = await FacebookAuth.instance.login();
 
     log(loginResult.message!);
 
-    final OAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(loginResult.accessToken!.token);
+    final OAuthCredential facebookAuthCredential =
+        FacebookAuthProvider.credential(loginResult.accessToken!.token);
     return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
   }
 
-  ApiSignInGoogle(
-      {required BuildContext context, required String email,required String googleId}) async {
+  apiSignInGoogle(
+      {required BuildContext context,
+      required String email,
+      required String googleId}) async {
     FocusScope.of(context).unfocus();
     app.resolve<CustomDialogs>().showCircularDialog(context);
     Map<String, dynamic> dict = {};
@@ -118,8 +79,8 @@ class LoginController extends GetxController {
     dict["googleId"] = googleId;
     dict["fcm"] = fcmtoken;
 
-    print(jsonEncode(dict));
-    print(fcmtoken);
+    debugPrint(jsonEncode(dict));
+    debugPrint(fcmtoken);
 
     log(jsonEncode(dict));
     // ignore: use_build_context_synchronously
@@ -135,29 +96,28 @@ class LoginController extends GetxController {
         box.write(Constant.userId, response['user']['_id']);
         box.write(Constant.isProfileUpdated, true);
 
-
-        print(response['user']['_id']);
-        print(response['token']);
+        debugPrint(response['user']['_id']);
+        debugPrint(response['token']);
 
         box.write(Constant.isAlreadyLoggedIn, true);
-
 
         Fluttertoast.showToast(msg: "User Logged in Successfully");
 
         Get.offAllNamed(Routes.HOME);
-
       },
       failureCallback: (status, message) {
         app.resolve<CustomDialogs>().hideCircularDialog(context);
 
         app.resolve<CustomDialogs>().getDialog(title: "Failed", desc: message);
-        print("error");
+        debugPrint("error");
       },
     );
   }
 
-  ApiSignInEmail(
-      {required BuildContext context, required String email, required String password}) async {
+  apiSignInEmail(
+      {required BuildContext context,
+      required String email,
+      required String password}) async {
     FocusScope.of(context).unfocus();
     app.resolve<CustomDialogs>().showCircularDialog(context);
     Map<String, dynamic> dict = {};
@@ -167,8 +127,8 @@ class LoginController extends GetxController {
     dict["password"] = password;
     dict["fcm"] = fcmtoken;
 
-    print(jsonEncode(dict));
-    print(fcmtoken);
+    debugPrint(jsonEncode(dict));
+    debugPrint(fcmtoken);
 
     log(jsonEncode(dict));
     // ignore: use_build_context_synchronously
@@ -184,25 +144,21 @@ class LoginController extends GetxController {
         box.write(Constant.userId, response['user']['_id']);
         box.write(Constant.isProfileUpdated, true);
 
-
-        print(response['user']['_id']);
-        print(response['token']);
+        debugPrint(response['user']['_id']);
+        debugPrint(response['token']);
 
         box.write(Constant.isAlreadyLoggedIn, true);
-        
+
         Fluttertoast.showToast(msg: "User Logged in Successfully");
 
         Get.offAllNamed(Routes.HOME);
-
       },
       failureCallback: (status, message) {
         app.resolve<CustomDialogs>().hideCircularDialog(context);
 
         app.resolve<CustomDialogs>().getDialog(title: "Failed", desc: message);
-        print("error");
+        debugPrint("error");
       },
     );
   }
-
-
 }

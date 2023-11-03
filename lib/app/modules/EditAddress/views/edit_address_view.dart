@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -7,9 +9,9 @@ import 'package:get/get.dart';
 import '../../../global/constants/app_asset.dart';
 import '../../../global/constants/app_color.dart';
 import '../../../global/constants/app_fonts.dart';
-import '../../../global/widgets/TitleWidget.dart';
-import '../../../global/widgets/myButton.dart';
-import '../../../global/widgets/myDropDown.dart';
+import '../../../global/widgets/title_widget.dart';
+import '../../../global/widgets/my_button.dart';
+import '../../../global/widgets/my_dropdown.dart';
 import '../../../global/widgets/mytextfiled.dart';
 import '../controllers/edit_address_controller.dart';
 
@@ -22,7 +24,7 @@ class EditAddressView extends GetView<EditAddressController> {
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
-          reverse:true,
+          reverse: true,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -135,13 +137,13 @@ class EditAddressView extends GetView<EditAddressController> {
                 return CustomDropdown(
                   prefixIcon: SvgPicture.asset(AppAsset.countryIcon),
                   items: controller.mycountryDataList,
-                  value: controller.selectedCountry!.value,
+                  value: controller.selectedCountry.value,
                   lableText: 'Country',
                   onChanged: (value) {
-                    controller.selectedCountry!.value = value!;
+                    controller.selectedCountry.value = value!;
                     controller.update();
 
-                    controller.ApiGetAllStates(
+                    controller.apiGetAllStates(
                         context: context,
                         countryId: int.parse(value.toString()));
                   },
@@ -156,13 +158,13 @@ class EditAddressView extends GetView<EditAddressController> {
                 return CustomDropdown(
                   prefixIcon: SvgPicture.asset(AppAsset.stateIcon),
                   items: controller.mystateDataList,
-                  value: controller.selectedState!.value,
+                  value: controller.selectedState.value,
                   lableText: 'State',
                   onChanged: (value) {
-                    controller.selectedState!.value = value!;
+                    controller.selectedState.value = value!;
                     controller.update();
 
-                    controller.ApiGetAllCity(
+                    controller.apiGetAllCity(
                         context: context, stateId: int.parse(value.toString()));
                   },
                 );
@@ -176,10 +178,10 @@ class EditAddressView extends GetView<EditAddressController> {
                 return CustomDropdown(
                   prefixIcon: SvgPicture.asset(AppAsset.cityIcon),
                   items: controller.mycityDataList,
-                  value: controller.selectedCity!.value,
+                  value: controller.selectedCity.value,
                   lableText: 'City',
                   onChanged: (value) {
-                    controller.selectedCity!.value = value!;
+                    controller.selectedCity.value = value!;
                     controller.update();
                   },
                 );
@@ -214,10 +216,12 @@ class EditAddressView extends GetView<EditAddressController> {
               ).paddingSymmetric(
                 horizontal: 20.w,
               ),
-              SizedBox(height: 62.h,),
+              SizedBox(
+                height: 62.h,
+              ),
               mybutton(
                 onTap: () {
-                  print("taped");
+                  debugPrint("taped");
                 },
                 title: "Save & Continue",
               )

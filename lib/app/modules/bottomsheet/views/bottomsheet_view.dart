@@ -7,10 +7,10 @@ import '../../../../main.dart';
 import '../../../global/constants/app_asset.dart';
 import '../../../global/constants/app_color.dart';
 import '../../../global/constants/app_fonts.dart';
-import '../../../global/widgets/myButton.dart';
+import '../../../global/widgets/my_button.dart';
 import '../../../routes/app_pages.dart';
 import '../controllers/bottomsheet_controller.dart';
-import 'MenuItem.dart';
+import 'menu_item.dart';
 
 class BottomsheetView extends GetView<BottomsheetController> {
   const BottomsheetView({Key? key}) : super(key: key);
@@ -138,8 +138,7 @@ class BottomsheetView extends GetView<BottomsheetController> {
                               child: Container(
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
-                                  color: controller.selected_index.value ==
-                                          index
+                                  color: controller.selectedIndex.value == index
                                       ? AppColor.primaryBlue.withOpacity(.05)
                                       : Colors.transparent,
                                 ),
@@ -158,9 +157,10 @@ class BottomsheetView extends GetView<BottomsheetController> {
                                     ),
                                   ),
 
-                                  leading: controller.selected_index == index
-                                      ? menuItem.selected_icon
-                                      : menuItem.icon,
+                                  leading:
+                                      controller.selectedIndex.value == index
+                                          ? menuItem.selectedIcon
+                                          : menuItem.icon,
                                   // SvgPicture(
                                   //       menuItem.icon as BytesLoader ,
                                   //       color: controller.selected_index == index ? AppColor.primaryBlue : null,

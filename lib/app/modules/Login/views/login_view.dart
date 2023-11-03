@@ -5,7 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:invoice_generator/app/global/constants/app_color.dart';
 import 'package:invoice_generator/app/global/constants/app_fonts.dart';
-import 'package:invoice_generator/app/global/widgets/myButton.dart';
+import 'package:invoice_generator/app/global/widgets/my_button.dart';
 import 'package:invoice_generator/app/global/widgets/mytextfiled.dart';
 import 'package:invoice_generator/app/routes/app_pages.dart';
 
@@ -41,14 +41,12 @@ class LoginView extends GetView<LoginController> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: SafeArea(
-
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const SizedBox(
                           height: 8,
                         ),
-
                         Text.rich(
                           TextSpan(
                             text: 'Invoice ',
@@ -89,7 +87,7 @@ class LoginView extends GetView<LoginController> {
                                 child: InkWell(
                                   onTap: () {
                                     controller.signInwithGoogle(context);
-                                    print("Tapped");
+                                    debugPrint("Tapped");
                                   },
                                   child: Container(
                                     // padding: EdgeInsets.symmetric(horizontal: 20.w,),
@@ -171,7 +169,8 @@ class LoginView extends GetView<LoginController> {
                                 Expanded(
                                   child: Container(
                                     height: 1.w,
-                                    color: AppColor.hintTextGrey.withOpacity(.3),
+                                    color:
+                                        AppColor.hintTextGrey.withOpacity(.3),
                                   ),
                                 ),
                                 Container(
@@ -186,7 +185,8 @@ class LoginView extends GetView<LoginController> {
                                 Expanded(
                                   child: Container(
                                     height: 1.w,
-                                    color: AppColor.hintTextGrey.withOpacity(.3),
+                                    color:
+                                        AppColor.hintTextGrey.withOpacity(.3),
                                   ),
                                 ),
                               ],
@@ -273,7 +273,8 @@ class LoginView extends GetView<LoginController> {
                         mybutton(
                           title: "Log In",
                           onTap: () {
-                            String email = controller.emailController.value.text;
+                            String email =
+                                controller.emailController.value.text;
                             String password =
                                 controller.passwordController.value.text;
                             if (!Constant.validateEmail(email)) {
@@ -284,7 +285,7 @@ class LoginView extends GetView<LoginController> {
                                   msg:
                                       'Password should be at least 6 characters long.');
                             } else {
-                              controller.ApiSignInEmail(
+                              controller.apiSignInEmail(
                                   context: context,
                                   email: email,
                                   password: password);
@@ -302,7 +303,8 @@ class LoginView extends GetView<LoginController> {
                                 Expanded(
                                   child: Container(
                                     height: 1.w,
-                                    color: AppColor.hintTextGrey.withOpacity(.3),
+                                    color:
+                                        AppColor.hintTextGrey.withOpacity(.3),
                                   ),
                                 ),
                                 Padding(
@@ -316,7 +318,8 @@ class LoginView extends GetView<LoginController> {
                                 Expanded(
                                   child: Container(
                                     height: 1.w,
-                                    color: AppColor.hintTextGrey.withOpacity(.3),
+                                    color:
+                                        AppColor.hintTextGrey.withOpacity(.3),
                                   ),
                                 ),
                               ],
@@ -329,14 +332,13 @@ class LoginView extends GetView<LoginController> {
                         mybutton(
                             onTap: () {
                               Get.toNamed(Routes.SIGN_UP);
-                              print("hello");
+                              debugPrint("hello");
                             },
                             title: "Sign Up",
                             textStyle: text600_16white.copyWith(
                                 color: AppColor.darkGrey),
                             backgroundColor: AppColor.white,
                             borderColor: AppColor.buttonGrey),
-
                       ]),
                 ),
               ),

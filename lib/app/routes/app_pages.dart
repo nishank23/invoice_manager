@@ -8,7 +8,6 @@ import '../modules/AddNewClient/clt_businessInfo/views/clt_business_info_view.da
 import '../modules/AddNewClient/views/add_new_client_view.dart';
 import '../modules/AddressInfo/bindings/address_info_binding.dart';
 import '../modules/Backup/bindings/backup_binding.dart';
-import '../modules/Backup/bindings/backup_binding.dart';
 import '../modules/Backup/views/backup_view.dart';
 import '../modules/BackupRestore/bindings/backup_restore_binding.dart';
 import '../modules/BackupRestore/views/backup_restore_view.dart';
@@ -61,7 +60,6 @@ import '../modules/MyProducts/bindings/my_products_binding.dart';
 import '../modules/MyProducts/views/my_products_view.dart';
 import '../modules/ResetPassword/bindings/reset_password_binding.dart';
 import '../modules/Restore/bindings/restore_binding.dart';
-import '../modules/Restore/bindings/restore_binding.dart';
 import '../modules/Restore/views/restore_view.dart';
 import '../modules/SignUp/bindings/sign_up_binding.dart';
 import '../modules/SignUp/views/sign_up_view.dart';
@@ -100,7 +98,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.SPLASH;
+  static const initial = Routes.SPLASH;
 
   static final routes = [
     GetPage(
@@ -140,7 +138,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.BANK_INFO,
-      page: () =>  BankInfoView(),
+      page: () => BankInfoView(),
       binding: BankInfoBinding(),
     ),
     GetPage(
@@ -292,12 +290,12 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.CONFIRMATION_REGISTER,
-      page: () =>  ConfirmationRegisterView(),
+      page: () => const ConfirmationRegisterView(),
       binding: ConfirmationRegisterBinding(),
     ),
     GetPage(
       name: _Paths.INVOICE_PDF,
-      page: () =>  InvoicePdfView(),
+      page: () => const InvoicePdfView(),
       binding: InvoicePdfBinding(),
     ),
   ];

@@ -1,7 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'package:invoice_generator/app/global/constants/app_color.dart';
 import 'package:invoice_generator/app/global/constants/app_fonts.dart';
 import 'package:invoice_generator/app/global/theme/text.dart';
@@ -74,7 +72,7 @@ ElevatedButton mybutton({
   return ElevatedButton(
     onPressed: onTap,
     style: ElevatedButton.styleFrom(
-      primary: backgroundColor,
+      backgroundColor: backgroundColor,
       elevation: 0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(radius!.r),

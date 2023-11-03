@@ -7,15 +7,13 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:invoice_generator/app/modules/CreateEstimated/controllers/create_estimated_controller.dart';
-import 'package:invoice_generator/app/modules/Estimated/controllers/estimated_controller.dart';
 import 'package:invoice_generator/app/routes/app_pages.dart';
 import 'package:path/path.dart' as path;
 
-import 'package:dio/dio.dart' as DIO;
+import 'package:dio/dio.dart' as dio;
 import '../../../../../main.dart';
-import '../../../../../services/Connectivity/networkClient.dart';
+import '../../../../../services/Connectivity/network_client.dart';
 import '../../../../global/constants/api_const.dart';
-import '../../../../global/widgets/ImagePickerDialog.dart';
 import '../../../../global/widgets/custom_dialog.dart';
 
 class EstAddSignController extends GetxController {
@@ -46,10 +44,10 @@ class EstAddSignController extends GetxController {
       Map<String, dynamic>? formData}) async {
     FocusScope.of(context).unfocus();
     app.resolve<CustomDialogs>().showCircularDialog(context);
-    final form = DIO.FormData();
+    final form = dio.FormData();
 
     if (filePaths != null && filePaths.isNotEmpty) {
-      final file = await DIO.MultipartFile.fromFile(
+      final file = await dio.MultipartFile.fromFile(
         filePaths,
         filename: path.basename(filePaths),
       );
@@ -75,7 +73,7 @@ class EstAddSignController extends GetxController {
       successCallback: (response, message) {
         app.resolve<CustomDialogs>().hideCircularDialog(context);
 
-        print(response["data"]["_id"]);
+        debugPrint(response["data"]["_id"]);
         Get.offNamed(Routes.ESTIMATE_PREVIEW,
             arguments: response["data"]["_id"]);
 
@@ -85,7 +83,7 @@ class EstAddSignController extends GetxController {
         app.resolve<CustomDialogs>().hideCircularDialog(context);
 
         app.resolve<CustomDialogs>().getDialog(title: "Failed", desc: message);
-        print("error");
+        debugPrint("error");
       },
     );
   }
@@ -97,10 +95,10 @@ class EstAddSignController extends GetxController {
       Map<String, dynamic>? formData}) async {
     FocusScope.of(context).unfocus();
     app.resolve<CustomDialogs>().showCircularDialog(context);
-    final form = DIO.FormData();
+    final form = dio.FormData();
 
     if (filePaths != null && filePaths.isNotEmpty) {
-      final file = await DIO.MultipartFile.fromFile(
+      final file = await dio.MultipartFile.fromFile(
         filePaths,
         filename: path.basename(filePaths),
       );
@@ -126,7 +124,7 @@ class EstAddSignController extends GetxController {
       successCallback: (response, message) {
         app.resolve<CustomDialogs>().hideCircularDialog(context);
 
-        print(response["data"]["_id"]);
+        debugPrint(response["data"]["_id"]);
         Get.offNamed(Routes.ESTIMATE_PREVIEW,
             arguments: response["data"]["_id"]);
 
@@ -136,7 +134,7 @@ class EstAddSignController extends GetxController {
         app.resolve<CustomDialogs>().hideCircularDialog(context);
 
         app.resolve<CustomDialogs>().getDialog(title: "Failed", desc: message);
-        print("error");
+        debugPrint("error");
       },
     );
   }

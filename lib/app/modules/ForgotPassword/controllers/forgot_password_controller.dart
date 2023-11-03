@@ -7,23 +7,16 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
 import '../../../../main.dart';
-import '../../../../services/Connectivity/networkClient.dart';
+import '../../../../services/Connectivity/network_client.dart';
 import '../../../global/constants/api_const.dart';
 import '../../../global/constants/constants.dart';
 import '../../../global/widgets/custom_dialog.dart';
 import '../../../routes/app_pages.dart';
 
 class ForgotPasswordController extends GetxController {
-  //TODO: Implement ForgotPasswordController
+  Rx<TextEditingController> emailController = TextEditingController().obs;
 
-
-  Rx<TextEditingController> emailController =  TextEditingController().obs;
-
-  @override
-  void onInit() {
-    super.onInit();
-  }
-  ApiForgetPassword(
+  apiForgetPassword(
       {required BuildContext context, required String email}) async {
     FocusScope.of(context).unfocus();
     app.resolve<CustomDialogs>().showCircularDialog(context);
@@ -33,8 +26,8 @@ class ForgotPasswordController extends GetxController {
     dict["email"] = email;
     dict["fcm"] = fcmtoken;
 
-    print(jsonEncode(dict));
-    print(fcmtoken);
+    debugPrint(jsonEncode(dict));
+    debugPrint(fcmtoken);
 
     log(jsonEncode(dict));
     // ignore: use_build_context_synchronously
@@ -47,23 +40,20 @@ class ForgotPasswordController extends GetxController {
       successCallback: (response, message) {
         app.resolve<CustomDialogs>().hideCircularDialog(context);
 
-        print(response['token']);
+        debugPrint(response['token']);
 
         box.write(Constant.isAlreadyLoggedIn, true);
 
         Fluttertoast.showToast(msg: response['message']);
 
         Get.offAllNamed(Routes.CONFIRMATION_MAIL);
-
       },
       failureCallback: (status, message) {
         app.resolve<CustomDialogs>().hideCircularDialog(context);
 
         app.resolve<CustomDialogs>().getDialog(title: "Failed", desc: message);
-        print("error");
+        debugPrint("error");
       },
     );
   }
-
-
 }

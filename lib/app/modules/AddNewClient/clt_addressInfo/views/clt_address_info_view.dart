@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -7,14 +9,14 @@ import 'package:get/get.dart';
 import '../../../../global/constants/app_asset.dart';
 import '../../../../global/constants/app_color.dart';
 import '../../../../global/constants/app_fonts.dart';
-import '../../../../global/widgets/TitleWidget.dart';
-import '../../../../global/widgets/myButton.dart';
-import '../../../../global/widgets/myDropDown.dart';
+import '../../../../global/widgets/title_widget.dart';
+import '../../../../global/widgets/my_button.dart';
+import '../../../../global/widgets/my_dropdown.dart';
 import '../../../../global/widgets/mytextfiled.dart';
 import '../controllers/clt_address_info_controller.dart';
 
 class CltAddressInfoView extends GetView<CltAddressInfoController> {
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   CltAddressInfoView({Key? key}) : super(key: key);
   @override
@@ -285,12 +287,12 @@ class CltAddressInfoView extends GetView<CltAddressInfoController> {
                               prefixIcon:
                                   SvgPicture.asset(AppAsset.countryIcon),
                               items: controller.mycountryshipDataList,
-                              value: controller.ship_selectedCountry.value,
+                              value: controller.shipSelectedCountry.value,
                               lableText: 'Country',
                               onChanged: (value) {
-                                controller.ship_selectedCountry.value = value!;
+                                controller.shipSelectedCountry.value = value!;
                                 controller.update();
-                                controller.ApiGetAllShipStates(
+                                controller.apiGetAllShipStates(
                                     context: Get.context!,
                                     countryId: int.parse(value.toString()));
                               },
@@ -304,14 +306,14 @@ class CltAddressInfoView extends GetView<CltAddressInfoController> {
                             return CustomDropdown(
                               prefixIcon: SvgPicture.asset(AppAsset.stateIcon),
                               items: controller.mystateshipDataList,
-                              value: controller.ship_selectedState.value,
+                              value: controller.shipSelectedState.value,
                               lableText: 'State',
                               onChanged: (value) {
-                                controller.ship_selectedState.value = value!;
+                                controller.shipSelectedState.value = value!;
 
                                 controller.update();
 
-                                controller.ApiGetAllShipCity(
+                                controller.apiGetAllShipCity(
                                     context: Get.context!,
                                     stateId: int.parse(value.toString()));
                               },
@@ -325,10 +327,10 @@ class CltAddressInfoView extends GetView<CltAddressInfoController> {
                             return CustomDropdown(
                               prefixIcon: SvgPicture.asset(AppAsset.cityIcon),
                               items: controller.mycityshipDataList,
-                              value: controller.ship_selectedCity.value,
+                              value: controller.shipSelectedCity.value,
                               lableText: 'City',
                               onChanged: (value) {
-                                controller.ship_selectedCity.value = value!;
+                                controller.shipSelectedCity.value = value!;
                                 controller.update();
                               },
                             );
@@ -375,9 +377,9 @@ class CltAddressInfoView extends GetView<CltAddressInfoController> {
                     builder: (CltAddressInfoController controller) {
                       return mybutton(
                         onTap: () {
-                          print("taped");
+                          debugPrint("taped");
 
-                          print("taped");
+                          debugPrint("taped");
 
                           if (formKey.currentState!.validate()) {
                             controller.submitProfileData(context);

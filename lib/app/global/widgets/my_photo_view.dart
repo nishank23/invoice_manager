@@ -6,13 +6,13 @@ import 'package:photo_view/photo_view.dart';
 class MyPhotoView extends StatefulWidget {
   final File imageUrl;
 
-  MyPhotoView({required this.imageUrl});
+  const MyPhotoView({super.key, required this.imageUrl});
 
   @override
-  _MyPhotoViewState createState() => _MyPhotoViewState();
+  MyPhotoViewState createState() => MyPhotoViewState();
 }
 
-class _MyPhotoViewState extends State<MyPhotoView> {
+class MyPhotoViewState extends State<MyPhotoView> {
 
   @override
   Widget build(BuildContext context) {

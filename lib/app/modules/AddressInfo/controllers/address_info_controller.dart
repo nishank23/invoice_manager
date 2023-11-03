@@ -1,7 +1,8 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 import 'dart:developer';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -11,42 +12,29 @@ import 'package:invoice_generator/app/modules/BusinessInfo/controllers/business_
 import 'package:material_dialogs/dialogs.dart';
 
 import '../../../../main.dart';
-import '../../../../services/Connectivity/networkClient.dart';
+import '../../../../services/Connectivity/network_client.dart';
 import '../../../global/constants/api_const.dart';
 import '../../../global/constants/app_asset.dart';
 import '../../../global/constants/app_color.dart';
 import '../../../global/constants/app_fonts.dart';
 import '../../../global/widgets/custom_dialog.dart';
-import '../../../global/widgets/myButton.dart';
+import '../../../global/widgets/my_button.dart';
 
 import 'package:path/path.dart' as path;
 
-import 'package:dio/dio.dart' as DIO;
-class AddressInfoController extends GetxController {
-  //TODO: Implement AddressInfoController
+import 'package:dio/dio.dart' as dio;
 
+class AddressInfoController extends GetxController {
   final count = 0.obs;
 
   bool isClient = false;
 
   @override
-  void onInit() {
-    super.onInit();
-
-  }
-
-  @override
   void onReady() {
     super.onReady();
-    ApiGetAllCountry(context: Get.context!);
+    apiGetAllCountry(context: Get.context!);
 
-    ApiGetAllShipCountry(context: Get.context!);
-
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
+    apiGetAllShipCountry(context: Get.context!);
   }
 
   Rx<TextEditingController> nameBillController = TextEditingController().obs;
@@ -84,12 +72,12 @@ class AddressInfoController extends GetxController {
   RxList<Map<String, dynamic>> mycityDataList = RxList<Map<String, dynamic>>();
 
   Rx<String?> selectedCity = Rx<String?>(null);
-  Rx<String?> selectedState =  Rx<String?>(null);
-  Rx<String?> selectedCountry =  Rx<String?>(null);
+  Rx<String?> selectedState = Rx<String?>(null);
+  Rx<String?> selectedCountry = Rx<String?>(null);
 
-  Rx<String?> ship_selectedCity =  Rx<String?>(null);
-  Rx<String?> ship_selectedState =  Rx<String?>(null);
-  Rx<String?> ship_selectedCountry =  Rx<String?>(null);
+  Rx<String?> shipSelectedCity = Rx<String?>(null);
+  Rx<String?> shipSelectedState = Rx<String?>(null);
+  Rx<String?> shipSelectedCountry = Rx<String?>(null);
 
   Map<String, dynamic> requestData = {};
   BusinessInfoController businesscntlr = Get.find();
@@ -103,7 +91,6 @@ class AddressInfoController extends GetxController {
       RxList<Map<String, dynamic>>();
 
   void submitProfileData(BuildContext context) {
-
     requestData['company'] = {
       'name': businesscntlr.companyNameController.value.text,
       'personName': businesscntlr.ownerNameController.value.text,
@@ -116,42 +103,42 @@ class AddressInfoController extends GetxController {
     };
     requestData['billingAddress'] = {
       'addressLine': addressBillController.value.text,
-      'city': selectedCity!.value,
-      'state': selectedState!.value,
-      'country': selectedCountry!.value,
-      'postalCode': zipBillController!.value.text,
+      'city': selectedCity.value,
+      'state': selectedState.value,
+      'country': selectedCountry.value,
+      'postalCode': zipBillController.value.text,
     };
     requestData['shippingAddress'] = {
       'addressLine': addressShipController.value.text,
-      'city': ship_selectedCity!.value,
-      'state': ship_selectedState!.value,
-      'country': ship_selectedCountry!.value,
-      'postalCode': zipShipController!.value.text,
+      'city': shipSelectedCity.value,
+      'state': shipSelectedState.value,
+      'country': shipSelectedCountry.value,
+      'postalCode': zipShipController.value.text,
     };
 
-    BusinessInfoController businessInfoController = Get.put(BusinessInfoController());
+    BusinessInfoController businessInfoController =
+        Get.put(BusinessInfoController());
 
-    var selectedphoto = businessInfoController.selectedPhoto==null?"":businessInfoController.selectedPhoto!.path;
+    var selectedphoto = businessInfoController.selectedPhoto == null
+        ? ""
+        : businessInfoController.selectedPhoto!.path;
 
-    ApiCallAddNewClient(context: context, requestBody: requestData,filepath: selectedphoto);
+    apiCallAddNewClient(
+        context: context, requestBody: requestData, filepath: selectedphoto);
   }
 
-  ApiCallAddNewClient(
+  apiCallAddNewClient(
       {required BuildContext context,
-      required Map<String, dynamic> requestBody,String? filepath}) async {
-
-
-    final form = DIO.FormData();
-
+      required Map<String, dynamic> requestBody,
+      String? filepath}) async {
+    final form = dio.FormData();
 
     if (filepath != null && filepath.isNotEmpty) {
-
-      final file = await DIO.MultipartFile.fromFile(
+      final file = await dio.MultipartFile.fromFile(
         filepath,
         filename: path.basename(filepath),
       );
       form.files.add(MapEntry('file', file));
-
     }
 
     requestBody.forEach((key, value) {
@@ -163,7 +150,6 @@ class AddressInfoController extends GetxController {
         form.fields.add(MapEntry<String, String>(key, jsonString));
       }
     });
-
 
     FocusScope.of(context).unfocus();
     app.resolve<CustomDialogs>().showCircularDialog(context);
@@ -186,7 +172,7 @@ class AddressInfoController extends GetxController {
         app.resolve<CustomDialogs>().hideCircularDialog(context);
 
         app.resolve<CustomDialogs>().getDialog(title: "Failed", desc: message);
-        print("error");
+        debugPrint("error");
       },
     );
   }
@@ -262,7 +248,7 @@ class AddressInfoController extends GetxController {
     );
   }
 
-  ApiGetAllCountry({required BuildContext context}) async {
+  apiGetAllCountry({required BuildContext context}) async {
     FocusScope.of(context).unfocus();
     app.resolve<CustomDialogs>().showCircularDialog(context);
     mycountryDataList.clear();
@@ -287,21 +273,17 @@ class AddressInfoController extends GetxController {
         }
         update();
         refresh();
-
-
-
       },
       failureCallback: (status, message) {
         app.resolve<CustomDialogs>().hideCircularDialog(context);
 
         app.resolve<CustomDialogs>().getDialog(title: "Failed", desc: message);
-        print("error");
+        debugPrint("error");
       },
     );
   }
 
-
-  ApiGetAllShipCountry({required BuildContext context}) async {
+  apiGetAllShipCountry({required BuildContext context}) async {
     FocusScope.of(context).unfocus();
     app.resolve<CustomDialogs>().showCircularDialog(context);
 
@@ -313,9 +295,9 @@ class AddressInfoController extends GetxController {
       headers: NetworkClient.getInstance.getAuthHeaders(),
       successCallback: (response, message) {
         app.resolve<CustomDialogs>().hideCircularDialog(context);
-        mycountryshipDataList.value.clear();
-        mystateshipDataList.value.clear();
-        mycityshipDataList.value.clear();
+        mycountryshipDataList.clear();
+        mystateshipDataList.clear();
+        mycityshipDataList.clear();
         List<dynamic> countryDataList = response['country_data'];
         for (var countryData in countryDataList) {
           Map<String, dynamic> dropdownItem = {
@@ -325,49 +307,35 @@ class AddressInfoController extends GetxController {
           mycountryshipDataList.add(dropdownItem);
         }
         update();
-
-
-
       },
       failureCallback: (status, message) {
         app.resolve<CustomDialogs>().hideCircularDialog(context);
 
         app.resolve<CustomDialogs>().getDialog(title: "Failed", desc: message);
-        print("error");
+        debugPrint("error");
       },
     );
   }
 
-
-  setSelectedCountry(String value){
-
-
-
-    selectedCountry!.value = value!;
+  setSelectedCountry(String value) {
+    selectedCountry.value = value;
     update();
 
-    ApiGetAllStates(
-        context: Get.context!,
-        countryId: int.parse(value.toString()));
+    apiGetAllStates(
+        context: Get.context!, countryId: int.parse(value.toString()));
   }
 
-
-  setSelectedState(String value){
-
-
-    selectedState!.value = value!;
+  setSelectedState(String value) {
+    selectedState.value = value;
     update();
 
-    ApiGetAllCity(
-        context: Get.context!,
-        stateId: int.parse(value.toString()));
+    apiGetAllCity(context: Get.context!, stateId: int.parse(value.toString()));
   }
 
-
-  ApiGetAllStates({required BuildContext context, int? countryId}) async {
+  apiGetAllStates({required BuildContext context, int? countryId}) async {
     app.resolve<CustomDialogs>().showCircularDialog(context);
-    mystateDataList.value.clear();
-    mycityDataList.value.clear();
+    mystateDataList.clear();
+    mycityDataList.clear();
     return NetworkClient.getInstance.callApi(
       context,
       baseURL,
@@ -376,8 +344,8 @@ class AddressInfoController extends GetxController {
       headers: NetworkClient.getInstance.getAuthHeaders(),
       successCallback: (response, message) {
         app.resolve<CustomDialogs>().hideCircularDialog(context);
-        mystateDataList.value.clear();
-        mycityDataList.value.clear();
+        mystateDataList.clear();
+        mycityDataList.clear();
         List<dynamic> statesDataList = response['states_data'];
 
         log(response.toString());
@@ -386,7 +354,6 @@ class AddressInfoController extends GetxController {
             'id': stateData['id'].toString(),
             'title': stateData['name'],
           };
-
 
           log(stateData.toString());
           mystateDataList.add(stItem);
@@ -398,16 +365,14 @@ class AddressInfoController extends GetxController {
         app.resolve<CustomDialogs>().hideCircularDialog(context);
 
         app.resolve<CustomDialogs>().getDialog(title: "Failed", desc: message);
-        print("error");
+        debugPrint("error");
       },
     );
   }
 
-  ApiGetAllShipStates(
-      {required BuildContext context, int? countryId}) async {
+  apiGetAllShipStates({required BuildContext context, int? countryId}) async {
     FocusScope.of(context).unfocus();
     app.resolve<CustomDialogs>().showCircularDialog(context);
-
 
     return NetworkClient.getInstance.callApi(
       context,
@@ -417,8 +382,8 @@ class AddressInfoController extends GetxController {
       headers: NetworkClient.getInstance.getAuthHeaders(),
       successCallback: (response, message) {
         app.resolve<CustomDialogs>().hideCircularDialog(context);
-        mystateshipDataList.value.clear();
-        mycityshipDataList.value.clear();
+        mystateshipDataList.clear();
+        mycityshipDataList.clear();
         List<dynamic> statesDataList = response['states_data'];
         for (var stateData in statesDataList) {
           Map<String, dynamic> dropdownItem = {
@@ -434,12 +399,12 @@ class AddressInfoController extends GetxController {
         app.resolve<CustomDialogs>().hideCircularDialog(context);
 
         app.resolve<CustomDialogs>().getDialog(title: "Failed", desc: message);
-        print("error");
+        debugPrint("error");
       },
     );
   }
 
-  ApiGetAllCity({required BuildContext context, int? stateId}) async {
+  apiGetAllCity({required BuildContext context, int? stateId}) async {
     app.resolve<CustomDialogs>().showCircularDialog(context);
 
     return NetworkClient.getInstance.callApi(
@@ -451,8 +416,7 @@ class AddressInfoController extends GetxController {
       successCallback: (response, message) {
         app.resolve<CustomDialogs>().hideCircularDialog(context);
 
-
-        mycityDataList.value.clear();
+        mycityDataList.clear();
 
         List<dynamic> statesDataList = response['city_data'];
         for (var stateData in statesDataList) {
@@ -469,12 +433,12 @@ class AddressInfoController extends GetxController {
         app.resolve<CustomDialogs>().hideCircularDialog(context);
 
         app.resolve<CustomDialogs>().getDialog(title: "Failed", desc: message);
-        print("error");
+        debugPrint("error");
       },
     );
   }
 
-  ApiGetAllShipCity({required BuildContext context, int? stateId}) async {
+  apiGetAllShipCity({required BuildContext context, int? stateId}) async {
     app.resolve<CustomDialogs>().showCircularDialog(context);
 
     return NetworkClient.getInstance.callApi(
@@ -485,7 +449,7 @@ class AddressInfoController extends GetxController {
       headers: NetworkClient.getInstance.getAuthHeaders(),
       successCallback: (response, message) {
         app.resolve<CustomDialogs>().hideCircularDialog(context);
-        mycityshipDataList.value.clear();
+        mycityshipDataList.clear();
 
         List<dynamic> statesDataList = response['city_data'];
         for (var stateData in statesDataList) {
@@ -502,7 +466,7 @@ class AddressInfoController extends GetxController {
         app.resolve<CustomDialogs>().hideCircularDialog(context);
 
         app.resolve<CustomDialogs>().getDialog(title: "Failed", desc: message);
-        print("error");
+        debugPrint("error");
       },
     );
   }

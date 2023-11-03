@@ -7,8 +7,8 @@ import '../constants/app_fonts.dart';
 
 class CustomDropdown extends StatefulWidget {
   final double height;
-  final double Vertical;
-  final double Horizontal;
+  final double vertical;
+  final double horizontal;
   final List<Map<String, dynamic>> items;
   final String? value;
   final String lableText;
@@ -20,8 +20,8 @@ class CustomDropdown extends StatefulWidget {
   const CustomDropdown({
     super.key,
     this.height = 53,
-    this.Vertical = 0,
-    this.Horizontal = 0,
+    this.vertical = 0,
+    this.horizontal = 0,
     required this.items,
     required this.value,
     required this.lableText,
@@ -59,7 +59,7 @@ class CustomDropdownState extends State<CustomDropdown> {
               validator: widget.onValidator,
               decoration: InputDecoration(
                 filled: true,
-                prefixIconConstraints: BoxConstraints(
+                prefixIconConstraints: const BoxConstraints(
                   minWidth: 40,
                   minHeight: 25,
                 ),

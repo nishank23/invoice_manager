@@ -77,7 +77,7 @@ class AddNewClientView extends GetView<AddNewClientController> {
                       labelStyle: text500_16black,
                       unselectedLabelColor: AppColor.hintTextGrey.withOpacity(.6),
                       controller: controller.tabController,
-                      tabs: controller.myTabs.value,
+                      tabs: controller.myTabs,
                       onTap: (int index) => onTap(index),
                       labelColor: AppColor.darkGrey,
                       indicatorColor: AppColor.primaryBlue,

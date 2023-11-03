@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:invoice_generator/app/global/widgets/TitleWidget.dart';
-import 'package:invoice_generator/app/global/widgets/myButton.dart';
+import 'package:invoice_generator/app/global/widgets/title_widget.dart';
+import 'package:invoice_generator/app/global/widgets/my_button.dart';
 
 import '../../../global/constants/app_color.dart';
 import '../../../global/widgets/mytextfiled.dart';
 import '../controllers/bank_info_controller.dart';
 
 class BankInfoView extends GetView<BankInfoController> {
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   BankInfoView({Key? key}) : super(key: key);
 

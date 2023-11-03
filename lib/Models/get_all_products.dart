@@ -1,6 +1,8 @@
 /// success : true
 /// productData : [{"_id":"64a80e4bc7c08d1159ad34ed","name":"dfddf","price":12322,"is_added":false,"currencySymbol":"₹","productCurrency":"INR","description":"dsadsadsad","images":["public/uploads/product/admin-images-1688735307218.octet-stream","public/uploads/product/admin-images-1688735307218.octet-stream"],"userId":"64981bb79c08770d6ef228b7","createdAt":"2023-07-07T13:08:27.224Z","updatedAt":"2023-07-07T13:08:27.224Z","__v":0}]
 
+// ignore_for_file: unnecessary_getters_setters
+
 class GetAllProducts {
   GetAllProducts({
     bool? success,

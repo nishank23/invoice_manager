@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:focus_detector/focus_detector.dart';
 import 'package:get/get.dart';
-import 'package:invoice_generator/app/global/widgets/myButton.dart';
+import 'package:invoice_generator/app/global/widgets/my_button.dart';
 import 'package:invoice_generator/app/global/widgets/mytextfiled.dart';
 
 import '../../../global/constants/api_const.dart';
@@ -26,7 +26,7 @@ class MyProductsView extends GetView<MyProductsController> {
       onWillPop: () {
         Get.offAllNamed(Routes.HOME);
         final bottomsheetController = Get.put(BottomsheetController());
-        bottomsheetController.selected_index.value = 0;
+        bottomsheetController.selectedIndex.value = 0;
         return Future.value(false);
       },
       child: Scaffold(
@@ -45,7 +45,7 @@ class MyProductsView extends GetView<MyProductsController> {
         extendBody: false,
         body: FocusDetector(
           onFocusGained: () {
-            controller.ApiGetAllProducts(context: context);
+            controller.apiGetAllProducts(context: context);
           },
           child: SafeArea(
             child: SizedBox(
@@ -109,7 +109,7 @@ class MyProductsView extends GetView<MyProductsController> {
                   Divider(
                     height: 20.h,
                   ),
-                  mySearchFiled(
+                  MySearchFiled(
                     texthint: "Search products...",
                     height: 56.h,
                     controller: controller.searchController,
@@ -124,7 +124,7 @@ class MyProductsView extends GetView<MyProductsController> {
                     child: Obx(
                       () => RefreshIndicator(
                         onRefresh: () {
-                          controller.ApiGetAllProducts(context: context);
+                          controller.apiGetAllProducts(context: context);
                           return Future.delayed(const Duration(seconds: 3));
                         },
                         child: ListView.separated(
@@ -202,8 +202,7 @@ class MyProductsView extends GetView<MyProductsController> {
                                         child: mybutton(
                                             height: 50.h,
                                             onTap: () {
-                                              Map<String, dynamic> myEdit =
-                                                  Map();
+                                              Map<String, dynamic> myEdit = {};
                                               myEdit["id"] = controller
                                                   .filteredList[i].id
                                                   .toString();
@@ -228,8 +227,8 @@ class MyProductsView extends GetView<MyProductsController> {
                                                   builder:
                                                       (BuildContext context) {
                                                     return AlertDialog(
-                                                      insetPadding: EdgeInsets.zero,
-
+                                                      insetPadding:
+                                                          EdgeInsets.zero,
                                                       shape:
                                                           RoundedRectangleBorder(
                                                         borderRadius:
@@ -239,9 +238,10 @@ class MyProductsView extends GetView<MyProductsController> {
                                                       actions: [
                                                         SizedBox(
                                                           width: MediaQuery.of(
-                                                                  context)
-                                                              .size
-                                                              .width*.8,
+                                                                      context)
+                                                                  .size
+                                                                  .width *
+                                                              .8,
                                                           child: Column(
                                                             children: [
                                                               Stack(
@@ -319,9 +319,9 @@ class MyProductsView extends GetView<MyProductsController> {
                                                                   Expanded(
                                                                       child: mybutton(
                                                                           onTap: () {
-                                                                            controller.ApiDeleteProduct(
+                                                                            controller.apiDeleteProduct(
                                                                                 context: context,
-                                                                                productId: controller.filteredList![i].id.toString());
+                                                                                productId: controller.filteredList[i].id.toString());
                                                                           },
                                                                           title: "Yes, Delete",
                                                                           textStyle: text400_14.copyWith(color: AppColor.white),

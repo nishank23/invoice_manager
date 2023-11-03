@@ -3,9 +3,9 @@ import 'package:get/get.dart';
 import 'package:invoice_generator/app/modules/CreateEstimated/est_add_client/controllers/est_add_client_controller.dart';
 
 import 'package:intl/intl.dart';
-import '../../../../../Models/estimatePreviewModel.dart';
-import '../../../../../Models/getAllProducts.dart';
-import '../../../../global/widgets/productPicker/AddProductBottomSheetController.dart';
+import '../../../../../Models/estimate_preview_model.dart';
+import '../../../../../Models/get_all_products.dart';
+import '../../../../global/widgets/productPicker/add_product_bottomsheet_controller.dart';
 import '../../controllers/create_estimated_controller.dart';
 
 class EstAddItemsController extends GetxController {
@@ -30,13 +30,15 @@ class EstAddItemsController extends GetxController {
 
   String get afterDiscountText {
     // Assuming you have the condition stored in some variable, e.g., isPercentageDiscount
-    if (myformattedDiscount == "%") {
+    if (myformattedDiscount.value == "%") {
       num discamt = subtotal - disamt;
       return discamt.toString();
       // Return the "%" sign when the discount is in percentage
     } else {
       // Calculate the discount amount and format it as a price with a thousand separator
-      double discountAmount = subtotal - double.parse(dscCntlr.text.trim().isEmpty ? "0" : dscCntlr.text.trim());
+      double discountAmount = subtotal -
+          double.parse(
+              dscCntlr.text.trim().isEmpty ? "0" : dscCntlr.text.trim());
       return discountAmount.toString();
     }
   }
@@ -60,7 +62,7 @@ class EstAddItemsController extends GetxController {
     String dsctext = dscCntlr.text.trim();
 
     if (dsctext.isEmpty) {
-      print("Discount value is empty.");
+      debugPrint("Discount value is empty.");
       // Handle the error here, e.g., show an error message to the user.
       return;
     }
@@ -70,7 +72,7 @@ class EstAddItemsController extends GetxController {
       update();
       refresh();
     } catch (e) {
-      print("Error while parsing discount value: $e");
+      debugPrint("Error while parsing discount value: $e");
       // Handle the error here, e.g., show an error message to the user.
     }
   }
@@ -93,8 +95,7 @@ class EstAddItemsController extends GetxController {
     String flat = "Flat (${addcontroller.selectedCurrency.value})";
     menuItems.add(flat);
     if (parentCon.id != null) {
-      onEditItems(parentCon.estimation.value!
-      );
+      onEditItems(parentCon.estimation.value!);
     }
 
     update();
@@ -102,7 +103,7 @@ class EstAddItemsController extends GetxController {
 
   onEditItems(Estimation est) async {
     final addProducts = Get.put(AddProductBottomSheetController());
-    print("myItemsEstimation${est.itemTotal}");
+    debugPrint("myItemsEstimation${est.itemTotal}");
 
     if (est.discountType == 0) {
       selectedDiscount.value = menuItems[0];
@@ -117,8 +118,8 @@ class EstAddItemsController extends GetxController {
       myaddedProductsList.add(ProductData(id: editpro.product!.id));
     }
 
-    List<ProductData>? products =
-        await addProducts.editProducts(context: Get.context!, myalreadyadded: myaddedProductsList);
+    List<ProductData>? products = await addProducts.editProducts(
+        context: Get.context!, myalreadyadded: myaddedProductsList);
 
     myaddedProductsList.clear();
 
@@ -139,7 +140,7 @@ class EstAddItemsController extends GetxController {
     getSubTotal();
     update();
     refresh();
-    print(myaddedProductsList);
+    debugPrint("$myaddedProductsList");
   }
 
   @override
@@ -149,7 +150,8 @@ class EstAddItemsController extends GetxController {
   }
 
   String extractedValue(String text) {
-    final RegExp regExp = RegExp(r'\((.*?)\)'); // Matches the value inside parentheses
+    final RegExp regExp =
+        RegExp(r'\((.*?)\)'); // Matches the value inside parentheses
     final match = regExp.firstMatch(text);
     if (match != null && match.groupCount >= 1) {
       return match.group(1) ?? '';
@@ -163,7 +165,8 @@ class EstAddItemsController extends GetxController {
   Rx<String?> myformattedDiscount = "%".obs;
 
   Rx<TextEditingController> taxTypeController = TextEditingController().obs;
-  Rx<TextEditingController> taxPercentageController = TextEditingController().obs;
+  Rx<TextEditingController> taxPercentageController =
+      TextEditingController().obs;
 
   RxList myTextList = <Map<String, dynamic>>[].obs;
 }

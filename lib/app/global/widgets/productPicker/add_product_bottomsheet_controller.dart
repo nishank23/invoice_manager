@@ -1,16 +1,14 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:invoice_generator/Models/getAllCountry.dart';
-import 'package:invoice_generator/Models/getAllProducts.dart';
+import 'package:invoice_generator/Models/get_all_products.dart';
 import 'package:invoice_generator/app/global/constants/app_asset.dart';
 import 'package:invoice_generator/app/global/widgets/mytextfiled.dart';
 
 import '../../../../main.dart';
-import '../../../../services/Connectivity/networkClient.dart';
+import '../../../../services/Connectivity/network_client.dart';
 import '../../constants/api_const.dart';
 import '../../constants/app_color.dart';
 import '../../constants/app_fonts.dart';
@@ -23,20 +21,12 @@ class AddProductBottomSheetController extends GetxController {
   final RxList<ProductData> addedProductsList = <ProductData>[].obs;
 
   @override
-  void onInit() {
-    super.onInit();
-/*
-    GetProductBottomSheett(context: Get.context!,myalreadyadded: null);
-*/
-  }
-
-  @override
   void onClose() {
     searchController.dispose();
     super.onClose();
   }
 
-  Future<List<ProductData>?> GetProductBottomSheett(
+  Future<List<ProductData>?> getProductBottomSheett(
       {required BuildContext context,
       required List<ProductData>? myalreadyadded}) async {
     FocusScope.of(context).unfocus();
@@ -53,7 +43,7 @@ class AddProductBottomSheetController extends GetxController {
         GetAllProducts allProducts = GetAllProducts.fromJson(response);
         productData.value = allProducts.productData!;
 
-        for (int i = 0; i < productData.value.length; i++) {
+        for (int i = 0; i < productData.length; i++) {
           for (int j = 0; j < myalreadyadded!.length; j++) {
             if (productData[i].id == myalreadyadded[j].id) {
               productData[i].sisAdded = true;
@@ -62,7 +52,7 @@ class AddProductBottomSheetController extends GetxController {
         }
 
         final addedProducts =
-            await showCountryModelBottomSheet(context, productData.value);
+            await showCountryModelBottomSheet(context, productData);
 
         completer.complete(addedProducts);
       },
@@ -70,7 +60,7 @@ class AddProductBottomSheetController extends GetxController {
         app.resolve<CustomDialogs>().hideCircularDialog(context);
 
         app.resolve<CustomDialogs>().getDialog(title: "Failed", desc: message);
-        print("error");
+        debugPrint("error");
         completer.complete(null);
       },
     );
@@ -94,7 +84,7 @@ class AddProductBottomSheetController extends GetxController {
         GetAllProducts allProducts = GetAllProducts.fromJson(response);
         productData.value = allProducts.productData!;
 
-        for (int i = 0; i < productData.value.length; i++) {
+        for (int i = 0; i < productData.length; i++) {
           for (int j = 0; j < myalreadyadded!.length; j++) {
             if (productData[i].id == myalreadyadded[j].id) {
               productData[i].sisAdded = true;
@@ -169,7 +159,7 @@ class AddProductBottomSheetController extends GetxController {
                       ),
                     ),
                     SizedBox(height: 16.h),
-                    mySearchFiled(
+                    MySearchFiled(
                       texthint: "Search product...",
                       height: 56.h,
                       controller: searchController,
@@ -312,10 +302,8 @@ class AddProductBottomSheetController extends GetxController {
                                                                     .add(
                                                                         product);
 
-                                                                print("data" +
-                                                                    product
-                                                                        .isAdded
-                                                                        .toString());
+                                                                debugPrint(
+                                                                    "data${product.isAdded}");
                                                                 controller
                                                                     .update();
                                                                 controller
@@ -373,11 +361,11 @@ class AddProductBottomSheetController extends GetxController {
                                                               controller
                                                                   .refresh();
 
-                                                              print(product
-                                                                  .isAdded);
+                                                              debugPrint(
+                                                                  "${product.isAdded}");
 
 /*
-                                                            print(addedProductsList.length);
+                                                            debugPrint(addedProductsList.length);
 */
                                                             },
                                                             child: Text(
@@ -416,8 +404,8 @@ class AddProductBottomSheetController extends GetxController {
         );
       },
     ).then((addedProducts) {
-      print(addedProductsList.value.length);
-      completer.complete(filteredProductData.value);
+      debugPrint("${addedProductsList.length}");
+      completer.complete(filteredProductData);
     });
 
     return completer.future;

@@ -2,34 +2,22 @@ import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:invoice_generator/Models/getAllClients.dart';
+import 'package:invoice_generator/Models/get_all_clients.dart';
 
 import '../../../../main.dart';
-import '../../../../services/Connectivity/networkClient.dart';
+import '../../../../services/Connectivity/network_client.dart';
 import '../../../global/constants/api_const.dart';
 import '../../../global/widgets/custom_dialog.dart';
 
 class ClientsController extends GetxController {
-  //TODO: Implement ClientsController
-
   final count = 0.obs;
   @override
   void onInit() {
-    ApiGetAllClients(context:Get.context!);
+    apiGetAllClients(context: Get.context!);
     super.onInit();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  Rx<TextEditingController> searchController =  TextEditingController().obs;
+  Rx<TextEditingController> searchController = TextEditingController().obs;
 
   RxBool isLoading = false.obs;
   RxList<ClientData> clientList = <ClientData>[].obs;
@@ -43,24 +31,21 @@ class ClientsController extends GetxController {
     } else {
       // Filter products based on search query
       final lowercaseQuery = searchQuery.toLowerCase();
-      filteredList.addAll(clientList.where(
-              (client) => client.company!.personName!.toLowerCase().contains(lowercaseQuery)));
+      filteredList.addAll(clientList.where((client) =>
+          client.company!.personName!.toLowerCase().contains(lowercaseQuery)));
     }
 
     update();
   }
 
-
-
-  ApiGetAllClients(
-      {required BuildContext context}) async {
+  apiGetAllClients({required BuildContext context}) async {
     FocusScope.of(context).unfocus();
-    clientList.value.clear();
+    clientList.clear();
     isLoading = true.obs;
     return NetworkClient.getInstance.callApi(
       context,
       baseURL,
-      "${ApiConstant.getAllClients}",
+      ApiConstant.getAllClients,
       MethodType.Get,
       headers: NetworkClient.getInstance.getAuthHeaders(),
       successCallback: (response, message) {
@@ -73,18 +58,11 @@ class ClientsController extends GetxController {
 
         searchController.value.clear();
         searchClients("");
-
       },
       failureCallback: (status, message) {
-
         app.resolve<CustomDialogs>().getDialog(title: "Failed", desc: message);
-        print("error");
+        debugPrint("error");
       },
     );
   }
-
-
-
-
-
 }

@@ -8,13 +8,13 @@ class AppAsset {
   //file path
   //png
 
-// TODO png --------------------------------------------------------------
+// png --------------------------------------------------------------
   static const loginBackground = "${pngImages}loginBackground.png";
   static const defaultProfileIcon = "${pngImages}defaultAppProfile.png";
   static const camera = "${pngImages}camera.png";
   static const gallery = "${pngImages}gallery.png";
 
-  // TODO svg --------------------------------------------------------------
+  //  svg --------------------------------------------------------------
   static const LoginBackGround = "${svgImages}loginBackGround.svg";
   static const ProfileCamera = "${svgImages}profileCamera.svg";
   static const LoginMan = "${svgImages}LoginMan.svg";
@@ -40,7 +40,7 @@ class AppAsset {
   static const sucessIcon = "${svgImages}sucessIcon.svg";
   static const downloadIcon = "${svgImages}download.svg";
   static const shareIcon = "${svgImages}share.svg";
-  static const printIcon = "${svgImages}print.svg";
+  static const printIcon = "${svgImages}debugPrint.svg";
   static const stateIcon = "${svgImages}stateicon.svg";
   static const countryIcon = "${svgImages}countryIcon.svg";
   static const cityIcon = "${svgImages}cityIcon.svg";
@@ -55,9 +55,9 @@ class AppAsset {
   static const Backup = "${svgImages}backupIc.svg";
   static const Restore = "${svgImages}Restore.svg";
 
-    //    SvgPicture.asset(AppAsset.Backup),
+  //    SvgPicture.asset(AppAsset.Backup),
 
-  // TODO gif --------------------------------------------------------------
+  // gif --------------------------------------------------------------
   static const onBoardingCoupan = "${gifImages}onBoardingCoupan.gif";
   static const successful = "${gifImages}successful.gif";
   static const Scratch_Success = "${gifImages}Scratch_Success.gif";

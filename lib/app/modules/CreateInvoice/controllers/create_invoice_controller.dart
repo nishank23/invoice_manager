@@ -6,7 +6,6 @@ import 'package:invoice_generator/app/modules/InvoiceAddSign/views/invoice_add_s
 import 'package:invoice_generator/app/modules/InvoiceAddress/views/invoice_address_view.dart';
 
 class CreateInvoiceController extends GetxController {
-  //TODO: Implement CreateInvoiceController
 
   final activeStep = 0.obs;
 

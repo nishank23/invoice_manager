@@ -2,23 +2,10 @@ import 'package:external_app_launcher/external_app_launcher.dart';
 import 'package:get/get.dart';
 
 class ConfirmationMailController extends GetxController {
-  //TODO: Implement ConfirmationMailController
 
   final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
-  }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
   openEmailApps() async {
     /*final Uri _url = Uri.parse('googlegmail://co?tf=0&to=&subject=&body=&cc=&bcc=&');
     if (!await launchUrl(_url)) {

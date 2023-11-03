@@ -5,8 +5,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:invoice_generator/app/global/widgets/TitleWidget.dart';
-import 'package:invoice_generator/app/global/widgets/myButton.dart';
+import 'package:invoice_generator/app/global/widgets/title_widget.dart';
+import 'package:invoice_generator/app/global/widgets/my_button.dart';
 
 import '../../../global/constants/api_const.dart';
 import '../../../global/constants/app_asset.dart';
@@ -634,7 +634,7 @@ class EstimatePreviewView extends GetView<EstimatePreviewController> {
                               height: 20.h,
                             ),
                             controller.estimation!.sign != null
-                                ? Container(
+                                ? SizedBox(
                                     width: 150,
                                     height: 100,
                                     child: Align(
@@ -719,7 +719,7 @@ class TicketClipper extends CustomClipper<Path> {
     final radius = size.height / 2;
 
     // Calculate the width of the ticket body
-    final ticketWidth = size.width - (2 * radius);
+    // final ticketWidth = size.width - (2 * radius);
 
     // Move to the starting point
     path.moveTo(radius, 0);

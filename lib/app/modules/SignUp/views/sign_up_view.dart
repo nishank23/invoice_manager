@@ -4,13 +4,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:invoice_generator/app/global/constants/app_asset.dart';
 import 'package:invoice_generator/app/global/constants/app_color.dart';
 import 'package:invoice_generator/app/global/constants/app_fonts.dart';
-import 'package:invoice_generator/app/global/widgets/myButton.dart';
+import 'package:invoice_generator/app/global/widgets/my_button.dart';
 import 'package:invoice_generator/app/global/widgets/mytextfiled.dart';
-import 'package:invoice_generator/app/routes/app_pages.dart';
 
 import '../../../global/constants/constants.dart';
 import '../controllers/sign_up_controller.dart';
@@ -46,11 +44,9 @@ class SignUpView extends GetView<SignUpController> {
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-
                         const SizedBox(
                           height: 8,
                         ),
-
                         Text.rich(
                           TextSpan(
                             text: 'Invoice ',
@@ -139,7 +135,8 @@ class SignUpView extends GetView<SignUpController> {
                                           color: AppColor.hintTextGrey
                                               .withOpacity(.3))),
                                   child: Row(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
                                     children: [
@@ -170,7 +167,8 @@ class SignUpView extends GetView<SignUpController> {
                                 Expanded(
                                   child: Container(
                                     height: 1.w,
-                                    color: AppColor.hintTextGrey.withOpacity(.3),
+                                    color:
+                                        AppColor.hintTextGrey.withOpacity(.3),
                                   ),
                                 ),
                                 Padding(
@@ -183,7 +181,8 @@ class SignUpView extends GetView<SignUpController> {
                                 Expanded(
                                   child: Container(
                                     height: 1.w,
-                                    color: AppColor.hintTextGrey.withOpacity(.3),
+                                    color:
+                                        AppColor.hintTextGrey.withOpacity(.3),
                                   ),
                                 ),
                               ],
@@ -221,10 +220,10 @@ class SignUpView extends GetView<SignUpController> {
                             controller: controller.passwordController.value,
                             obscureText: controller.isShow.value,
                             onValidator: (value) {
-                              String password =
-                                  controller.passwordController.value.text;
+                              /*  String password =
+                                  controller.passwordController.value.text; 
                               String confirmPassword =
-                                  controller.confirmPasswordController.value.text;
+                                  controller.confirmPasswordController.value.text;*/
 
                               if (value!.length < 8) {
                                 return "Must be at least 8 characters.";
@@ -304,7 +303,8 @@ class SignUpView extends GetView<SignUpController> {
                         mybutton(
                           title: "Sign Up",
                           onTap: () {
-                            String email = controller.emailController.value.text;
+                            String email =
+                                controller.emailController.value.text;
 
                             String password =
                                 controller.passwordController.value.text;
@@ -324,10 +324,9 @@ class SignUpView extends GetView<SignUpController> {
                             } else if (password != confirmPassword) {
                               // Password and confirm password fields do not match
                               Fluttertoast.showToast(
-                                  msg:
-                                      'Both password must match.');
+                                  msg: 'Both password must match.');
                             } else {
-                              controller.ApiSignUpEmail(
+                              controller.apiSignUpEmail(
                                   context: Get.context!,
                                   email: controller.emailController.value.text,
                                   password:
@@ -346,7 +345,8 @@ class SignUpView extends GetView<SignUpController> {
                                 Expanded(
                                   child: Container(
                                     height: 1.w,
-                                    color: AppColor.hintTextGrey.withOpacity(.3),
+                                    color:
+                                        AppColor.hintTextGrey.withOpacity(.3),
                                   ),
                                 ),
                                 Padding(
@@ -360,7 +360,8 @@ class SignUpView extends GetView<SignUpController> {
                                 Expanded(
                                   child: Container(
                                     height: 1.w,
-                                    color: AppColor.hintTextGrey.withOpacity(.3),
+                                    color:
+                                        AppColor.hintTextGrey.withOpacity(.3),
                                   ),
                                 ),
                               ],

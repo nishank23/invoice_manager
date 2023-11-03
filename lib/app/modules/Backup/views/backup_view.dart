@@ -1,13 +1,8 @@
 import 'package:floating_bubbles/floating_bubbles.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-import '../../../global/constants/app_asset.dart';
 import '../../../global/constants/app_color.dart';
-import '../../../global/constants/app_fonts.dart';
-import '../../../global/widgets/myButton.dart';
 import '../controllers/backup_controller.dart';
 
 class BackupView extends GetView<BackupController> {
@@ -19,7 +14,7 @@ class BackupView extends GetView<BackupController> {
 /*
         backgroundColor: Colors.grey,
 */
-        body:MyBubbles()); /*SafeArea(
+        body:myBubbles()); /*SafeArea(
             child: Column(
           children: [
 
@@ -153,7 +148,7 @@ class BackupView extends GetView<BackupController> {
         )));*/
   }
 
-  Stack MyBubbles() {
+  Stack myBubbles() {
     return Stack(children: [
       Positioned.fill(
         child: Container(
@@ -163,7 +158,7 @@ class BackupView extends GetView<BackupController> {
       Positioned.fill(
           child: FloatingBubbles.alwaysRepeating(
         noOfBubbles: 10,
-        colorsOfBubbles: [
+        colorsOfBubbles: const [
           AppColor.primaryBlue,
         ],
 
@@ -176,7 +171,7 @@ class BackupView extends GetView<BackupController> {
           child: FloatingBubbles.alwaysRepeating(
         noOfBubbles: 10,
 
-        colorsOfBubbles: [
+        colorsOfBubbles: const [
           AppColor.primaryBlue,
         ],
 

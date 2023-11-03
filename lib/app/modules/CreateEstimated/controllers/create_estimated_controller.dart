@@ -5,9 +5,9 @@ import 'package:get/get.dart';
 import 'package:invoice_generator/app/modules/CreateEstimated/est_add_items/views/est_add_items_view.dart';
 import 'package:invoice_generator/app/modules/CreateEstimated/est_add_sign/views/est_add_sign_view.dart';
 
-import '../../../../Models/estimatePreviewModel.dart';
+import '../../../../Models/estimate_preview_model.dart';
 import '../../../../main.dart';
-import '../../../../services/Connectivity/networkClient.dart';
+import '../../../../services/Connectivity/network_client.dart';
 import '../../../global/constants/api_const.dart';
 import '../../../global/widgets/custom_dialog.dart';
 import '../est_add_client/views/est_add_client_view.dart';
@@ -46,29 +46,21 @@ class CreateEstimatedController extends GetxController {
   ].obs;
 
   @override
-  void onInit() {
-    super.onInit();
-
-  }
-
-  @override
   void onReady() {
     super.onReady();
-    if(id!=null){
-      ApiEstimatePreview(context: Get.context!,estimateId: id);
-
-    }else{
-      ApiGetCurrEstimate(context: Get.context!);
-
+    if (id != null) {
+      apiEstimatePreview(context: Get.context!, estimateId: id);
+    } else {
+      apiGetCurrEstimate(context: Get.context!);
     }
   }
 
   EstimatePreviewModel? estimatePreviewModel;
-  Rx<Estimation?> estimation =  Rx<Estimation?>(null);
+  Rx<Estimation?> estimation = Rx<Estimation?>(null);
   Userprofile? userprofile;
 
-  ApiEstimatePreview(
-      {required BuildContext context,String? estimateId}) async {
+  apiEstimatePreview(
+      {required BuildContext context, String? estimateId}) async {
     FocusScope.of(context).unfocus();
     return NetworkClient.getInstance.callApi(
       context,
@@ -77,60 +69,47 @@ class CreateEstimatedController extends GetxController {
       MethodType.Get,
       headers: NetworkClient.getInstance.getAuthHeaders(),
       successCallback: (response, message) {
-
         estimatePreviewModel = EstimatePreviewModel.fromJson(response);
         log(response.toString());
 
         estimation.value = estimatePreviewModel!.estimation!;
-        estimateNo.value = estimation!.value!.estimationNo!;
-        userprofile = estimatePreviewModel!.userprofile!;/**/
+        estimateNo.value = estimation.value!.estimationNo!;
+        userprofile = estimatePreviewModel!.userprofile!; /**/
         update();
         refresh();
       },
       failureCallback: (status, message) {
-
         app.resolve<CustomDialogs>().getDialog(title: "Failed", desc: message);
-        print("error");
+        debugPrint("error");
       },
     );
   }
 
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
   RxString estimateNo = "".obs;
 
-
-  ApiGetCurrEstimate({required BuildContext context}) async {
+  apiGetCurrEstimate({required BuildContext context}) async {
     FocusScope.of(context).unfocus();
     app.resolve<CustomDialogs>().showCircularDialog(context);
     return NetworkClient.getInstance.callApi(
       context,
       baseURL,
-      "${ApiConstant.getCurrEst}",
+      ApiConstant.getCurrEst,
       MethodType.Get,
       headers: NetworkClient.getInstance.getAuthHeaders(),
       successCallback: (response, message) {
         app.resolve<CustomDialogs>().hideCircularDialog(context);
 
-        print(response["data"]);
-
-
+        debugPrint(response["data"]);
 
         estimateNo.value = response["data"]["estimationNo"];
-
 
         update();
       },
       failureCallback: (status, message) {
         app.resolve<CustomDialogs>().hideCircularDialog(context);
 
-        app.resolve<CustomDialogs>().getDialog(
-            title: "Failed", desc: message);
-        print("error");
+        app.resolve<CustomDialogs>().getDialog(title: "Failed", desc: message);
+        debugPrint("error");
       },
     );
   }

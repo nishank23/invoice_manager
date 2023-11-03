@@ -2,25 +2,35 @@ import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 Widget appChart() {
-  return SfCartesianChart(
-      primaryXAxis: CategoryAxis(),
-      primaryYAxis: NumericAxis(minimum: 0, maximum: 40, interval: 10),
-      series: <ChartSeries<ChartData, String>>[
-        ColumnSeries<ChartData, String>(
-            dataSource: data,
-            xValueMapper: (ChartData data, _) => data.x,
-            yValueMapper: (ChartData data, _) => data.y,
-            name: 'Gold',
-            color: const Color.fromRGBO(8, 142, 255, 1))
-      ]);
+  return SizedBox(
+    height: 100,
+    child: SfCartesianChart(
+        onMarkerRender: (markerArgs) {
+          if (markerArgs.pointIndex == data.length - 1) {
+            markerArgs.color = Colors.amber;
+            markerArgs.borderColor = Colors.amber;
+          }
+        },
+        primaryXAxis: CategoryAxis(isVisible: false),
+        primaryYAxis: NumericAxis(
+            /* minimum: 0, maximum: 40, interval: 10, */ isVisible: false),
+        series: <ChartSeries<ChartData, String>>[
+          LineSeries<ChartData, String>(
+              dataSource: data,
+              xValueMapper: (ChartData data, _) => data.x,
+              yValueMapper: (ChartData data, _) => data.y,
+              color: Colors.grey,
+              markerSettings: const MarkerSettings(isVisible: true))
+        ]),
+  );
 }
 
 List<ChartData> data = [
-  ChartData('CHN', 12),
-  ChartData('GER', 15),
-  ChartData('RUS', 30),
-  ChartData('BRZ', 6.4),
-  ChartData('IND', 14)
+  ChartData('CHN', 1),
+  ChartData('GER', 2),
+  ChartData('RUS', 5),
+  ChartData('BRZ', 4),
+  ChartData('IND', 7)
 ];
 TooltipBehavior tooltip = TooltipBehavior(enable: true);
 

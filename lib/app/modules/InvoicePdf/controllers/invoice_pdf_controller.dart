@@ -1,9 +1,7 @@
-import 'dart:typed_data';
 
 import 'package:get/get.dart';
 
 class InvoicePdfController extends GetxController {
-  //TODO: Implement InvoicePdfController
 
   final count = 0.obs;
 
@@ -25,15 +23,7 @@ class InvoicePdfController extends GetxController {
 
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
 
   void increment() => count.value++;
 }

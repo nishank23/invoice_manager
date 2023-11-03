@@ -6,10 +6,11 @@ import 'package:invoice_generator/app/global/constants/app_fonts.dart';
 
 import '../constants/app_asset.dart';
 
+// ignore: must_be_immutable
 class MyTextFiled extends StatefulWidget {
   final double height;
-  final double Vertical;
-  final double Horizontal;
+  final double vertical;
+  final double horizontal;
   final Color? textstyleColor;
   final TextEditingController? controller;
   final Widget? prefixIcon;
@@ -29,8 +30,8 @@ class MyTextFiled extends StatefulWidget {
   MyTextFiled(
       {Key? key,
       this.height = 53,
-      this.Vertical = 0,
-      this.Horizontal = 0,
+      this.vertical = 0,
+      this.horizontal = 0,
       this.textstyleColor,
       required this.controller,
       this.prefixIcon,
@@ -53,7 +54,7 @@ class MyTextFiled extends StatefulWidget {
 }
 
 class MyTextFiledState extends State<MyTextFiled> {
-  FocusNode _focusNode = FocusNode();
+  final FocusNode _focusNode = FocusNode();
   bool textEditHasFocus = false;
 
   @override
@@ -83,6 +84,7 @@ class MyTextFiledState extends State<MyTextFiled> {
   }
 
   bool onFocus = false;
+  // ignore: unused_field
   String? _errorMessage;
 
   @override
@@ -211,16 +213,17 @@ class MyTextFiledState extends State<MyTextFiled> {
 
 // ToDO=============================================    search filed   =============================================================================================================================================================
 
-class mySearchFiled extends StatefulWidget {
+// ignore: must_be_immutable
+class MySearchFiled extends StatefulWidget {
   final double height;
-  final double Vertical;
-  final double Horizontal;
+  final double vertical;
+  final double horizontal;
   final Color? textstyleColor;
   final TextEditingController controller;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
   final double? fontsize;
-  final texthint;
+  final String? texthint;
   final double radius;
   final bool readOnly;
   final bool obscureText;
@@ -231,11 +234,11 @@ class mySearchFiled extends StatefulWidget {
   final ValueChanged<String>? onChanged;
   FormFieldValidator? onValidator;
 
-  mySearchFiled({
+  MySearchFiled({
     super.key,
     required this.height,
-    this.Vertical = 0,
-    this.Horizontal = 0,
+    this.vertical = 0,
+    this.horizontal = 0,
     required this.texthint,
     this.textstyleColor,
     required this.controller,
@@ -254,10 +257,10 @@ class mySearchFiled extends StatefulWidget {
   });
 
   @override
-  State<mySearchFiled> createState() => _mySearchFiledState();
+  State<MySearchFiled> createState() => _MySearchFiledState();
 }
 
-class _mySearchFiledState extends State<mySearchFiled> {
+class _MySearchFiledState extends State<MySearchFiled> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(

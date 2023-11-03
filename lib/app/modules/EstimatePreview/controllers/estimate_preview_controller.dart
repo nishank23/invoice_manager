@@ -1,20 +1,16 @@
-import 'dart:convert';
-import 'dart:typed_data';
+
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:invoice_generator/Models/estimatePreviewModel.dart';
-import 'package:invoice_generator/app/modules/InvoicePdf/views/invoice_pdf_view.dart';
+import 'package:invoice_generator/Models/estimate_preview_model.dart';
 
 import '../../../../main.dart';
-import '../../../../services/Connectivity/networkClient.dart';
+import '../../../../services/Connectivity/network_client.dart';
 import '../../../global/constants/api_const.dart';
 import '../../../global/widgets/custom_dialog.dart';
-import '../../../routes/app_pages.dart';
 
 class EstimatePreviewController extends GetxController {
-  //TODO: Implement EstimatePreviewController
 
   final count = 0.obs;
   String? id;
@@ -23,36 +19,19 @@ class EstimatePreviewController extends GetxController {
     super.onInit();
 
     id = Get.arguments;
-    ApiEstimatePreview(context: Get.context!,estimateId: id);
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-
-
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
+    apiEstimatePreview(context: Get.context!, estimateId: id);
   }
 
   void increment() => count.value++;
 
   RxBool isLoading = false.obs;
 
-
-
-
-
-
   EstimatePreviewModel? estimatePreviewModel;
   Estimation? estimation;
   Userprofile? userprofile;
 
-  ApiEstimatePreview(
-      {required BuildContext context,String? estimateId}) async {
+  apiEstimatePreview(
+      {required BuildContext context, String? estimateId}) async {
     FocusScope.of(context).unfocus();
 
     isLoading = true.obs;
@@ -70,21 +49,18 @@ class EstimatePreviewController extends GetxController {
         estimation = estimatePreviewModel!.estimation!;
         userprofile = estimatePreviewModel!.userprofile!;
         update();
-
       },
       failureCallback: (status, message) {
         isLoading = false.obs;
 
         app.resolve<CustomDialogs>().getDialog(title: "Failed", desc: message);
-        print("error");
+        debugPrint("error");
       },
     );
   }
 
-
-
-ApiEstimatePdfView(
-      {required BuildContext context,String? estimateId}) async {
+  apiEstimatePdfView(
+      {required BuildContext context, String? estimateId}) async {
     FocusScope.of(context).unfocus();
     app.resolve<CustomDialogs>().showCircularDialog(context);
 
@@ -98,21 +74,16 @@ ApiEstimatePdfView(
         isLoading = false.obs;
         app.resolve<CustomDialogs>().hideCircularDialog(context);
 
-        Uint8List pdfData = Uint8List.fromList(utf8.encode(response));
-
-
+        // Uint8List pdfData = Uint8List.fromList(utf8.encode(response));
       },
       failureCallback: (status, message) {
         app.resolve<CustomDialogs>().hideCircularDialog(context);
 
         app.resolve<CustomDialogs>().getDialog(title: "Failed", desc: message);
-        print("error");
+        debugPrint("error");
       },
     );
   }
-
-
-
 
   String formatPriceWithThousandSeparator(String pricesymbol, num price) {
     NumberFormat numberFormat = NumberFormat.currency(

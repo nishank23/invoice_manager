@@ -2,17 +2,26 @@
 class Assets {
   Assets._();
 
-  static const String fontsSFProDisplayBold = 'assets/fonts/SF-Pro-Display-Bold.otf';
-  static const String fontsSFProDisplayHeavy = 'assets/fonts/SF-Pro-Display-Heavy.otf';
-  static const String fontsSFProDisplayLight = 'assets/fonts/SF-Pro-Display-Light.otf';
-  static const String fontsSFProDisplayMedium = 'assets/fonts/SF-Pro-Display-Medium.otf';
-  static const String fontsSFProDisplayRegular = 'assets/fonts/SF-Pro-Display-Regular.otf';
-  static const String fontsSFProDisplaySemibold = 'assets/fonts/SF-Pro-Display-Semibold.otf';
-  static const String fontsSFProDisplayUltralight = 'assets/fonts/SF-Pro-Display-Ultralight.otf';
+  static const String fontsSFProDisplayBold =
+      'assets/fonts/SF-Pro-Display-Bold.otf';
+  static const String fontsSFProDisplayHeavy =
+      'assets/fonts/SF-Pro-Display-Heavy.otf';
+  static const String fontsSFProDisplayLight =
+      'assets/fonts/SF-Pro-Display-Light.otf';
+  static const String fontsSFProDisplayMedium =
+      'assets/fonts/SF-Pro-Display-Medium.otf';
+  static const String fontsSFProDisplayRegular =
+      'assets/fonts/SF-Pro-Display-Regular.otf';
+  static const String fontsSFProDisplaySemibold =
+      'assets/fonts/SF-Pro-Display-Semibold.otf';
+  static const String fontsSFProDisplayUltralight =
+      'assets/fonts/SF-Pro-Display-Ultralight.otf';
   static const String pngCamera = 'assets/images/png/camera.png';
-  static const String pngDefaultAppProfile = 'assets/images/png/defaultAppProfile.png';
+  static const String pngDefaultAppProfile =
+      'assets/images/png/defaultAppProfile.png';
   static const String pngGallery = 'assets/images/png/gallery.png';
-  static const String pngLoginBackground = 'assets/images/png/loginBackground.png';
+  static const String pngLoginBackground =
+      'assets/images/png/loginBackground.png';
   static const String svgBackIcon = 'assets/images/svg/backIcon.svg';
   static const String svgBackupIc = 'assets/images/svg/backupIc.svg';
   static const String svgBackupIcon = 'assets/images/svg/backupIcon.svg';
@@ -21,7 +30,8 @@ class Assets {
   static const String svgCameraIcon = 'assets/images/svg/cameraIcon.svg';
   static const String svgCityIcon = 'assets/images/svg/cityIcon.svg';
   static const String svgClientIcon = 'assets/images/svg/clientIcon.svg';
-  static const String svgClientsPersonFillIcon = 'assets/images/svg/clientsPersonFillIcon.svg';
+  static const String svgClientsPersonFillIcon =
+      'assets/images/svg/clientsPersonFillIcon.svg';
   static const String svgCloseIcon = 'assets/images/svg/closeIcon.svg';
   static const String svgClosesign = 'assets/images/svg/closesign.svg';
   static const String svgCountryIcon = 'assets/images/svg/countryIcon.svg';
@@ -31,19 +41,22 @@ class Assets {
   static const String svgEstimatedIcon = 'assets/images/svg/estimatedIcon.svg';
   static const String svgFacebook = 'assets/images/svg/facebook.svg';
   static const String svgFilterIcon = 'assets/images/svg/filterIcon.svg';
-  static const String svgForgotPassBackground = 'assets/images/svg/forgotPassBackground.svg';
+  static const String svgForgotPassBackground =
+      'assets/images/svg/forgotPassBackground.svg';
   static const String svgGoogleicon = 'assets/images/svg/googleicon.svg';
   static const String svgHashIcon = 'assets/images/svg/hashIcon.svg';
   static const String svgInventoryIcon = 'assets/images/svg/inventoryIcon.svg';
   static const String svgInvoiceIcon = 'assets/images/svg/invoiceIcon.svg';
   static const String svgInvoicesIcon = 'assets/images/svg/InvoicesIcon.svg';
-  static const String svgLoginBackGround = 'assets/images/svg/loginBackGround.svg';
+  static const String svgLoginBackGround =
+      'assets/images/svg/loginBackGround.svg';
   static const String svgLoginMan = 'assets/images/svg/LoginMan.svg';
-  static const String svgMyProductsIcon = 'assets/images/svg/myProductsIcon.svg';
+  static const String svgMyProductsIcon =
+      'assets/images/svg/myProductsIcon.svg';
   static const String svgPasswordIcon = 'assets/images/svg/passwordIcon.svg';
   static const String svgPaymentsIcon = 'assets/images/svg/paymentsIcon.svg';
   static const String svgPersonIcon = 'assets/images/svg/personIcon.svg';
-  static const String svgPrint = 'assets/images/svg/print.svg';
+  static const String svgPrint = 'assets/images/svg/debugPrint.svg';
   static const String svgProfileCamera = 'assets/images/svg/profileCamera.svg';
   static const String svgRestore = 'assets/images/svg/Restore.svg';
   static const String svgSearchIcon = 'assets/images/svg/searchIcon.svg';
@@ -52,5 +65,4 @@ class Assets {
   static const String svgStateicon = 'assets/images/svg/stateicon.svg';
   static const String svgSucessIcon = 'assets/images/svg/sucessIcon.svg';
   static const String svgTotalClients = 'assets/images/svg/totalClients.svg';
-
 }

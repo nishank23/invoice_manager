@@ -1,4 +1,3 @@
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -9,11 +8,11 @@ import 'package:get/get.dart';
 import '../../../global/constants/app_asset.dart';
 import '../../../global/constants/app_color.dart';
 import '../../../global/constants/app_fonts.dart';
-import '../../../global/widgets/myButton.dart';
+import '../../../global/widgets/my_button.dart';
 import '../controllers/confirmation_register_controller.dart';
 
 class ConfirmationRegisterView extends GetView<ConfirmationRegisterController> {
-   ConfirmationRegisterView({Key? key}) : super(key: key);
+   const ConfirmationRegisterView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +70,7 @@ class ConfirmationRegisterView extends GetView<ConfirmationRegisterController> {
               "Skip,I’ll confirm later",
               style: text400_16grey.copyWith(color: const Color(0xff374253)),
             ),*/
-            Spacer(),
+            const Spacer(),
             /*SizedBox(
               height: 265.h,
             ),*/

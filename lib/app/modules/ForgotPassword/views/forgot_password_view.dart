@@ -10,8 +10,7 @@ import '../../../global/constants/app_asset.dart';
 import '../../../global/constants/app_color.dart';
 import '../../../global/constants/app_fonts.dart';
 import '../../../global/constants/constants.dart';
-import '../../../global/widgets/myButton.dart';
-import '../../../routes/app_pages.dart';
+import '../../../global/widgets/my_button.dart';
 import '../controllers/forgot_password_controller.dart';
 
 class ForgotPasswordView extends GetView<ForgotPasswordController> {
@@ -27,7 +26,6 @@ class ForgotPasswordView extends GetView<ForgotPasswordController> {
         body: Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.w),
           child: SafeArea(
-
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -40,7 +38,7 @@ class ForgotPasswordView extends GetView<ForgotPasswordController> {
                     GestureDetector(
                       onTap: () {
                         Get.back();
-                        print("hello");
+                        debugPrint("hello");
                       },
                       child: SizedBox(
                         child: SvgPicture.asset(AppAsset.backIcon),
@@ -100,7 +98,6 @@ class ForgotPasswordView extends GetView<ForgotPasswordController> {
                       } else {
                         return null;
                       }
-
                     },
                     prefixIcon: Icon(
                       Icons.mail_outline,
@@ -118,7 +115,7 @@ class ForgotPasswordView extends GetView<ForgotPasswordController> {
                     if (!Constant.validateEmail(email)) {
                       Fluttertoast.showToast(msg: 'Please enter valid email ');
                     } else {
-                      controller.ApiForgetPassword(
+                      controller.apiForgetPassword(
                           context: context, email: email);
                     }
                   },
@@ -162,10 +159,11 @@ class ForgotPasswordView extends GetView<ForgotPasswordController> {
                 mybutton(
                     onTap: () {
                       Get.back();
-                      print("hello");
+                      debugPrint("hello");
                     },
                     title: "Back to Log In",
-                    textStyle: text600_16white.copyWith(color: AppColor.darkGrey),
+                    textStyle:
+                        text600_16white.copyWith(color: AppColor.darkGrey),
                     backgroundColor: AppColor.white,
                     borderColor: AppColor.buttonGrey),
                 SizedBox(

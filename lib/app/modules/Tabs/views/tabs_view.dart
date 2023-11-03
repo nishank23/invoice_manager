@@ -26,7 +26,7 @@ class TabsView extends GetView<TabsController> {
         onWillPop: () {
           Get.offAllNamed(Routes.HOME);
           final bottomsheetController = Get.put(BottomsheetController());
-          bottomsheetController.selected_index.value = 0;
+          bottomsheetController.selectedIndex.value = 0;
           return Future.value(false);
         },
         child: SafeArea(
@@ -50,9 +50,10 @@ class TabsView extends GetView<TabsController> {
                               Get.offAllNamed(Routes.HOME);
                               final bottomsheetController =
                                   Get.put(BottomsheetController());
-                              bottomsheetController.selected_index.value = 0;
-                            }else{
-                              Fluttertoast.showToast(msg: "Please update your profile first");
+                              bottomsheetController.selectedIndex.value = 0;
+                            } else {
+                              Fluttertoast.showToast(
+                                  msg: "Please update your profile first");
                             }
                           },
                           child: Container(
@@ -117,7 +118,7 @@ class TabsView extends GetView<TabsController> {
                           unselectedLabelColor:
                               AppColor.hintTextGrey.withOpacity(.6),
                           controller: controller.tabController,
-                          tabs: controller.myTabs.value,
+                          tabs: controller.myTabs,
                           labelColor: AppColor.darkGrey,
                           indicatorColor: AppColor.primaryBlue,
                           dividerColor: Colors.brown,

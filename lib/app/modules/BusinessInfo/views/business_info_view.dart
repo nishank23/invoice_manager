@@ -1,10 +1,11 @@
+// ignore_for_file: deprecated_member_use
 
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:invoice_generator/app/global/widgets/myButton.dart';
+import 'package:invoice_generator/app/global/widgets/my_button.dart';
 import 'package:invoice_generator/app/global/widgets/mytextfiled.dart';
 import 'package:invoice_generator/app/modules/Tabs/controllers/tabs_controller.dart';
 
@@ -16,12 +17,12 @@ import '../controllers/business_info_controller.dart';
 
 class BusinessInfoView extends GetView<BusinessInfoController> {
   final bool isClient;
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
-    BusinessInfoView(this.isClient, {Key? key}) : super(key: key);
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  BusinessInfoView(this.isClient, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final focusNode = FocusNode();
+    // final focusNode = FocusNode();
     final TabsController ctabsController = Get.put(TabsController());
     Get.put(BusinessInfoController());
     return Scaffold(
@@ -54,50 +55,47 @@ class BusinessInfoView extends GetView<BusinessInfoController> {
                       ),
                     ),
                   ),
-                  GetBuilder<BusinessInfoController>(
-                    builder: (controller) {
-                      return Positioned(
-                        left: 5,
-                        top: 5,
-                        child: SizedBox(
-                          width: 80.w,
-                          height: 80.h,
-                          child:
-                          controller.profile_img!=null?Container(
-                            width: 80.w,
-                            height: 80.h,
-                            decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Colors.white,
-                            ),
-                            child: ClipOval(
-                              child: Image.network(
-                                ibaseURL+  controller.profile_img!,
-                                fit: BoxFit.fill,
-                              ),
-                            ),
-                          ):
-
-                          controller.selectedPhoto == null
-                              ? Image.asset(AppAsset.defaultProfileIcon)
-                              : Container(
-                                  width: 80.w,
-                                  height: 80.h,
-                                  decoration: const BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Colors.white,
-                                  ),
-                                  child: ClipOval(
-                                    child: Image.file(
-                                      controller.selectedPhoto!,
-                                      fit: BoxFit.fill,
-                                    ),
+                  GetBuilder<BusinessInfoController>(builder: (controller) {
+                    return Positioned(
+                      left: 5,
+                      top: 5,
+                      child: SizedBox(
+                        width: 80.w,
+                        height: 80.h,
+                        child: controller.profileImg != null
+                            ? Container(
+                                width: 80.w,
+                                height: 80.h,
+                                decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.white,
+                                ),
+                                child: ClipOval(
+                                  child: Image.network(
+                                    ibaseURL + controller.profileImg!,
+                                    fit: BoxFit.fill,
                                   ),
                                 ),
-                        ),
-                      );
-                    }
-                  ),
+                              )
+                            : controller.selectedPhoto == null
+                                ? Image.asset(AppAsset.defaultProfileIcon)
+                                : Container(
+                                    width: 80.w,
+                                    height: 80.h,
+                                    decoration: const BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Colors.white,
+                                    ),
+                                    child: ClipOval(
+                                      child: Image.file(
+                                        controller.selectedPhoto!,
+                                        fit: BoxFit.fill,
+                                      ),
+                                    ),
+                                  ),
+                      ),
+                    );
+                  }),
                   Align(
                     alignment: Alignment.bottomCenter,
                     child: GestureDetector(

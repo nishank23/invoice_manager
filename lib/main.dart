@@ -1,5 +1,4 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -37,9 +36,9 @@ Future<void> main() async {
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
       overlays: [SystemUiOverlay.top]);
 
-  FirebaseMessaging messaging = FirebaseMessaging.instance;
+  /*FirebaseMessaging messaging = FirebaseMessaging.instance;
 
-  NotificationSettings settings = await messaging.requestPermission(
+   NotificationSettings settings = await messaging.requestPermission(
     alert: true,
     announcement: false,
     badge: true,
@@ -47,7 +46,7 @@ Future<void> main() async {
     criticalAlert: false,
     provisional: false,
     sound: true,
-  );
+  ); */
 
   await GetStorage.init();
 
@@ -87,7 +86,7 @@ class MyApp extends StatelessWidget {
             ),
             debugShowCheckedModeBanner: false,
             enableLog: true,
-            initialRoute: AppPages.INITIAL,
+            initialRoute: AppPages.initial,
             getPages: AppPages.routes,
           );
         },

@@ -2,7 +2,7 @@
 class AppString {
   static const String verificationId = "verificationId";
   static const String mobileNumber = "mobileNumber";
-  static const Id = "id";
+  static const id = "id";
   static const file = "file";
   static const title = "title";
   static const ministryappbar = "name";

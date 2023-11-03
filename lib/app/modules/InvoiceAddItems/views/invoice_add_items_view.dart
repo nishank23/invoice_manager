@@ -10,10 +10,9 @@ import 'package:get/get.dart';
 import '../../../global/constants/app_asset.dart';
 import '../../../global/constants/app_color.dart';
 import '../../../global/constants/app_fonts.dart';
-import '../../../global/widgets/TitleWidget.dart';
-import '../../../global/widgets/myButton.dart';
+import '../../../global/widgets/title_widget.dart';
+import '../../../global/widgets/my_button.dart';
 import '../../../global/widgets/mytextfiled.dart';
-import '../../../global/widgets/productPicker/AddProductBottomSheetController.dart';
 import '../../CreateEstimated/est_add_items/controllers/est_add_items_controller.dart';
 import '../../CreateInvoice/controllers/create_invoice_controller.dart';
 import '../../InvoiceAddClient/controllers/invoice_add_client_controller.dart';
@@ -23,10 +22,8 @@ class InvoiceAddItemsView extends GetView<InvoiceAddItemsController> {
   const InvoiceAddItemsView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    CreateInvoiceController myController =
-    Get.put(CreateInvoiceController());
-    EstAddItemsController controller =
-    Get.put(EstAddItemsController());
+    CreateInvoiceController myController = Get.put(CreateInvoiceController());
+    EstAddItemsController controller = Get.put(EstAddItemsController());
     return Scaffold(
         extendBody: true,
         backgroundColor: Colors.white,
@@ -245,8 +242,8 @@ class InvoiceAddItemsView extends GetView<InvoiceAddItemsController> {
                     },
                   );*/
 
-                  final addProducts =
-                  Get.put(AddProductBottomSheetController());
+                  /* final addProducts =
+                      Get.put(AddProductBottomSheetController()); */
 
                   // addProducts.GetProductBottomSheett(context: context);
                 },
@@ -313,7 +310,7 @@ class InvoiceAddItemsView extends GetView<InvoiceAddItemsController> {
                                 ),
                                 Row(
                                   mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
                                       '₹3,438',
@@ -332,7 +329,7 @@ class InvoiceAddItemsView extends GetView<InvoiceAddItemsController> {
                         Row(
                           children: [
                             Obx(
-                                  () => Row(
+                              () => Row(
                                 mainAxisSize: MainAxisSize.min,
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -450,8 +447,8 @@ class InvoiceAddItemsView extends GetView<InvoiceAddItemsController> {
                   );
                 },
                 separatorBuilder: (context, index) => SizedBox(
-                  height: 8.h,
-                ),
+                      height: 8.h,
+                    ),
                 itemCount: 5),
             myTitleWidget(title: "Total Paid Amount"),
             SizedBox(
@@ -466,7 +463,7 @@ class InvoiceAddItemsView extends GetView<InvoiceAddItemsController> {
                 ),
                 child: Container(
                   padding:
-                  EdgeInsets.symmetric(horizontal: 24.w, vertical: 18.h),
+                      EdgeInsets.symmetric(horizontal: 24.w, vertical: 18.h),
                   child: Column(children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -503,74 +500,88 @@ class InvoiceAddItemsView extends GetView<InvoiceAddItemsController> {
                                 ),
                                 child: Text('12', style: text400_16black),
                               ),
-                              Obx(() =>  PopupMenuButton<String>(
-                                  tooltip: "Show Discount",
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
-                                  position: PopupMenuPosition.under,
-                                  child: Container(
-                                    height: 35.h,
-                                    padding: EdgeInsets.all(8.r),
-                                    decoration: const ShapeDecoration(
-                                      color: Color(0x7F758090),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.only(
-                                          topRight: Radius.circular(5),
-                                          bottomRight: Radius.circular(5),
+                              Obx(
+                                () => PopupMenuButton<String>(
+                                    tooltip: "Show Discount",
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
+                                    position: PopupMenuPosition.under,
+                                    child: Container(
+                                      height: 35.h,
+                                      padding: EdgeInsets.all(8.r),
+                                      decoration: const ShapeDecoration(
+                                        color: Color(0x7F758090),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.only(
+                                            topRight: Radius.circular(5),
+                                            bottomRight: Radius.circular(5),
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    child: Row(crossAxisAlignment: CrossAxisAlignment.center,mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          controller.myformattedDiscount.value.toString(),
-                                          style: text600_16.copyWith(
-                                              color: Colors.black),
-                                        ),
-                                        // const Center(child: Icon(Icons.keyboard_arrow_down_outlined))
-                                      ],
-                                    ),
-                                  ),
-                                  itemBuilder: (context) {
-                                    return controller.menuItems
-                                        .map((String item) {
-                                      return PopupMenuItem<String>(
-
-                                        value: item,
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                            left: 6,
-                                            right: 6,
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            controller.myformattedDiscount.value
+                                                .toString(),
+                                            style: text600_16.copyWith(
+                                                color: Colors.black),
                                           ),
-                                          child: Row(
-                                            children: [
-                                              Text(item,style: TextStyle(
-                                                  color:  controller.selectedDiscount == item ? AppColor.primaryBlue : Colors.black
-                                              )),
-                                              const SizedBox(
-                                                width: 25,
-                                              ),
-                                              const Spacer(),
-                                              Icon(
-                                                size: 18,
-                                                controller.selectedDiscount == item
-                                                    ? Icons.check
-                                                    : null,
-                                                color: AppColor.primaryBlue,
-                                              ),
-                                            ],
+                                          // const Center(child: Icon(Icons.keyboard_arrow_down_outlined))
+                                        ],
+                                      ),
+                                    ),
+                                    itemBuilder: (context) {
+                                      return controller.menuItems
+                                          .map((String item) {
+                                        return PopupMenuItem<String>(
+                                          value: item,
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+                                              left: 6,
+                                              right: 6,
+                                            ),
+                                            child: Row(
+                                              children: [
+                                                Text(item,
+                                                    style: TextStyle(
+                                                        color: controller
+                                                                    .selectedDiscount.value ==
+                                                                item
+                                                            ? AppColor
+                                                                .primaryBlue
+                                                            : Colors.black)),
+                                                const SizedBox(
+                                                  width: 25,
+                                                ),
+                                                const Spacer(),
+                                                Icon(
+                                                  size: 18,
+                                                  controller.selectedDiscount.value ==
+                                                          item
+                                                      ? Icons.check
+                                                      : null,
+                                                  color: AppColor.primaryBlue,
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                      );
-                                    }).toList();
-                                  },
-                                  onSelected: (String selectedItem) {
-                                    controller.selectedDiscount.value = selectedItem;
-                                    controller.myformattedDiscount.value = controller.extractedValue(selectedItem);
+                                        );
+                                      }).toList();
+                                    },
+                                    onSelected: (String selectedItem) {
+                                      controller.selectedDiscount.value =
+                                          selectedItem;
+                                      controller.myformattedDiscount.value =
+                                          controller
+                                              .extractedValue(selectedItem);
 
-                                    controller.update();
-                                  }),
+                                      controller.update();
+                                    }),
                               ),
                             ],
                           ),
@@ -581,7 +592,7 @@ class InvoiceAddItemsView extends GetView<InvoiceAddItemsController> {
                       height: 24.h,
                     ),
                     Obx(
-                          () => ListView.separated(
+                      () => ListView.separated(
                         itemCount: controller.myTextList.length,
                         padding: EdgeInsets.zero,
                         shrinkWrap: true,
@@ -602,7 +613,7 @@ class InvoiceAddItemsView extends GetView<InvoiceAddItemsController> {
                                 width: 8,
                               ),
                               Text(
-                                  controller.myTextList.value[index]['taxType']
+                                  controller.myTextList[index]['taxType']
                                       .toString(),
                                   style: text400_16black),
                               SizedBox(
@@ -619,7 +630,7 @@ class InvoiceAddItemsView extends GetView<InvoiceAddItemsController> {
                                   children: [
                                     Text(
                                         controller
-                                            .myTextList.value[index]['taxValue']
+                                            .myTextList[index]['taxValue']
                                             .toString(),
                                         style: text400_16black),
                                     SizedBox(
@@ -662,7 +673,7 @@ class InvoiceAddItemsView extends GetView<InvoiceAddItemsController> {
                                 child: Column(children: [
                                   Row(
                                     mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       const SizedBox(
                                         width: 20,
@@ -686,7 +697,7 @@ class InvoiceAddItemsView extends GetView<InvoiceAddItemsController> {
                                   MyTextFiled(
                                     lableText: "TAX type",
                                     controller:
-                                    controller.taxTypeController.value,
+                                        controller.taxTypeController.value,
                                     prefixIcon: Transform.scale(
                                       scale: 30.h / 40.h,
                                       child: SvgPicture.asset(
@@ -725,9 +736,9 @@ class InvoiceAddItemsView extends GetView<InvoiceAddItemsController> {
                                         height: 37,
                                         child: Center(
                                             child: Text(
-                                              "%",
-                                              style: TextStyle(fontSize: 20),
-                                            ))),
+                                          "%",
+                                          style: TextStyle(fontSize: 20),
+                                        ))),
                                   ),
                                   const SizedBox(
                                     height: 16,
@@ -748,7 +759,7 @@ class InvoiceAddItemsView extends GetView<InvoiceAddItemsController> {
                                             textStyle: text400_16black,
                                             backgroundColor: Colors.white,
                                             borderColor:
-                                            const Color(0x4C97A1B1)),
+                                                const Color(0x4C97A1B1)),
                                       ),
                                       SizedBox(
                                         width: 8.w,
@@ -760,7 +771,7 @@ class InvoiceAddItemsView extends GetView<InvoiceAddItemsController> {
                                                     .value.text.isEmpty) {
                                                   Fluttertoast.showToast(
                                                       msg:
-                                                      "Please enter the TAX type");
+                                                          "Please enter the TAX type");
                                                 } else if (controller
                                                     .taxPercentageController
                                                     .value
@@ -768,7 +779,7 @@ class InvoiceAddItemsView extends GetView<InvoiceAddItemsController> {
                                                     .isEmpty) {
                                                   Fluttertoast.showToast(
                                                       msg:
-                                                      "Please enter the TAX of percentage");
+                                                          "Please enter the TAX of percentage");
                                                 } else {
                                                   controller.myTextList.add({
                                                     "taxType": controller
@@ -780,7 +791,7 @@ class InvoiceAddItemsView extends GetView<InvoiceAddItemsController> {
                                                         .value
                                                         .text
                                                   });
-                                                  print(
+                                                  debugPrint(
                                                       "=============================================");
                                                   Get.back();
                                                   controller
@@ -790,7 +801,8 @@ class InvoiceAddItemsView extends GetView<InvoiceAddItemsController> {
                                                       .taxPercentageController
                                                       .value
                                                       .clear();
-                                                  print(controller.myTextList);
+                                                  debugPrint(
+                                                      "${controller.myTextList}");
                                                 }
                                               },
                                               title: "Add"))
@@ -874,13 +886,12 @@ class InvoiceAddItemsView extends GetView<InvoiceAddItemsController> {
                 return mybutton(
                   onTap: () {
                     myController.updateActive(3);
-                    print("taped");
+                    debugPrint("taped");
                   },
                   title: "Next",
                 );
               },
             ),
-
           ]),
         ));
   }
