@@ -141,7 +141,6 @@ class BottomsheetController extends GetxController {
         width: 18.w,
       ),
       onTap: () {
-
         Get.offNamed(Routes.INVOICES);
 
         // showCurrencyPicker(

@@ -44,7 +44,8 @@ class CltAddressInfoView extends GetView<CltAddressInfoController> {
                         child: MyTextFiled(
                             lableText: "Person name",
                             controller: controller.nameBillController.value,
-                            prefixIcon: Icon(Icons.person_outline_rounded, color: AppColor.filedIcon, size: 22.25.w)),
+                            prefixIcon: Icon(Icons.person_outline_rounded,
+                                color: AppColor.filedIcon, size: 22.25.w)),
                       );
                     },
                   ),
@@ -181,7 +182,8 @@ class CltAddressInfoView extends GetView<CltAddressInfoController> {
                       SizedBox(
                         width: 24,
                         height: 24,
-                        child: GetBuilder<CltAddressInfoController>(builder: (controller) {
+                        child: GetBuilder<CltAddressInfoController>(
+                            builder: (controller) {
                           return Checkbox(
                             activeColor: AppColor.primaryBlue,
                             value: controller.isAddressSame,
@@ -217,9 +219,12 @@ class CltAddressInfoView extends GetView<CltAddressInfoController> {
                                 padding: EdgeInsets.only(bottom: 16.h),
                                 child: MyTextFiled(
                                     lableText: "Person name",
-                                    controller: controller.nameShipController.value,
-                                    prefixIcon:
-                                        Icon(Icons.person_outline_rounded, color: AppColor.filedIcon, size: 22.25.w)),
+                                    controller:
+                                        controller.nameShipController.value,
+                                    prefixIcon: Icon(
+                                        Icons.person_outline_rounded,
+                                        color: AppColor.filedIcon,
+                                        size: 22.25.w)),
                               );
                             },
                           ),
@@ -239,7 +244,8 @@ class CltAddressInfoView extends GetView<CltAddressInfoController> {
                                     }
                                     return null;
                                   },
-                                  controller: controller.mobileNumShipController.value,
+                                  controller:
+                                      controller.mobileNumShipController.value,
                                   prefixIcon: Transform.scale(
                                     scale: 17.h / 53.h,
                                     // Adjust the scale factor according to your desired size
@@ -255,7 +261,8 @@ class CltAddressInfoView extends GetView<CltAddressInfoController> {
                           GetBuilder<CltAddressInfoController>(
                             builder: (controller) {
                               return MyTextFiled(
-                                controller: controller.addressShipController.value,
+                                controller:
+                                    controller.addressShipController.value,
                                 lableText: "Address",
                                 height: 120.h,
                                 maxLines: 5,
@@ -272,9 +279,11 @@ class CltAddressInfoView extends GetView<CltAddressInfoController> {
                           SizedBox(
                             height: 20.h,
                           ),
-                          GetBuilder<CltAddressInfoController>(builder: (controller) {
+                          GetBuilder<CltAddressInfoController>(
+                              builder: (controller) {
                             return CustomDropdown(
-                              prefixIcon: SvgPicture.asset(AppAsset.countryIcon),
+                              prefixIcon:
+                                  SvgPicture.asset(AppAsset.countryIcon),
                               items: controller.mycountryshipDataList,
                               value: controller.ship_selectedCountry.value,
                               lableText: 'Country',
@@ -282,14 +291,16 @@ class CltAddressInfoView extends GetView<CltAddressInfoController> {
                                 controller.ship_selectedCountry.value = value!;
                                 controller.update();
                                 controller.ApiGetAllShipStates(
-                                    context: Get.context!, countryId: int.parse(value.toString()));
+                                    context: Get.context!,
+                                    countryId: int.parse(value.toString()));
                               },
                             );
                           }),
                           SizedBox(
                             height: 16.h,
                           ),
-                          GetBuilder<CltAddressInfoController>(builder: (controller) {
+                          GetBuilder<CltAddressInfoController>(
+                              builder: (controller) {
                             return CustomDropdown(
                               prefixIcon: SvgPicture.asset(AppAsset.stateIcon),
                               items: controller.mystateshipDataList,
@@ -301,14 +312,16 @@ class CltAddressInfoView extends GetView<CltAddressInfoController> {
                                 controller.update();
 
                                 controller.ApiGetAllShipCity(
-                                    context: Get.context!, stateId: int.parse(value.toString()));
+                                    context: Get.context!,
+                                    stateId: int.parse(value.toString()));
                               },
                             );
                           }),
                           SizedBox(
                             height: 16.h,
                           ),
-                          GetBuilder<CltAddressInfoController>(builder: (controller) {
+                          GetBuilder<CltAddressInfoController>(
+                              builder: (controller) {
                             return CustomDropdown(
                               prefixIcon: SvgPicture.asset(AppAsset.cityIcon),
                               items: controller.mycityshipDataList,
@@ -334,7 +347,8 @@ class CltAddressInfoView extends GetView<CltAddressInfoController> {
                                     return 'ZIP/Postal code cannot be empty';
                                   } else if (value.length < 6) {
                                     return 'ZIP/Postal code should be at least 6 digits';
-                                  } else if (value!.contains(RegExp(r'[^0-9]'))) {
+                                  } else if (value!
+                                      .contains(RegExp(r'[^0-9]'))) {
                                     return 'ZIP/Postal code should contain only numeric digits';
                                   }
                                   return null;

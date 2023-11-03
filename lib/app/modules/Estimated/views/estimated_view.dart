@@ -342,8 +342,11 @@ class EstimatedView extends GetView<EstimatedController> {
                                                               onTap: () {
                                                                 Get.back();
 
-                                                                Get.toNamed(Routes.CREATE_ESTIMATED,arguments:data.id);
-
+                                                                Get.toNamed(
+                                                                    Routes
+                                                                        .CREATE_ESTIMATED,
+                                                                    arguments:
+                                                                        data.id);
                                                               },
                                                               title: "Edit",
                                                               backgroundColor:

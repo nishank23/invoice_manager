@@ -49,6 +49,7 @@ class ApiConstant {
   static const getCurrEst = "curr-est";
 
   static const createEst = "create-est";
+  static const editEst="est";
   static const getEstByUser = "allest";
   static const getEstPreview = "get-est";
   static const getEstPdf = "estpreview";

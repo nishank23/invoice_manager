@@ -16,6 +16,7 @@ import 'package:invoice_generator/app/modules/CreateEstimated/est_add_client/con
 import '../../../../global/constants/app_color.dart';
 import '../../../../global/widgets/TitleWidget.dart';
 import '../../../../global/widgets/myButton.dart';
+import '../../controllers/create_estimated_controller.dart';
 import '../../est_add_items/controllers/est_add_items_controller.dart';
 import '../controllers/est_add_sign_controller.dart';
 
@@ -51,7 +52,9 @@ class EstAddSignView extends GetView<EstAddSignController> {
                 child: Container(
                   width: double.infinity,
                   height: 110.h,
-                  decoration: BoxDecoration(color: const Color(0xFFF8F9FA), borderRadius: BorderRadius.circular(18.r)),
+                  decoration: BoxDecoration(
+                      color: const Color(0xFFF8F9FA),
+                      borderRadius: BorderRadius.circular(18.r)),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -104,13 +107,16 @@ class EstAddSignView extends GetView<EstAddSignController> {
                                       controller.refresh();
                                     },
                                     child: Padding(
-                                        padding: const EdgeInsets.all(10), child: SvgPicture.asset(AppAsset.closeSign)),
+                                        padding: const EdgeInsets.all(10),
+                                        child: SvgPicture.asset(
+                                            AppAsset.closeSign)),
                                   ),
                                 ),
                                 Align(
                                   alignment: Alignment.center,
                                   child: Padding(
-                                      padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 40),
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 24, horizontal: 40),
                                       child: Container(
                                           color: Colors.white,
                                           width: double.infinity,
@@ -133,13 +139,17 @@ class EstAddSignView extends GetView<EstAddSignController> {
                       height: 150,
                       width: double.infinity,
                       decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey.withOpacity(0.5)),
+                          border:
+                              Border.all(color: Colors.grey.withOpacity(0.5)),
                           borderRadius: BorderRadius.circular(10)),
                       child: CachedNetworkImage(
                         fit: BoxFit.cover,
-                        imageUrl: "${controller.createEstimatedController.estimation.value?.sign}",
-                        placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-                        errorWidget: (context, url, error) => const Icon(Icons.error),
+                        imageUrl:
+                            "${controller.createEstimatedController.estimation.value?.sign}",
+                        placeholder: (context, url) =>
+                            const Center(child: CircularProgressIndicator()),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
                       ),
                     );
             }),
@@ -154,9 +164,12 @@ class EstAddSignView extends GetView<EstAddSignController> {
                     Map<String, dynamic> mydata = {};
                     List<Map<String, dynamic>> myproductlist = [];
                     List<Map<String, dynamic>> mytaxlist = [];
-                    EstAddClientController myClientController = Get.put(EstAddClientController());
-                    EstAddItemsController myItemsController = Get.put(EstAddItemsController());
-                    mydata["client"] = myClientController.selectedAddClient.value;
+                    EstAddClientController myClientController =
+                        Get.put(EstAddClientController());
+                    EstAddItemsController myItemsController =
+                        Get.put(EstAddItemsController());
+                    mydata["client"] =
+                        myClientController.selectedAddClient.value;
                     for (var data in myItemsController.myaddedProductsList) {
                       Map<String, dynamic> myproductData = {};
                       myproductData["product"] = data.id;
@@ -164,18 +177,24 @@ class EstAddSignView extends GetView<EstAddSignController> {
                       myproductlist.add(myproductData);
                     }
                     mydata["products"] = myproductlist;
-                    mydata["estimationDate"] = myClientController.selectedDate.toString();
-                    mydata["currency"] = myClientController.selectedCountry!.currencySymbol.toString();
-                    mydata["currencyId"] = myClientController.selectedCountry!.id.toString();
+                    mydata["estimationDate"] =
+                        myClientController.selectedDate.toString();
+                    mydata["currency"] = myClientController
+                        .selectedCountry!.currencySymbol
+                        .toString();
+                    mydata["currencyId"] =
+                        myClientController.selectedCountry!.id.toString();
 
                     mydata["itemTotal"] = myItemsController.subtotal.toString();
 
                     print("myitemsTotal${myItemsController.subtotal}");
 
-                    mydata["subTotal"] = myItemsController.afterDiscountText.toString();
+                    mydata["subTotal"] =
+                        myItemsController.afterDiscountText.toString();
 
                     if (myItemsController.myformattedDiscount.value == "%") {
-                      mydata["discount"] = myItemsController.dscCntlr.value.text;
+                      mydata["discount"] =
+                          myItemsController.dscCntlr.value.text;
                       mydata["discountType"] = "0";
                     } else {
                       mydata["discount"] = myItemsController.dscCntlr.text;
@@ -195,11 +214,21 @@ class EstAddSignView extends GetView<EstAddSignController> {
                     mydata["totalAmount"] = myItemsController.getFinalTotal;
 
                     print(jsonEncode(mydata));
-
-                    controller.ApiCreateEstimate(
-                        context: context,
-                        formData: mydata,
-                        filePaths: controller.selectedSign == null ? "" : controller.selectedSign!.path);
+                    String? id = Get.find<CreateEstimatedController>().id;
+                    id != null
+                        ? controller.ApiEditEstimate(
+                            context: context,
+                            id: id,
+                            formData: mydata,
+                            filePaths: controller.selectedSign == null
+                                ? ""
+                                : controller.selectedSign!.path)
+                        : controller.ApiCreateEstimate(
+                            context: context,
+                            formData: mydata,
+                            filePaths: controller.selectedSign == null
+                                ? ""
+                                : controller.selectedSign!.path);
                   },
                   title: "Submit",
                 );
