@@ -37,7 +37,8 @@ class AddProductBottomSheetController extends GetxController {
   }
 
   Future<List<ProductData>?> GetProductBottomSheett(
-      {required BuildContext context,required List <ProductData>? myalreadyadded}) async {
+      {required BuildContext context,
+      required List<ProductData>? myalreadyadded}) async {
     FocusScope.of(context).unfocus();
     productData.clear();
     Completer<List<ProductData>?> completer = Completer<List<ProductData>?>();
@@ -49,19 +50,16 @@ class AddProductBottomSheetController extends GetxController {
       MethodType.Get,
       headers: NetworkClient.getInstance.getAuthHeaders(),
       successCallback: (response, message) async {
-       GetAllProducts allProducts = GetAllProducts.fromJson(response);
+        GetAllProducts allProducts = GetAllProducts.fromJson(response);
         productData.value = allProducts.productData!;
 
-        for(int i =0 ;i<productData.value.length;i++){
-          for(int j =0;j<myalreadyadded!.length;j++){
-            if(productData[i].id==myalreadyadded[j].id){
-              productData[i].sisAdded=true;
-
+        for (int i = 0; i < productData.value.length; i++) {
+          for (int j = 0; j < myalreadyadded!.length; j++) {
+            if (productData[i].id == myalreadyadded[j].id) {
+              productData[i].sisAdded = true;
             }
           }
         }
-
-
 
         final addedProducts =
             await showCountryModelBottomSheet(context, productData.value);
@@ -79,12 +77,9 @@ class AddProductBottomSheetController extends GetxController {
     return completer.future;
   }
 
-
-
-
-
   Future<List<ProductData>?> editProducts(
-      {required BuildContext context,required List <ProductData>? myalreadyadded}) async {
+      {required BuildContext context,
+      required List<ProductData>? myalreadyadded}) async {
     FocusScope.of(context).unfocus();
     productData.clear();
     Completer<List<ProductData>?> completer = Completer<List<ProductData>?>();
@@ -96,29 +91,25 @@ class AddProductBottomSheetController extends GetxController {
       MethodType.Get,
       headers: NetworkClient.getInstance.getAuthHeaders(),
       successCallback: (response, message) async {
-       GetAllProducts allProducts = GetAllProducts.fromJson(response);
+        GetAllProducts allProducts = GetAllProducts.fromJson(response);
         productData.value = allProducts.productData!;
 
-        for(int i =0 ;i<productData.value.length;i++){
-          for(int j =0;j<myalreadyadded!.length;j++){
-            if(productData[i].id==myalreadyadded[j].id){
-              productData[i].sisAdded=true;
+        for (int i = 0; i < productData.value.length; i++) {
+          for (int j = 0; j < myalreadyadded!.length; j++) {
+            if (productData[i].id == myalreadyadded[j].id) {
+              productData[i].sisAdded = true;
             }
           }
         }
 
-       completer.complete(productData);
-
+        completer.complete(productData);
       },
       failureCallback: (status, message) {
-
         app.resolve<CustomDialogs>().getDialog(title: "Failed", desc: message);
         completer.complete(null);
-
       },
     );
     return completer.future;
-
   }
 
   void filterProduct(String query) {
@@ -162,228 +153,273 @@ class AddProductBottomSheetController extends GetxController {
             return Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.w),
               child: GetBuilder<AddProductBottomSheetController>(
-                builder: (controller) {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Center(
-                        child: Container(
-                          margin: EdgeInsets.only(top: 16.h),
-                          height: 3,
-                          width: 80,
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFD0D0D0),
-                            borderRadius: BorderRadius.circular(30.r),
-                          ),
+                  builder: (controller) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Center(
+                      child: Container(
+                        margin: EdgeInsets.only(top: 16.h),
+                        height: 3,
+                        width: 80,
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFD0D0D0),
+                          borderRadius: BorderRadius.circular(30.r),
                         ),
                       ),
-                      SizedBox(height: 16.h),
-                      mySearchFiled(
-                        texthint: "Search product...",
-                        height: 56.h,
-                        controller: searchController,
-                        onChanged: filterProduct,
-                      ),
-                      SizedBox(height: 15.h),
-                      Expanded(
-                        child: Obx(
-                          () => ListView.separated(
-                              shrinkWrap: true,
-                              itemBuilder: (context, index) {
-                                final product = filteredProductData[index];
+                    ),
+                    SizedBox(height: 16.h),
+                    mySearchFiled(
+                      texthint: "Search product...",
+                      height: 56.h,
+                      controller: searchController,
+                      onChanged: filterProduct,
+                    ),
+                    SizedBox(height: 15.h),
+                    Expanded(
+                      child: Obx(
+                        () => ListView.separated(
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              final product = filteredProductData[index];
 
+                              String? productImage;
 
+                              if (product.images!.isNotEmpty) {
+                                productImage = product.images![0];
+                              }
 
-                                  String? productImage;
-
-                                if (product.images!.isNotEmpty) {
-                                  productImage = product.images![0];
-                                }
-
-                                return Material(
-                                  color: AppColor.searchgrey,
-                                  borderRadius: BorderRadius.circular(20.r),
-                                  child: Container(
-                                    height: 95.h,
-                                    padding: const EdgeInsets.all(16),
-                                    color: Colors.transparent,
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        productImage != null
-                                            ? Container(
-                                                width: 45.w,
-                                                height: 60.h,
-                                                decoration: ShapeDecoration(
-                                                  image: DecorationImage(
-                                                    image: NetworkImage(ibaseURL +
-                                                        productImage.toString()),
-                                                    fit: BoxFit.fill,
-                                                  ),
-                                                  shape: RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(5)),
+                              return Material(
+                                color: AppColor.searchgrey,
+                                borderRadius: BorderRadius.circular(20.r),
+                                child: Container(
+                                  height: 95.h,
+                                  padding: const EdgeInsets.all(16),
+                                  color: Colors.transparent,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      productImage != null
+                                          ? Container(
+                                              width: 45.w,
+                                              height: 60.h,
+                                              decoration: ShapeDecoration(
+                                                image: DecorationImage(
+                                                  image: NetworkImage(ibaseURL +
+                                                      productImage.toString()),
+                                                  fit: BoxFit.fill,
                                                 ),
-                                              )
-                                            : Container(
-                                                width: 45.w,
-                                                height: 60.h,
-                                                decoration: ShapeDecoration(
-                                                  image: const DecorationImage(
-                                                    image: AssetImage(
-                                                        AppAsset.InvoicesIcon),
-                                                    fit: BoxFit.fill,
-                                                  ),
-                                                  shape: RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(5)),
-                                                ),
+                                                shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5)),
                                               ),
-                                        SizedBox(width: 8.w),
-                                        Expanded(
-                                          child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Padding(
-                                                padding: EdgeInsets.only(
-                                                    top: 6.h, bottom: 6.h),
-                                                child: Text(
-                                                  product.description.toString(),
-                                                  style: text400_14.copyWith(
-                                                      color: AppColor.productBlack),
-                                                  maxLines: 1,
-                                                  overflow: TextOverflow.ellipsis,
+                                            )
+                                          : Container(
+                                              width: 45.w,
+                                              height: 60.h,
+                                              decoration: ShapeDecoration(
+                                                image: const DecorationImage(
+                                                  image: AssetImage(
+                                                      AppAsset.InvoicesIcon),
+                                                  fit: BoxFit.fill,
                                                 ),
+                                                shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5)),
                                               ),
-                                              Expanded(
-                                                child: // Inside the ListView.separated builder
-                                                Row(
-                                                  children: [
-                                                    Text(
-                                                      product.productCurrency.toString() + product.price.toString(),
-                                                      textAlign: TextAlign.center,
-                                                      style: const TextStyle(
-                                                        color: Color(0xFF1D1B20),
-                                                        fontSize: 18,
-                                                        fontFamily: 'SF Pro Display',
-                                                        fontWeight: FontWeight.w500,
-                                                      ),
+                                            ),
+                                      SizedBox(width: 8.w),
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Padding(
+                                              padding: EdgeInsets.only(
+                                                  top: 6.h, bottom: 6.h),
+                                              child: Text(
+                                                product.description.toString(),
+                                                style: text400_14.copyWith(
+                                                    color:
+                                                        AppColor.productBlack),
+                                                maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                            ),
+                                            Expanded(
+                                              child: // Inside the ListView.separated builder
+                                                  Row(
+                                                children: [
+                                                  Text(
+                                                    product.productCurrency
+                                                            .toString() +
+                                                        product.price
+                                                            .toString(),
+                                                    textAlign: TextAlign.center,
+                                                    style: const TextStyle(
+                                                      color: Color(0xFF1D1B20),
+                                                      fontSize: 18,
+                                                      fontFamily:
+                                                          'SF Pro Display',
+                                                      fontWeight:
+                                                          FontWeight.w500,
                                                     ),
-                                                    const Spacer(),
-                                                    product.isAdded == null || product.isAdded == false
-                                                        ? SizedBox(
-                                                      width: 55.w,
-                                                      height: 30.h,
-                                                      child: OutlinedButton(
-                                                        style: OutlinedButton.styleFrom(
-                                                          foregroundColor: AppColor.primaryBlue,
-                                                          padding: EdgeInsets.zero,
-                                                          shape: RoundedRectangleBorder(
-                                                            borderRadius: BorderRadius.circular(5.r),
-                                                          ),
-                                                          side: const BorderSide(
-                                                            width: 0.50,
-                                                            color: Color(0x4C663CEF),
-                                                          ),
-                                                        ),
-                                                        onPressed: () {
-                                                          if (product.isAdded==null || product.isAdded ==false) {
-                                                            // Add the product
-                                                            product.sisAdded = true;
-                                                            addedProductsList.add(product);
+                                                  ),
+                                                  const Spacer(),
+                                                  product.isAdded == null ||
+                                                          product.isAdded ==
+                                                              false
+                                                      ? SizedBox(
+                                                          width: 55.w,
+                                                          height: 30.h,
+                                                          child: OutlinedButton(
+                                                            style:
+                                                                OutlinedButton
+                                                                    .styleFrom(
+                                                              foregroundColor:
+                                                                  AppColor
+                                                                      .primaryBlue,
+                                                              padding:
+                                                                  EdgeInsets
+                                                                      .zero,
+                                                              shape:
+                                                                  RoundedRectangleBorder(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            5.r),
+                                                              ),
+                                                              side:
+                                                                  const BorderSide(
+                                                                width: 0.50,
+                                                                color: Color(
+                                                                    0x4C663CEF),
+                                                              ),
+                                                            ),
+                                                            onPressed: () {
+                                                              if (product.isAdded ==
+                                                                      null ||
+                                                                  product.isAdded ==
+                                                                      false) {
+                                                                // Add the product
+                                                                product.sisAdded =
+                                                                    true;
+                                                                addedProductsList
+                                                                    .add(
+                                                                        product);
 
-
-                                                            print("data"+product.isAdded.toString());
-                                                            controller.update();
-                                                            controller.refresh();
-                                                          }
-                                                        },
-                                                        child: Text(
-                                                          'Add',
-                                                          style: text400_14.copyWith(color: AppColor.primaryBlue),
-                                                        ),
-                                                      ),
-                                                    )
-                                                        : SizedBox(
-                                                      width: 80.w,
-                                                      height: 30.h,
-                                                      child: OutlinedButton(
-                                                        style: OutlinedButton.styleFrom(
-                                                          foregroundColor: AppColor.productRemove,
-                                                          shadowColor: AppColor.productRemove,
-                                                          padding: EdgeInsets.zero,
-                                                          shape: RoundedRectangleBorder(
-                                                            borderRadius: BorderRadius.circular(5.r),
+                                                                print("data" +
+                                                                    product
+                                                                        .isAdded
+                                                                        .toString());
+                                                                controller
+                                                                    .update();
+                                                                controller
+                                                                    .refresh();
+                                                              }
+                                                            },
+                                                            child: Text(
+                                                              'Add',
+                                                              style: text400_14
+                                                                  .copyWith(
+                                                                      color: AppColor
+                                                                          .primaryBlue),
+                                                            ),
                                                           ),
-                                                          side: const BorderSide(
-                                                            width: 0.50,
-                                                            color: AppColor.productRemove,
-                                                          ),
-                                                        ),
-                                                        onPressed: () {
-
-                                                            // Remove the product
-                                                            product.sisAdded = null;
-
+                                                        )
+                                                      : SizedBox(
+                                                          width: 80.w,
+                                                          height: 30.h,
+                                                          child: OutlinedButton(
+                                                            style:
+                                                                OutlinedButton
+                                                                    .styleFrom(
+                                                              foregroundColor:
+                                                                  AppColor
+                                                                      .productRemove,
+                                                              shadowColor: AppColor
+                                                                  .productRemove,
+                                                              padding:
+                                                                  EdgeInsets
+                                                                      .zero,
+                                                              shape:
+                                                                  RoundedRectangleBorder(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            5.r),
+                                                              ),
+                                                              side:
+                                                                  const BorderSide(
+                                                                width: 0.50,
+                                                                color: AppColor
+                                                                    .productRemove,
+                                                              ),
+                                                            ),
+                                                            onPressed: () {
+                                                              // Remove the product
+                                                              product.sisAdded =
+                                                                  null;
 
 /*
                                                             addedProductsList.value.remove(product);
 */
-                                                            controller.update();
-                                                            controller.refresh();
+                                                              controller
+                                                                  .update();
+                                                              controller
+                                                                  .refresh();
 
-
-                                                            print(product.isAdded);
+                                                              print(product
+                                                                  .isAdded);
 
 /*
                                                             print(addedProductsList.length);
 */
-
-
-                                                        },
-                                                        child: Text(
-                                                          'Remove',
-                                                          style: text400_14.copyWith(color: AppColor.productRemove),
+                                                            },
+                                                            child: Text(
+                                                              'Remove',
+                                                              style: text400_14
+                                                                  .copyWith(
+                                                                      color: AppColor
+                                                                          .productRemove),
+                                                            ),
+                                                          ),
                                                         ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-
-                                              )
-                                            ],
-                                          ),
+                                                ],
+                                              ),
+                                            )
+                                          ],
                                         ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
-                                );
-                              },
-                              separatorBuilder: (context, index) {
-                                return SizedBox(
-                                  height: 15.h,
-                                );
-                              },
-                              itemCount: filteredProductData.length),
-                        ),
-                      )
-                    ],
-                  );
-                }
-              ),
+                                ),
+                              );
+                            },
+                            separatorBuilder: (context, index) {
+                              return SizedBox(
+                                height: 15.h,
+                              );
+                            },
+                            itemCount: filteredProductData.length),
+                      ),
+                    )
+                  ],
+                );
+              }),
             );
           },
         );
       },
     ).then((addedProducts) {
-
       print(addedProductsList.value.length);
       completer.complete(filteredProductData.value);
-
-
     });
 
-      return completer.future;
+    return completer.future;
   }
 }

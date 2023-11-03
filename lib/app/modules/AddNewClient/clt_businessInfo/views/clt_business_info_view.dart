@@ -115,7 +115,8 @@ class CltBusinessInfoView extends GetView<CltBusinessInfoController> {
                     }
                     return null;
                   },
-                  prefixIcon: Icon(Icons.apartment_outlined, color: AppColor.filedIcon, size: 22.25.w),
+                  prefixIcon: Icon(Icons.apartment_outlined,
+                      color: AppColor.filedIcon, size: 22.25.w),
                 );
               },
             ),
@@ -133,7 +134,8 @@ class CltBusinessInfoView extends GetView<CltBusinessInfoController> {
                     }
                     return null;
                   },
-                  prefixIcon: Icon(Icons.person_outline_rounded, color: AppColor.filedIcon, size: 22.25.w),
+                  prefixIcon: Icon(Icons.person_outline_rounded,
+                      color: AppColor.filedIcon, size: 22.25.w),
                 );
               },
             ),
@@ -148,7 +150,8 @@ class CltBusinessInfoView extends GetView<CltBusinessInfoController> {
                   maxLength: 10,
                   controller: controller.mobileNumberController.value,
                   onValidator: (value) {
-                    final mobileNumber = controller.alterMobileNumberController.value.text;
+                    final mobileNumber =
+                        controller.alterMobileNumberController.value.text;
                     if (value == mobileNumber) {
                       return "Mobile number should be different from the alternative mobile number";
                     } else if (value!.contains(RegExp(r'[^0-9]'))) {
@@ -179,11 +182,14 @@ class CltBusinessInfoView extends GetView<CltBusinessInfoController> {
                   maxLength: 10,
                   controller: controller.alterMobileNumberController.value,
                   onValidator: (value) {
-                    final mobileNumber = controller.mobileNumberController.value.text;
+                    final mobileNumber =
+                        controller.mobileNumberController.value.text;
 
                     if (value == mobileNumber) {
                       return "Alternative mobile number should be different from the mobile number";
-                    } else if (value!.isNotEmpty && (value.contains(RegExp(r'[^0-9]')) || value.length < 10)) {
+                    } else if (value!.isNotEmpty &&
+                        (value.contains(RegExp(r'[^0-9]')) ||
+                            value.length < 10)) {
                       return "Alternative mobile number must be at least 10 digits";
                     }
                     return null;
@@ -208,12 +214,15 @@ class CltBusinessInfoView extends GetView<CltBusinessInfoController> {
                   controller: controller.gstController.value,
                   maxLength: 15,
                   onValidator: (value) {
-                    if (value!.isNotEmpty && value.length < 15) {
+                    if (value.toString().isEmpty) {
+                      return "Please enter GST/TAX number";
+                    } else if (value.toString().length < 15) {
                       return "GST/TAX number must be at least 15 characters";
                     }
                     return null;
                   },
-                  prefixIcon: Icon(Icons.pin_outlined, color: AppColor.filedIcon, size: 22.25.w),
+                  prefixIcon: Icon(Icons.pin_outlined,
+                      color: AppColor.filedIcon, size: 22.25.w),
                 );
               },
             ),
@@ -226,12 +235,14 @@ class CltBusinessInfoView extends GetView<CltBusinessInfoController> {
                   lableText: "Business email",
                   controller: controller.businessEmailController.value,
                   onValidator: (value) {
-                    if (value!.toString().isEmpty && !GetUtils.isEmail(value.trim())) {
+                    if (value!.toString().isEmpty &&
+                        !GetUtils.isEmail(value.trim())) {
                       return "Please enter a valid email";
                     }
                     return null;
                   },
-                  prefixIcon: Icon(Icons.mail_outline, color: AppColor.filedIcon, size: 22.25.w),
+                  prefixIcon: Icon(Icons.mail_outline,
+                      color: AppColor.filedIcon, size: 22.25.w),
                 );
               },
             ),
@@ -244,12 +255,15 @@ class CltBusinessInfoView extends GetView<CltBusinessInfoController> {
                   lableText: "Business website",
                   controller: controller.businessWebsiteController.value,
                   onValidator: (value) {
-                    if (value!.isNotEmpty && !GetUtils.isURL(value.trim())) {
+                    if (value.isEmpty) {
+                      return "Please enter a website URL";
+                    } else if (!GetUtils.isURL(value.trim())) {
                       return "Please enter a valid website URL";
                     }
                     return null;
                   },
-                  prefixIcon: Icon(Icons.language_outlined, color: AppColor.filedIcon, size: 22.25.w),
+                  prefixIcon: Icon(Icons.language_outlined,
+                      color: AppColor.filedIcon, size: 22.25.w),
                 );
               },
             ),
@@ -263,7 +277,8 @@ class CltBusinessInfoView extends GetView<CltBusinessInfoController> {
                     AddNewClientController mycontroller = Get.find();
 
                     if (formKey.currentState!.validate()) {
-                      mycontroller.tabController!.animateTo(1, curve: Curves.easeInOutQuint);
+                      mycontroller.tabController!
+                          .animateTo(1, curve: Curves.easeInOutQuint);
                     }
 
                     // tabsController.screens[1];

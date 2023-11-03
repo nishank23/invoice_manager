@@ -59,7 +59,7 @@ class EstimatePreviewView extends GetView<EstimatePreviewController> {
                       ))
                 ],
               ).paddingSymmetric(horizontal: 20.w),
-              Divider(),
+              const Divider(),
               SizedBox(
                 height: 8.h,
               ),
@@ -68,7 +68,7 @@ class EstimatePreviewView extends GetView<EstimatePreviewController> {
                     ? Expanded(
                         child: ListView(
                           shrinkWrap: true,
-                          physics: BouncingScrollPhysics(),
+                          physics: const BouncingScrollPhysics(),
                           children: [
                             SizedBox(
                               height: 8.h,
@@ -214,16 +214,7 @@ class EstimatePreviewView extends GetView<EstimatePreviewController> {
                                       height: 8.h,
                                     ),
                                     Text(
-                                        controller.userprofile!.address!.state
-                                                .toString() +
-                                            "," +
-                                            controller
-                                                .userprofile!.address!.country
-                                                .toString() +
-                                            "-" +
-                                            controller.userprofile!.address!
-                                                .postalCode
-                                                .toString(),
+                                        "${controller.userprofile!.address!.state},${controller.userprofile!.address!.country}-${controller.userprofile!.address!.postalCode}",
                                         style: text400_16grey.copyWith(
                                             color: Colors.black)),
                                     SizedBox(
@@ -279,17 +270,7 @@ class EstimatePreviewView extends GetView<EstimatePreviewController> {
                                       height: 8.h,
                                     ),
                                     Text(
-                                        controller.estimation!.client!
-                                                .billingAddress!.state
-                                                .toString() +
-                                            "," +
-                                            controller.estimation!.client!
-                                                .billingAddress!.country
-                                                .toString() +
-                                            "-" +
-                                            controller.estimation!.client!
-                                                .billingAddress!.postalCode
-                                                .toString(),
+                                        "${controller.estimation!.client!.billingAddress!.state},${controller.estimation!.client!.billingAddress!.country}-${controller.estimation!.client!.billingAddress!.postalCode}",
                                         style: text400_16grey.copyWith(
                                             color: Colors.black)),
                                     SizedBox(
@@ -404,16 +385,8 @@ class EstimatePreviewView extends GetView<EstimatePreviewController> {
                                                               fontSize: 18),
                                                     ),
                                                     Text(
-                                                      data.quantity.toString() +
-                                                          "QTY. X" +
-                                                          controller.formatPriceWithThousandSeparator(
-                                                              data.product!
-                                                                  .currencySymbol
-                                                                  .toString(),
-                                                              data.product!
-                                                                  .price!) +
-                                                          " RATE",
-                                                      style: TextStyle(
+                                                      "${data.quantity}QTY. X${controller.formatPriceWithThousandSeparator(data.product!.currencySymbol.toString(), data.product!.price!)} RATE",
+                                                      style: const TextStyle(
                                                         color:
                                                             Color(0xFF758090),
                                                         fontSize: 13,
@@ -511,9 +484,15 @@ class EstimatePreviewView extends GetView<EstimatePreviewController> {
                                                         ? ((controller
                                                                     .estimation!
                                                                     .itemTotal! /
-                                                                controller
-                                                                    .estimation!
-                                                                    .discount!))
+                                                                num.parse(controller
+                                                                            .estimation
+                                                                            ?.discount !=
+                                                                        null
+                                                                    ? controller
+                                                                        .estimation!
+                                                                        .discount!
+                                                                        .toString()
+                                                                    : "0")))
                                                             .toStringAsFixed(2)
                                                         : controller.estimation!
                                                             .discount!
@@ -689,7 +668,7 @@ class EstimatePreviewView extends GetView<EstimatePreviewController> {
                                       ),
                                     ),
                                   )
-                                : SizedBox(),
+                                : const SizedBox(),
                             SizedBox(
                               height: 20.h,
                             ),
@@ -698,8 +677,8 @@ class EstimatePreviewView extends GetView<EstimatePreviewController> {
                               return mybutton(
                                   onTap: () {
                                     Get.toNamed(Routes.INVOICE_PDF, arguments: {
-                                      'pdfSite': baseURL +
-                                          "${ApiConstant.getEstPdf}/${controller.id}",
+                                      'pdfSite':
+                                          "$baseURL${ApiConstant.getEstPdf}/${controller.id}",
                                       'name': controller.estimation!.client!
                                           .company!.personName
                                     });
@@ -720,8 +699,8 @@ class EstimatePreviewView extends GetView<EstimatePreviewController> {
                           ],
                         ).paddingSymmetric(horizontal: 20.w),
                       )
-                    : Center(
-                        child: const CircularProgressIndicator(
+                    : const Center(
+                        child: CircularProgressIndicator(
                         color: AppColor.primaryBlue,
                       ));
               }),

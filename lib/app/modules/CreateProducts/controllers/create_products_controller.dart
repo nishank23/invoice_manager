@@ -22,7 +22,6 @@ class CreateProductsController extends GetxController {
   String title = "Create New Product";
   Map<String, dynamic> mymap = Get.arguments ?? Map();
 
-
   bool isEdit = false;
 
   @override
@@ -30,7 +29,7 @@ class CreateProductsController extends GetxController {
     super.onInit();
     if (mymap['isEdit'] != null && mymap['isEdit']) {
       mymap['isEdit'] ? title = "Edit Product" : "";
-      isEdit =true;
+      isEdit = true;
       ApiGetProduct(context: Get.context!, productId: mymap["id"]);
       refresh();
     }
@@ -127,7 +126,6 @@ class CreateProductsController extends GetxController {
       },
     );
   }
-
 
   ApiEditProduct(
       {required BuildContext context,

@@ -7,13 +7,12 @@ import 'package:invoice_generator/app/global/constants/app_color.dart';
 import 'package:invoice_generator/app/global/widgets/TitleWidget.dart';
 import 'package:invoice_generator/app/global/widgets/myButton.dart';
 import 'package:invoice_generator/app/modules/bottomsheet/views/bottomsheet_view.dart';
+import 'package:invoice_generator/app/modules/chart/app_chart.dart';
 
 import '../../global/constants/app_asset.dart';
 import '../../global/constants/app_fonts.dart';
 import '../../routes/app_pages.dart';
 import 'home_controller.dart';
-
-
 
 class HomeView extends GetView<HomeController> {
   const HomeView({Key? key}) : super(key: key);
@@ -33,7 +32,8 @@ class HomeView extends GetView<HomeController> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                InkWell(borderRadius: BorderRadius.circular(30.r),
+                InkWell(
+                  borderRadius: BorderRadius.circular(30.r),
                   onTap: () {
                     showModalBottomSheet(
                       enableDrag: true,
@@ -46,7 +46,6 @@ class HomeView extends GetView<HomeController> {
                       isScrollControlled: true,
                       isDismissible: true,
                       builder: (context) {
-
                         return const BottomsheetView();
                       },
                     );
@@ -72,9 +71,10 @@ class HomeView extends GetView<HomeController> {
                     ],
                   ),
                 ),
-                GestureDetector(onTap: () {
-                  Get.toNamed(Routes.ESTIMATE_PREVIEW);
-                },
+                GestureDetector(
+                  onTap: () {
+                    Get.toNamed(Routes.ESTIMATE_PREVIEW);
+                  },
                   child: SizedBox(
                     height: 46.h,
                     width: 46.h,
@@ -89,7 +89,8 @@ class HomeView extends GetView<HomeController> {
             Divider(
               height: 20.h,
             ),
-           myTitleWidget(title: "Dashboard").paddingSymmetric(horizontal: 20.w),
+            myTitleWidget(title: "Dashboard")
+                .paddingSymmetric(horizontal: 20.w),
             SizedBox(
               height: 20.h,
             ),
@@ -116,8 +117,8 @@ class HomeView extends GetView<HomeController> {
                               ),
                               Text(
                                 "Total Clients",
-                                style:
-                                    text600_16white.copyWith(color: Colors.black),
+                                style: text600_16white.copyWith(
+                                    color: Colors.black),
                               )
                             ],
                           ),
@@ -175,8 +176,8 @@ class HomeView extends GetView<HomeController> {
                               ),
                               Text(
                                 "Invoices",
-                                style:
-                                    text600_16white.copyWith(color: Colors.black),
+                                style: text600_16white.copyWith(
+                                    color: Colors.black),
                               )
                             ],
                           ),
@@ -208,7 +209,7 @@ class HomeView extends GetView<HomeController> {
                     )
                   ]),
             ).paddingSymmetric(horizontal: 20.w),
-          ],
+          ]
         ),
       ),
     );

@@ -21,7 +21,6 @@ late KiwiContainer app;
 GetStorage box = GetStorage();
 
 Future<void> main() async {
-
   setup();
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -31,14 +30,12 @@ Future<void> main() async {
   app = KiwiContainer();
   initFcm();
 
-
 /*
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
 */
 
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
       overlays: [SystemUiOverlay.top]);
-
 
   FirebaseMessaging messaging = FirebaseMessaging.instance;
 

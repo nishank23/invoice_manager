@@ -8,6 +8,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Response;
 import 'package:get_storage/get_storage.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 import '../../../app/routes/app_pages.dart';
 import '../../../main.dart';
@@ -92,6 +93,17 @@ class NetworkClient {
         dio.options.headers[key] = headers[key];
       }
     }
+    dio.interceptors.add(PrettyDioLogger());
+    dio.interceptors.add(PrettyDioLogger(
+        requestHeader: false,
+        requestBody: false,
+        responseBody: false,
+        request: false,
+        responseHeader: false,
+        error: true,
+        compact: false,
+        maxWidth: 15));
+
     switch (method) {
       case MethodType.Post:
         Response response =
@@ -179,8 +191,8 @@ class NetworkClient {
       case MethodType.Get:
         Response response =
             await dio.get(baseUrl + command, queryParameters: params);
-        // ignore: use_build_context_synchronously
         log(response.toString());
+        // ignore: use_build_context_synchronously
         parseResponse(context, response,
             successCallback: successCallback!,
             failureCallback: failureCallback!);
