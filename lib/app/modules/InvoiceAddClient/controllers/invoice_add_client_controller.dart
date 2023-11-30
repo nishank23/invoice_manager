@@ -23,15 +23,13 @@ class InvoiceAddClientController extends GetxController {
     super.onClose();
   }
 
-
-
   Future<void> pickCountry(BuildContext context) async {
-    final countryModelBottomSheetController = Get.put(
-        CountryModelBottomSheetController());
+    final countryModelBottomSheetController =
+        Get.put(CountryModelBottomSheetController());
 
-
-    final selectedCountry = await countryModelBottomSheetController
-        .GetCountryModelSheet(context: context);
+    final selectedCountry =
+        await countryModelBottomSheetController.GetCountryModelSheet(
+            context: context);
     if (selectedCountry != null) {
       // Handle the selected country
       print(selectedCountry.currency);
@@ -42,26 +40,30 @@ class InvoiceAddClientController extends GetxController {
 
       final addcontroller = Get.put(EstAddItemsController());
 
-      String myselectedSymbol = "Flat"+" ("+selectedCurrency.toString()+")";
+      String myselectedSymbol =
+          "Flat" + " (" + selectedCurrency.toString() + ")";
 
-      if(addcontroller.menuItems.length==1){
+      if (addcontroller.menuItems.length == 1) {
         addcontroller.menuItems.add(myselectedSymbol);
-
-      }else{
-        addcontroller.menuItems[1]=myselectedSymbol;
+      } else {
+        addcontroller.menuItems[1] = myselectedSymbol;
       }
 
       selectedCountryIcon = selectedCountry.emoji.toString();
 /*
       selectedCountryIcon = selectedCountry.currencySymbol.toString();
 */
-      currencyController.value.text =selectedCountry.currencySymbol.toString() +"  " +selectedCountry.currency.toString();
+      currencyController.value.text =
+          selectedCountry.currencySymbol.toString() +
+              "  " +
+              selectedCountry.currency.toString();
       update();
     }
   }
+
   Rx<String?> selectedCurrency = Rx<String?>(null);
   Rx<String?> selectedAddClient = Rx<String?>(null);
-  String? selectedCountryIcon ="🌐" ;
+  String? selectedCountryIcon = "🌐";
   DateTime? selectedInvoiceDate;
   DateTime? selectedDueDate;
 

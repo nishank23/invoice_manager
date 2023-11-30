@@ -8,7 +8,8 @@ import 'package:invoice_generator/app/modules/AddNewClient/clt_addressInfo/views
 import 'package:invoice_generator/app/modules/AddNewClient/clt_businessInfo/views/clt_business_info_view.dart';
 import 'package:invoice_generator/services/Connectivity/networkClient.dart';
 
-class AddNewClientController extends GetxController with SingleGetTickerProviderMixin {
+class AddNewClientController extends GetxController
+    with SingleGetTickerProviderMixin {
   TabController? tabController;
   Rx<ClientDataById?> clientById = Rxn<ClientDataById>(null);
   final count = 0.obs;
@@ -32,16 +33,23 @@ class AddNewClientController extends GetxController with SingleGetTickerProvider
   callApiForGetClientById({required BuildContext context, required String id}) {
     FocusScope.of(context).unfocus();
 
-    return NetworkClient.getInstance.callApi(context, baseURL, "${ApiConstant.getAllClients}/$id", MethodType.Get,
-        headers: NetworkClient.getInstance.getAuthHeaders(), successCallback: (response, message) async {
-      ClientDataByIdModel eventData = ClientDataByIdModel.fromJson(response);
-      clientById.value = eventData.clientDataById;
+    return NetworkClient.getInstance.callApi(
+      context,
+      baseURL,
+      "${ApiConstant.getAllClients}/$id",
+      MethodType.Get,
+      headers: NetworkClient.getInstance.getAuthHeaders(),
+      successCallback: (response, message) async {
+        ClientDataByIdModel eventData = ClientDataByIdModel.fromJson(response);
+        clientById.value = eventData.clientDataById;
 
-      hasData.value = true;
-      print("::::::::::::::::::::$response");
-    }, failureCallback: (status, message) {
-      hasData.value = true;
-    });
+        hasData.value = true;
+        print("::::::::::::::::::::$response");
+      },
+      failureCallback: (status, message) {
+        hasData.value = true;
+      },
+    );
   }
 
   @override

@@ -418,12 +418,7 @@ class EstimatedView extends GetView<EstimatedController> {
                                           Row(
                                             children: [
                                               Text(
-                                                  data.currency.toString() +
-                                                      " " +
-                                                      data.totalAmount!
-                                                          .abs()
-                                                          .toStringAsFixed(0) +
-                                                      " • ",
+                                                  "${data.currency} ${data.totalAmount!.abs().toStringAsFixed(0)} • ",
                                                   style: text600_16.copyWith(
                                                       color: Colors.black)),
                                               Text(

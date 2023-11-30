@@ -42,7 +42,10 @@ class CustomDialogs {
     );
   }
 
-  getDialogWithAction({String title = "Error", String desc = "Some Thing went wrong....", VoidCallback? onClick}) {
+  getDialogWithAction(
+      {String title = "Error",
+      String desc = "Some Thing went wrong....",
+      VoidCallback? onClick}) {
     return Get.defaultDialog(
       barrierDismissible: false,
       title: title,
@@ -96,5 +99,5 @@ class CircularDialog {
         );
       },
     );
-
-  }}
+  }
+}

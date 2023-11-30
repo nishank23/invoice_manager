@@ -15,7 +15,7 @@ class ClientsController extends GetxController {
   final count = 0.obs;
   @override
   void onInit() {
-    ApiGetAllClients(context:Get.context!);
+    ApiGetAllClients(context: Get.context!);
     super.onInit();
   }
 
@@ -29,7 +29,7 @@ class ClientsController extends GetxController {
     super.onClose();
   }
 
-  Rx<TextEditingController> searchController =  TextEditingController().obs;
+  Rx<TextEditingController> searchController = TextEditingController().obs;
 
   RxBool isLoading = false.obs;
   RxList<ClientData> clientList = <ClientData>[].obs;
@@ -43,18 +43,14 @@ class ClientsController extends GetxController {
     } else {
       // Filter products based on search query
       final lowercaseQuery = searchQuery.toLowerCase();
-      filteredList.addAll(clientList.where(
-              (client) => client.company!.personName!.toLowerCase().contains(lowercaseQuery)));
+      filteredList.addAll(clientList.where((client) =>
+          client.company!.personName!.toLowerCase().contains(lowercaseQuery)));
     }
 
     update();
   }
 
-
-
-  ApiGetAllClients(
-      {required BuildContext context}) async {
-    FocusScope.of(context).unfocus();
+  ApiGetAllClients({required BuildContext context}) async {
     clientList.value.clear();
     isLoading = true.obs;
     return NetworkClient.getInstance.callApi(
@@ -73,18 +69,33 @@ class ClientsController extends GetxController {
 
         searchController.value.clear();
         searchClients("");
-
       },
       failureCallback: (status, message) {
-
         app.resolve<CustomDialogs>().getDialog(title: "Failed", desc: message);
         print("error");
       },
     );
   }
 
-
-
-
-
+  apiDeleteClient({required BuildContext context, required String clientId}) {
+    FocusScope.of(context).unfocus();
+    isLoading = true.obs;
+    return NetworkClient.getInstance.callApi(
+      context,
+      baseURL,
+      '${ApiConstant.getAllClients}/$clientId',
+      MethodType.Delete,
+      headers: NetworkClient.getInstance.getAuthHeaders(),
+      successCallback: (response, message) {
+        isLoading = false.obs;
+        app.resolve<CustomDialogs>().getDialog(title: 'Success', desc: message);
+        log(response.toString());
+        ApiGetAllClients(context: context);
+      },
+      failureCallback: (message, statusCode) {
+        isLoading = false.obs;
+        app.resolve<CustomDialogs>().getDialog(title: "Failed", desc: message);
+      },
+    );
+  }
 }

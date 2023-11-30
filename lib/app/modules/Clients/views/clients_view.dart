@@ -274,7 +274,19 @@ class ClientsView extends GetView<ClientsController> {
                                                       ),
                                                       Expanded(
                                                           child: mybutton(
-                                                              onTap: () {},
+                                                              onTap: () {
+                                                                Get.back();
+                                                                controller
+                                                                    .apiDeleteClient(
+                                                                  clientId: controller
+                                                                      .filteredList[
+                                                                          index]
+                                                                      .id
+                                                                      .toString(),
+                                                                  context:
+                                                                      context,
+                                                                );
+                                                              },
                                                               title:
                                                                   "Yes, Delete",
                                                               textStyle: text400_14

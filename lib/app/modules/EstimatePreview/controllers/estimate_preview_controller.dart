@@ -23,14 +23,12 @@ class EstimatePreviewController extends GetxController {
     super.onInit();
 
     id = Get.arguments;
-    ApiEstimatePreview(context: Get.context!,estimateId: id);
+    ApiEstimatePreview(context: Get.context!, estimateId: id);
   }
 
   @override
   void onReady() {
     super.onReady();
-
-
   }
 
   @override
@@ -42,17 +40,12 @@ class EstimatePreviewController extends GetxController {
 
   RxBool isLoading = false.obs;
 
-
-
-
-
-
   EstimatePreviewModel? estimatePreviewModel;
   Estimation? estimation;
   Userprofile? userprofile;
 
   ApiEstimatePreview(
-      {required BuildContext context,String? estimateId}) async {
+      {required BuildContext context, String? estimateId}) async {
     FocusScope.of(context).unfocus();
 
     isLoading = true.obs;
@@ -70,7 +63,6 @@ class EstimatePreviewController extends GetxController {
         estimation = estimatePreviewModel!.estimation!;
         userprofile = estimatePreviewModel!.userprofile!;
         update();
-
       },
       failureCallback: (status, message) {
         isLoading = false.obs;
@@ -81,10 +73,8 @@ class EstimatePreviewController extends GetxController {
     );
   }
 
-
-
-ApiEstimatePdfView(
-      {required BuildContext context,String? estimateId}) async {
+  ApiEstimatePdfView(
+      {required BuildContext context, String? estimateId}) async {
     FocusScope.of(context).unfocus();
     app.resolve<CustomDialogs>().showCircularDialog(context);
 
@@ -99,8 +89,6 @@ ApiEstimatePdfView(
         app.resolve<CustomDialogs>().hideCircularDialog(context);
 
         Uint8List pdfData = Uint8List.fromList(utf8.encode(response));
-
-
       },
       failureCallback: (status, message) {
         app.resolve<CustomDialogs>().hideCircularDialog(context);
@@ -110,9 +98,6 @@ ApiEstimatePdfView(
       },
     );
   }
-
-
-
 
   String formatPriceWithThousandSeparator(String pricesymbol, num price) {
     NumberFormat numberFormat = NumberFormat.currency(

@@ -140,7 +140,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.BANK_INFO,
-      page: () =>  BankInfoView(),
+      page: () => BankInfoView(),
       binding: BankInfoBinding(),
     ),
     GetPage(
@@ -292,12 +292,12 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.CONFIRMATION_REGISTER,
-      page: () =>  ConfirmationRegisterView(),
+      page: () => ConfirmationRegisterView(),
       binding: ConfirmationRegisterBinding(),
     ),
     GetPage(
       name: _Paths.INVOICE_PDF,
-      page: () =>  InvoicePdfView(),
+      page: () => InvoicePdfView(),
       binding: InvoicePdfBinding(),
     ),
   ];
