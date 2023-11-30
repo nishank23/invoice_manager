@@ -169,13 +169,18 @@ class CltAddressInfoController extends GetxController {
       }
     });
 
+    AddNewClientController con = Get.find<AddNewClientController>();
+
+
+    Fluttertoast.showToast(msg: con.id.toString());
+
     FocusScope.of(context).unfocus();
     app.resolve<CustomDialogs>().showCircularDialog(context);
 
     return NetworkClient.getInstance.callApiForm(
       context,
       baseURL,
-      "${ApiConstant.createUpdateClient}/:clientId",
+      "${ApiConstant.createUpdateClient}/${con.id}",
       MethodType.Post,
       headers: NetworkClient.getInstance.getAuthHeaders(),
       params: form,
@@ -183,11 +188,10 @@ class CltAddressInfoController extends GetxController {
         app.resolve<CustomDialogs>().hideCircularDialog(context);
         showSuccessDialog(context, businesscntlr.companyNameController.value.text);
 
-        Fluttertoast.showToast(msg: "Client Added Successfully");
+        Fluttertoast.showToast(msg: response["message"]);
       },
       failureCallback: (status, message) {
         app.resolve<CustomDialogs>().hideCircularDialog(context);
-
         app.resolve<CustomDialogs>().getDialog(title: "Failed", desc: message);
       },
     );

@@ -38,7 +38,6 @@ class AddNewClientController extends GetxController with SingleGetTickerProvider
       clientById.value = eventData.clientDataById;
 
       hasData.value = true;
-      print("::::::::::::::::::::$response");
     }, failureCallback: (status, message) {
       hasData.value = true;
     });

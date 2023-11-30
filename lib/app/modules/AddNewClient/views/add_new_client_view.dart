@@ -45,11 +45,16 @@ class AddNewClientView extends GetView<AddNewClientController> {
                     ),
                   ),
                   Expanded(flex: 5,
-                    child: Center(
-                      child: Text(
-                        "Add New Client",
-                        style: text700_18,
-                      ),
+                    child: GetBuilder<AddNewClientController>(
+                      builder: (con) {
+                        return Center(
+                          child: Text(
+                            con.id != null ? "Edit Client" :
+                            "Add New Client",
+                            style: text700_18,
+                          ),
+                        );
+                      }
                     ),
                   ),
 
