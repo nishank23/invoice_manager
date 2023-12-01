@@ -19,6 +19,8 @@ import '../../../../global/widgets/ImagePickerDialog.dart';
 import '../../../../global/widgets/custom_dialog.dart';
 
 class EstAddSignController extends GetxController {
+
+
   CreateEstimatedController createEstimatedController =
       Get.put(CreateEstimatedController());
   final count = 0.obs;

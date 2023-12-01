@@ -47,7 +47,7 @@ class InvoicesController extends GetxController {
     return NetworkClient.getInstance.callApi(
       context,
       baseURL,
-      "${ApiConstant.getEstByUser}",
+      ApiConstant.getInvByUser,
       MethodType.Get,
       headers: NetworkClient.getInstance.getAuthHeaders(),
       successCallback: (response, message) {
@@ -56,7 +56,6 @@ class InvoicesController extends GetxController {
 */
         myEstimatelist.clear();
         isLoading =false.obs;
-
 
         GetAllEstimate getAllClients = GetAllEstimate.fromJson(response);
         myEstimatelist.value = getAllClients.data!;

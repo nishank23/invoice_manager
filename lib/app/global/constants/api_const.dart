@@ -53,4 +53,14 @@ class ApiConstant {
   static const getEstByUser = "allest";
   static const getEstPreview = "get-est";
   static const getEstPdf = "estpreview";
+
+
+  static const getCurrInv = "curr-inv";
+
+  static const createInv = "create-inv";
+  static const editInv="inv";
+  static const getInvByUser = "allinv";
+  static const getInvPreview = "get-inv";
+  static const getInvPdf = "invpreview";
+
 }

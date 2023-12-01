@@ -105,6 +105,7 @@ class CreateInvoiceController extends GetxController {
       MethodType.Get,
       headers: NetworkClient.getInstance.getAuthHeaders(),
       successCallback: (response, message) {
+
         app.resolve<CustomDialogs>().hideCircularDialog(context);
 
         print(response["data"]);

@@ -483,10 +483,6 @@ class InvoiceAddItemsView extends GetView<InvoiceAddItemsController> {
                     SizedBox(
                       height: 24.h,
                     ),
-
-                    SizedBox(
-                      height: 24.h,
-                    ),
                     controller.myformattedDiscount == "%"
                         ? Column(
                       children: [
