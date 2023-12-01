@@ -89,7 +89,7 @@ class EstAddItemsController extends GetxController {
   void onInit() {
     super.onInit();
 
-    final addcontroller = Get.put(InvoiceAddClientController());
+    final addcontroller = Get.put(EstAddClientController());
     selectedEstimateCurrency = addcontroller.selectedCurrency.value.toString();
     String flat = "Flat (${addcontroller.selectedCurrency.value})";
     menuItems.add(flat);
