@@ -68,7 +68,7 @@ class CreateInvoiceController extends GetxController {
     return NetworkClient.getInstance.callApi(
       context,
       baseURL,
-      "${ApiConstant.getEstPreview}/$estimateId",
+      "${ApiConstant.getInvPreview}/$estimateId",
       MethodType.Get,
       headers: NetworkClient.getInstance.getAuthHeaders(),
       successCallback: (response, message) {
