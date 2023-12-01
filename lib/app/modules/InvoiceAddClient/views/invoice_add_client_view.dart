@@ -53,6 +53,7 @@ class InvoiceAddClientView extends GetView<InvoiceAddClientController> {
                 lableText: 'Add client',
                 onChanged: (value) {
                   controller.selectedAddClient.value = value!;
+                  print(value);
                   controller.update();
                 },
               );

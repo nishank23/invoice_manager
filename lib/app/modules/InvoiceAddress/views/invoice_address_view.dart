@@ -17,6 +17,7 @@ class InvoiceAddressView extends GetView<InvoiceAddressController> {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(InvoiceAddressController());
     return Scaffold(
         extendBody: true,
         backgroundColor: Colors.white,
