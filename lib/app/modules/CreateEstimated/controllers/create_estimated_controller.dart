@@ -110,7 +110,7 @@ class CreateEstimatedController extends GetxController {
     return NetworkClient.getInstance.callApi(
       context,
       baseURL,
-      "${ApiConstant.getCurrEst}",
+      ApiConstant.getCurrEst,
       MethodType.Get,
       headers: NetworkClient.getInstance.getAuthHeaders(),
       successCallback: (response, message) {
@@ -118,10 +118,7 @@ class CreateEstimatedController extends GetxController {
 
         print(response["data"]);
 
-
-
         estimateNo.value = response["data"]["estimationNo"];
-
 
         update();
       },

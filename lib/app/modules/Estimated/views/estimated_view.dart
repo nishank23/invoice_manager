@@ -213,9 +213,7 @@ class EstimatedView extends GetView<EstimatedController> {
                                                           height: 50.h,
                                                           width: 50.w,
                                                         ),
-                                                        SizedBox(
-                                                          width: 10.w,
-                                                        ),
+                                                        SizedBox(width: 10.w),
                                                         Text(
                                                           data.client!.company!
                                                               .personName
@@ -418,12 +416,9 @@ class EstimatedView extends GetView<EstimatedController> {
                                           Row(
                                             children: [
                                               Text(
-                                                  data.currency.toString() +
-                                                      " " +
-                                                      data.totalAmount!
+                                                  "${data.currency} ${data.totalAmount!
                                                           .abs()
-                                                          .toStringAsFixed(0) +
-                                                      " • ",
+                                                          .toStringAsFixed(0)} • ",
                                                   style: text600_16.copyWith(
                                                       color: Colors.black)),
                                               Text(

@@ -37,9 +37,7 @@ class EstAddItemsView extends GetView<EstAddItemsController> {
           reverse: false,
           child: Column(children: [
             Padding(
-                padding: EdgeInsets.symmetric(
-                  vertical: 20.h,
-                ),
+                padding: EdgeInsets.symmetric(vertical: 20.h),
                 child: myTitleWidget(title: "Add Products")),
             mybutton(
                 onTap: () async {
@@ -79,9 +77,7 @@ class EstAddItemsView extends GetView<EstAddItemsController> {
                     ),
                   ],
                 )),
-            SizedBox(
-              height: 20.h,
-            ),
+            SizedBox(height: 20.h),
             GetBuilder<EstAddItemsController>(builder: (controller) {
               return ListView.separated(
                   shrinkWrap: true,
@@ -378,7 +374,8 @@ class EstAddItemsView extends GetView<EstAddItemsController> {
                                     child: TextField(
                                         maxLines: 1,
                                         onChanged: (value) {
-                                          if (controller.myformattedDiscount.value ==
+                                          if (controller
+                                                  .myformattedDiscount.value ==
                                               "%") {
                                             controller.getDiscountAmount();
                                           }
@@ -526,8 +523,11 @@ class EstAddItemsView extends GetView<EstAddItemsController> {
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
                           itemBuilder: (context, index) {
-
-                            controller.myTextList[index]['value'] = num.parse(controller.afterDiscountText) * (num.parse(controller.myTextList[index]['taxValue']) /100) ;
+                            controller.myTextList[index]['value'] =
+                                num.parse(controller.afterDiscountText) *
+                                    (num.parse(controller.myTextList[index]
+                                            ['taxValue']) /
+                                        100);
 
                             return Row(
                               children: [
@@ -575,7 +575,11 @@ class EstAddItemsView extends GetView<EstAddItemsController> {
                                   ),
                                 ),
                                 const Spacer(),
-                                Text(controller.formatPriceWithThousandSeparator(controller.selectedEstimateCurrency, controller.myTextList[index]['value']), style: text400_16black),
+                                Text(
+                                    controller.formatPriceWithThousandSeparator(
+                                        controller.selectedEstimateCurrency,
+                                        controller.myTextList[index]['value']),
+                                    style: text400_16black),
                               ],
                             );
                           },
@@ -727,7 +731,7 @@ class EstAddItemsView extends GetView<EstAddItemsController> {
                                                           .taxPercentageController
                                                           .value
                                                           .text,
-                                                      "value":0.00
+                                                      "value": 0.00
                                                     });
                                                     print(
                                                         "=============================================");
@@ -789,14 +793,17 @@ class EstAddItemsView extends GetView<EstAddItemsController> {
                         ).marginSymmetric(vertical: 16.h),
                       ),
                       Obx(
-                        () =>  Row(
+                        () => Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text('Total Amount',
                                 style: text700_18.copyWith(fontSize: 16.sp)),
-                            Text(num.parse(controller.getFinalTotal).toStringAsFixed(2),
+                            Text(
+                                num.parse(controller.getFinalTotal)
+                                    .toStringAsFixed(2),
                                 style: text700_18.copyWith(
-                                    fontSize: 16.sp, color: AppColor.primaryBlue))
+                                    fontSize: 16.sp,
+                                    color: AppColor.primaryBlue))
                           ],
                         ),
                       ),

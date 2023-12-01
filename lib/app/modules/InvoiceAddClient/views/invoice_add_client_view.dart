@@ -17,16 +17,13 @@ import '../../CreateInvoice/controllers/create_invoice_controller.dart';
 import '../controllers/invoice_add_client_controller.dart';
 
 class InvoiceAddClientView extends GetView<InvoiceAddClientController> {
-
-   InvoiceAddClientView({Key? key}) : super(key: key);
+  InvoiceAddClientView({Key? key}) : super(key: key);
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
 
   @override
   Widget build(BuildContext context) {
-    CreateInvoiceController myController =
-    Get.put(CreateInvoiceController());
-    Get.put(InvoiceAddClientController());
+    CreateInvoiceController myController = Get.put(CreateInvoiceController());
+   final InvoiceAddClientController controller =  Get.put(InvoiceAddClientController());
 
     return Scaffold(
       extendBody: true,
@@ -38,10 +35,9 @@ class InvoiceAddClientView extends GetView<InvoiceAddClientController> {
         child: Form(
           key: formKey,
           child: Column(children: [
-            
-
-            myTitleWidget(title: "Add Client").marginSymmetric( vertical: 20.h,),
-
+            myTitleWidget(title: "Add Client").marginSymmetric(
+              vertical: 20.h,
+            ),
             GetBuilder<InvoiceAddClientController>(builder: (controller) {
               return CustomDropdown(
                 onValidator: (value) {
@@ -61,16 +57,13 @@ class InvoiceAddClientView extends GetView<InvoiceAddClientController> {
                 },
               );
             }),
-
-            SizedBox(
-              height: 16.h,
+            SizedBox(height: 16.h),
+            myTitleWidget(title: "Invoice Date").marginSymmetric(
+              vertical: 20.h,
             ),
-
-            myTitleWidget(title: "Invoice Date").marginSymmetric( vertical: 20.h,),
-
             MyTextFiled(
               onValidator: (value) {
-                if(value==null||value.toString().isEmpty){
+                if (value == null || value.toString().isEmpty) {
                   return "Please select date";
                 }
                 return null;
@@ -80,21 +73,19 @@ class InvoiceAddClientView extends GetView<InvoiceAddClientController> {
               readOnly: true,
               onTap: () async {
                 controller.selectedInvoiceDate =
-                await DatePicker.showDatePickerDialog(context,
-                    initialDate: DateTime.now(),
-                    firstDate: DateTime(2002),
-                    lastDate: DateTime(2040));
+                    await DatePicker.showDatePickerDialog(context,
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime(2002),
+                        lastDate: DateTime(2040));
 
                 controller.invoiceDateController.value.text =
                     controller.selectedInvoiceDate.toString().substring(0, 10);
                 controller.update();
-
               },
               suffixIcon: Transform.scale(
                 scale: .65,
                 child: GestureDetector(
                   onTap: () async {
-
                     /*  controller.selectedDate =
                         await DatePicker.showDatePickerDialog(context,
                             initialDate: DateTime.now(),
@@ -104,8 +95,6 @@ class InvoiceAddClientView extends GetView<InvoiceAddClientController> {
                     controller.dateController.value.text =
                         controller.selectedDate.toString().substring(0, 10);
                     controller.update();*/
-
-
                   },
                   child: SvgPicture.asset(AppAsset.calendarIcon,
                       height: 15.h, width: 15.w),
@@ -118,7 +107,7 @@ class InvoiceAddClientView extends GetView<InvoiceAddClientController> {
             ),
             MyTextFiled(
               onValidator: (value) {
-                if(value==null||value.toString().isEmpty){
+                if (value == null || value.toString().isEmpty) {
                   return "Please select date";
                 }
                 return null;
@@ -128,21 +117,19 @@ class InvoiceAddClientView extends GetView<InvoiceAddClientController> {
               readOnly: true,
               onTap: () async {
                 controller.selectedDueDate =
-                await DatePicker.showDatePickerDialog(context,
-                    initialDate: DateTime.now(),
-                    firstDate: DateTime(2002),
-                    lastDate: DateTime(2040));
+                    await DatePicker.showDatePickerDialog(context,
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime(2002),
+                        lastDate: DateTime(2040));
 
                 controller.dueDateController.value.text =
                     controller.selectedDueDate.toString().substring(0, 10);
                 controller.update();
-
               },
               suffixIcon: Transform.scale(
                 scale: .65,
                 child: GestureDetector(
                   onTap: () async {
-
                     /*  controller.selectedDate =
                         await DatePicker.showDatePickerDialog(context,
                             initialDate: DateTime.now(),
@@ -152,8 +139,6 @@ class InvoiceAddClientView extends GetView<InvoiceAddClientController> {
                     controller.dateController.value.text =
                         controller.selectedDate.toString().substring(0, 10);
                     controller.update();*/
-
-
                   },
                   child: SvgPicture.asset(AppAsset.calendarIcon,
                       height: 15.h, width: 15.w),
@@ -161,14 +146,13 @@ class InvoiceAddClientView extends GetView<InvoiceAddClientController> {
               ),
               controller: controller.dueDateController.value,
             ),
-
-            myTitleWidget(title: "Invoice Currency").marginSymmetric( vertical: 20.h,),
-
+            myTitleWidget(title: "Invoice Currency").marginSymmetric(
+              vertical: 20.h,
+            ),
             GetBuilder<InvoiceAddClientController>(builder: (controller) {
               return MyTextFiled(
-
                 onValidator: (value) {
-                  if(value==null||value.toString().isEmpty){
+                  if (value == null || value.toString().isEmpty) {
                     return "Please select currency";
                   }
                   return null;
@@ -197,7 +181,7 @@ class InvoiceAddClientView extends GetView<InvoiceAddClientController> {
               builder: (InvoiceAddClientController controller) {
                 return mybutton(
                   onTap: () {
-                    if(formKey.currentState!.validate()){
+                    if (formKey.currentState!.validate()) {
                       myController.updateActive(1);
                     }
                     print("taped");

@@ -83,6 +83,7 @@ class MyApp extends StatelessWidget {
             useInheritedMediaQuery: true,
             title: "Invoice Manager",
             theme: ThemeData(
+              useMaterial3: false,
               fontFamily: 'SF-Pro-Display',
             ),
             debugShowCheckedModeBanner: false,

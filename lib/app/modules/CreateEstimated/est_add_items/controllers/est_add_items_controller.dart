@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import '../../../../../Models/estimatePreviewModel.dart';
 import '../../../../../Models/getAllProducts.dart';
 import '../../../../global/widgets/productPicker/AddProductBottomSheetController.dart';
+import '../../../InvoiceAddClient/controllers/invoice_add_client_controller.dart';
 import '../../controllers/create_estimated_controller.dart';
 
 class EstAddItemsController extends GetxController {
@@ -88,7 +89,7 @@ class EstAddItemsController extends GetxController {
   void onInit() {
     super.onInit();
 
-    final addcontroller = Get.put(EstAddClientController());
+    final addcontroller = Get.put(InvoiceAddClientController());
     selectedEstimateCurrency = addcontroller.selectedCurrency.value.toString();
     String flat = "Flat (${addcontroller.selectedCurrency.value})";
     menuItems.add(flat);
@@ -166,4 +167,5 @@ class EstAddItemsController extends GetxController {
   Rx<TextEditingController> taxPercentageController = TextEditingController().obs;
 
   RxList myTextList = <Map<String, dynamic>>[].obs;
+
 }

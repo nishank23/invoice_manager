@@ -13,11 +13,10 @@ import '../../../../global/widgets/custom_dialog.dart';
 import '../../controllers/create_estimated_controller.dart';
 
 class EstAddClientController extends GetxController {
-
   final count = 0.obs;
 
   DateTime? selectedDate;
-  CreateEstimatedController parentCon = Get.find();
+ final CreateEstimatedController parentCon = Get.find();
 
   @override
   void onInit() {
@@ -27,7 +26,7 @@ class EstAddClientController extends GetxController {
   @override
   void onReady() {
     ApiGetAllClients(context: Get.context!);
-    
+
     ever(parentCon.estimation, (callback) => onEdit(callback!));
 /*
     onEdit();
@@ -55,8 +54,6 @@ class EstAddClientController extends GetxController {
   Rx<String?> selectedCurrency = Rx<String?>(null);
   final RxList<CountryData> countryData = <CountryData>[].obs;
 
-
-
   Future getCountryData({required BuildContext context}) async {
     FocusScope.of(context).unfocus();
     countryData.clear();
@@ -68,39 +65,26 @@ class EstAddClientController extends GetxController {
       MethodType.Get,
       headers: NetworkClient.getInstance.getAuthHeaders(),
       successCallback: (response, message) async {
-
         GetAllCountry allCountry = GetAllCountry.fromJson(response);
         countryData.value = allCountry.countryData!;
 
         update();
         refresh();
-
-
-
-
-
-
       },
       failureCallback: (status, message) {
-
         app.resolve<CustomDialogs>().getDialog(title: "Failed", desc: message);
-
       },
     );
-
   }
 
-
-
-  void editCountry(CountryData? selectedCountry){
+  void editCountry(CountryData? selectedCountry) {
     if (selectedCountry != null) {
-
       selectedCurrency.value = selectedCountry.currencySymbol.toString();
 
       final addcontroller = Get.put(EstAddItemsController());
 
       String myselectedSymbol =
-          "Flat" + " (" + selectedCurrency.toString() + ")";
+          "Flat ($selectedCurrency)";
 
       if (addcontroller.menuItems.length == 1) {
         addcontroller.menuItems.add(myselectedSymbol);
@@ -110,13 +94,13 @@ class EstAddClientController extends GetxController {
 
       selectedCountryIcon = selectedCountry.emoji.toString();
       currencyController.value.text =
-          selectedCountry.currencySymbol.toString() +
-              "  " +
-              selectedCountry.currency.toString();
+          "${selectedCountry.currencySymbol}  ${selectedCountry.currency}";
       update();
     }
   }
+
   CountryData? selectedCountry;
+
   Future<void> pickCountry(BuildContext context) async {
     final countryModelBottomSheetController =
         Get.put(CountryModelBottomSheetController());
@@ -125,13 +109,12 @@ class EstAddClientController extends GetxController {
         await countryModelBottomSheetController.GetCountryModelSheet(
             context: context);
     if (selectedCountry != null) {
-
       selectedCurrency.value = selectedCountry!.currencySymbol.toString();
 
       final addcontroller = Get.put(EstAddItemsController());
 
       String myselectedSymbol =
-          "Flat" + " (" + selectedCurrency.toString() + ")";
+          "Flat ($selectedCurrency)";
 
       if (addcontroller.menuItems.length == 1) {
         addcontroller.menuItems.add(myselectedSymbol);
@@ -141,9 +124,7 @@ class EstAddClientController extends GetxController {
 
       selectedCountryIcon = selectedCountry!.emoji.toString();
       currencyController.value.text =
-          selectedCountry!.currencySymbol.toString() +
-              "  " +
-              selectedCountry!.currency.toString();
+          "${selectedCountry!.currencySymbol}  ${selectedCountry!.currency}";
       update();
     }
   }
@@ -187,21 +168,19 @@ class EstAddClientController extends GetxController {
   }
 
   onEdit(Estimation est) {
-        selectedAddClient.value = est.client!.id.toString();
-        currencyController.value;
+    selectedAddClient.value = est.client!.id.toString();
+    currencyController.value;
 
-        dateController.value.text = est.estimationDate.toString().toString().substring(0,10);
-        getCountryData(context: Get.context!).then((value) {
-          for(var data in countryData){
-            if(data.id.toString() == est.currencyId){
-              editCountry(data);
-              selectedCountry = data;
-            }
-          }
-        });
-        update();
-
+    dateController.value.text =
+        est.estimationDate.toString().toString().substring(0, 10);
+    getCountryData(context: Get.context!).then((value) {
+      for (var data in countryData) {
+        if (data.id.toString() == est.currencyId) {
+          editCountry(data);
+          selectedCountry = data;
+        }
+      }
+    });
+    update();
   }
-  
-
 }

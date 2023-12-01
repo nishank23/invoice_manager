@@ -47,7 +47,7 @@ class CreateInvoiceView extends GetView<CreateInvoiceController> {
                   Expanded(flex: 5,
                     child: Center(
                       child: Text(
-                        "Create Invoice",
+                        controller.id!=null?"Edit Invoice":"Create Invoice" ,
                         style: text700_18,
                       ),
                     ),
@@ -60,7 +60,7 @@ class CreateInvoiceView extends GetView<CreateInvoiceController> {
                         decoration: BoxDecoration(
                             color: AppColor.primaryBlue.withOpacity(.05)),
                         child: Text(
-                          "#EST1464",
+                          "#${controller.estimateNo.value}",
                           style: text300_14.copyWith(color: AppColor.primaryBlue),
                         ),
                       ),
@@ -82,7 +82,6 @@ class CreateInvoiceView extends GetView<CreateInvoiceController> {
                   steppingEnabled: true,
                   showTitle: true,
                   internalPadding: 0,
-
                   showLoadingAnimation: false,
                   stepRadius: 12,
                   showStepBorder: false,

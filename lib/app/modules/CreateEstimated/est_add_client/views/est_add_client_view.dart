@@ -23,7 +23,8 @@ class EstAddClientView extends GetView<EstAddClientController> {
     DateTime selected_date = DateTime.now();
     CreateEstimatedController myController =
         Get.put(CreateEstimatedController());
-    Get.put(EstAddClientController());
+
+    final EstAddClientController controller  = Get.put(EstAddClientController());
 
     return Scaffold(
       extendBody: true,
@@ -54,18 +55,16 @@ class EstAddClientView extends GetView<EstAddClientController> {
                 prefixIcon: Icon(Icons.person_outline_rounded,
                     color: AppColor.filedIcon, size: 22.w),
                 items: controller.myClientList,
-                value: controller.selectedAddClient!.value,
+                value: controller.selectedAddClient.value,
                 lableText: 'Add client',
                 onChanged: (value) {
-                  controller.selectedAddClient!.value = value!;
+                  controller.selectedAddClient.value = value!;
                   controller.update();
                 },
               );
             }),
 
-            SizedBox(
-              height: 16.h,
-            ),
+            SizedBox(height: 16.h),
 
             Padding(
                 padding: EdgeInsets.symmetric(
@@ -73,35 +72,36 @@ class EstAddClientView extends GetView<EstAddClientController> {
                 ),
                 child: myTitleWidget(title: "Invoice Date")),
 
-            GetBuilder<EstAddClientController>(
-              builder: (controller) {
-                return MyTextFiled(
-                  onValidator: (value) {
-                    if(value==null||value.toString().isEmpty){
-                      return "Please select date";
-                    }
-                    return null;
-                  },
-                  lableText: "Invoice date",
-                  keyboardType: TextInputType.datetime,
-                  readOnly: true,
-                  onTap: () async {
-                    controller.selectedDate =
-                        await DatePicker.showDatePickerDialog(context,
-                        initialDate:controller.dateController.value.text.isEmpty? DateTime.now():DateTime.parse(controller.dateController.value.text),
-                        firstDate: DateTime(2002),
-                        lastDate: DateTime(2040));
+            GetBuilder<EstAddClientController>(builder: (controller) {
+              return MyTextFiled(
+                onValidator: (value) {
+                  if (value == null || value.toString().isEmpty) {
+                    return "Please select date";
+                  }
+                  return null;
+                },
+                lableText: "Invoice date",
+                keyboardType: TextInputType.datetime,
+                readOnly: true,
+                onTap: () async {
+                  controller.selectedDate =
+                      await DatePicker.showDatePickerDialog(context,
+                          initialDate:
+                              controller.dateController.value.text.isEmpty
+                                  ? DateTime.now()
+                                  : DateTime.parse(
+                                      controller.dateController.value.text),
+                          firstDate: DateTime(2002),
+                          lastDate: DateTime(2040));
 
-                    controller.dateController.value.text =
-                        controller.selectedDate.toString().substring(0, 10);
-                    controller.update();
-
-                  },
-                  suffixIcon: Transform.scale(
-                    scale: .65,
-                    child: GestureDetector(
-                      onTap: () async {
-
+                  controller.dateController.value.text =
+                      controller.selectedDate.toString().substring(0, 10);
+                  controller.update();
+                },
+                suffixIcon: Transform.scale(
+                  scale: .65,
+                  child: GestureDetector(
+                    onTap: () async {
                       /*  controller.selectedDate =
                             await DatePicker.showDatePickerDialog(context,
                                 initialDate: DateTime.now(),
@@ -111,17 +111,14 @@ class EstAddClientView extends GetView<EstAddClientController> {
                         controller.dateController.value.text =
                             controller.selectedDate.toString().substring(0, 10);
                         controller.update();*/
-
-
-                      },
-                      child: SvgPicture.asset(AppAsset.calendarIcon,
-                          height: 15.h, width: 15.w),
-                    ),
+                    },
+                    child: SvgPicture.asset(AppAsset.calendarIcon,
+                        height: 15.h, width: 15.w),
                   ),
-                  controller: controller.dateController.value,
-                );
-              }
-            ),
+                ),
+                controller: controller.dateController.value,
+              );
+            }),
 
             Padding(
               padding: EdgeInsets.symmetric(
@@ -131,9 +128,8 @@ class EstAddClientView extends GetView<EstAddClientController> {
             ),
             GetBuilder<EstAddClientController>(builder: (controller) {
               return MyTextFiled(
-
                 onValidator: (value) {
-                  if(value==null||value.toString().isEmpty){
+                  if (value == null || value.toString().isEmpty) {
                     return "Please select currency";
                   }
                   return null;
@@ -144,7 +140,7 @@ class EstAddClientView extends GetView<EstAddClientController> {
                   children: [
                     Text(controller.selectedCountryIcon.toString(),
                         textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 24)),
+                        style: const TextStyle(fontSize: 24)),
                   ],
                 ),
                 lableText: 'Select currency',
@@ -162,7 +158,7 @@ class EstAddClientView extends GetView<EstAddClientController> {
               builder: (EstAddClientController controller) {
                 return mybutton(
                   onTap: () {
-                    if(formKey.currentState!.validate()){
+                    if (formKey.currentState!.validate()) {
                       myController.updateActive(1);
                     }
                     print("taped");
