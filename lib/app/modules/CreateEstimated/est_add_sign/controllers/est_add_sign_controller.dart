@@ -122,7 +122,7 @@ class EstAddSignController extends GetxController {
       context,
       baseURL,
       "${ApiConstant.editEst}/$id",
-      MethodType.Put,
+      MethodType.Post,
       headers: NetworkClient.getInstance.getAuthHeaders(),
       params: form,
       successCallback: (response, message) {
