@@ -164,10 +164,8 @@ class EstAddSignView extends GetView<EstAddSignController> {
                     Map<String, dynamic> mydata = {};
                     List<Map<String, dynamic>> myproductlist = [];
                     List<Map<String, dynamic>> mytaxlist = [];
-                    EstAddClientController myClientController =
-                        Get.put(EstAddClientController());
-                    EstAddItemsController myItemsController =
-                        Get.put(EstAddItemsController());
+                    EstAddClientController myClientController = Get.put(EstAddClientController());
+                    EstAddItemsController myItemsController = Get.put(EstAddItemsController());
                     mydata["client"] =
                         myClientController.selectedAddClient.value;
                     for (var data in myItemsController.myaddedProductsList) {

@@ -799,8 +799,8 @@ class EstAddItemsView extends GetView<EstAddItemsController> {
                             Text('Total Amount',
                                 style: text700_18.copyWith(fontSize: 16.sp)),
                             Text(
-                                num.parse(controller.getFinalTotal)
-                                    .toStringAsFixed(2),
+                                '₹${num.parse(controller.getFinalTotal)
+                                    .toStringAsFixed(2)}',
                                 style: text700_18.copyWith(
                                     fontSize: 16.sp,
                                     color: AppColor.primaryBlue))

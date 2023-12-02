@@ -267,7 +267,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.EDIT_ADDRESS,
-      page: () => const EditAddressView(),
+      page: () =>   EditAddressView(),
       binding: EditAddressBinding(),
     ),
     /* GetPage(

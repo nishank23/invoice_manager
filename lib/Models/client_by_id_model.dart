@@ -3,11 +3,11 @@
 
 class ClientByIdModel {
   ClientByIdModel({
-      bool? success, 
-      ClientData? clientData,}){
+    bool? success,
+    ClientData? clientData,}){
     _success = success;
     _clientData = clientData;
-}
+  }
 
   ClientByIdModel.fromJson(dynamic json) {
     _success = json['success'];
@@ -15,11 +15,11 @@ class ClientByIdModel {
   }
   bool? _success;
   ClientData? _clientData;
-ClientByIdModel copyWith({  bool? success,
-  ClientData? clientData,
-}) => ClientByIdModel(  success: success ?? _success,
-  clientData: clientData ?? _clientData,
-);
+  ClientByIdModel copyWith({  bool? success,
+    ClientData? clientData,
+  }) => ClientByIdModel(  success: success ?? _success,
+    clientData: clientData ?? _clientData,
+  );
   bool? get success => _success;
   ClientData? get clientData => _clientData;
 
@@ -50,15 +50,15 @@ ClientByIdModel copyWith({  bool? success,
 
 class ClientData {
   ClientData({
-      Company? company, 
-      ShippingAddress? shippingAddress, 
-      BillingAddress? billingAddress, 
-      String? id, 
-      dynamic clientPhoto, 
-      String? userId, 
-      num? v, 
-      ShippingAddressDetails? shippingAddressDetails, 
-      BillingAddressDetails? billingAddressDetails,}){
+    Company? company,
+    ShippingAddress? shippingAddress,
+    BillingAddress? billingAddress,
+    String? id,
+    dynamic clientPhoto,
+    String? userId,
+    num? v,
+    ShippingAddressDetails? shippingAddressDetails,
+    BillingAddressDetails? billingAddressDetails,}){
     _company = company;
     _shippingAddress = shippingAddress;
     _billingAddress = billingAddress;
@@ -68,7 +68,7 @@ class ClientData {
     _v = v;
     _shippingAddressDetails = shippingAddressDetails;
     _billingAddressDetails = billingAddressDetails;
-}
+  }
 
   ClientData.fromJson(dynamic json) {
     _company = json['company'] != null ? Company.fromJson(json['company']) : null;
@@ -90,25 +90,25 @@ class ClientData {
   num? _v;
   ShippingAddressDetails? _shippingAddressDetails;
   BillingAddressDetails? _billingAddressDetails;
-ClientData copyWith({  Company? company,
-  ShippingAddress? shippingAddress,
-  BillingAddress? billingAddress,
-  String? id,
-  dynamic clientPhoto,
-  String? userId,
-  num? v,
-  ShippingAddressDetails? shippingAddressDetails,
-  BillingAddressDetails? billingAddressDetails,
-}) => ClientData(  company: company ?? _company,
-  shippingAddress: shippingAddress ?? _shippingAddress,
-  billingAddress: billingAddress ?? _billingAddress,
-  id: id ?? _id,
-  clientPhoto: clientPhoto ?? _clientPhoto,
-  userId: userId ?? _userId,
-  v: v ?? _v,
-  shippingAddressDetails: shippingAddressDetails ?? _shippingAddressDetails,
-  billingAddressDetails: billingAddressDetails ?? _billingAddressDetails,
-);
+  ClientData copyWith({  Company? company,
+    ShippingAddress? shippingAddress,
+    BillingAddress? billingAddress,
+    String? id,
+    dynamic clientPhoto,
+    String? userId,
+    num? v,
+    ShippingAddressDetails? shippingAddressDetails,
+    BillingAddressDetails? billingAddressDetails,
+  }) => ClientData(  company: company ?? _company,
+    shippingAddress: shippingAddress ?? _shippingAddress,
+    billingAddress: billingAddress ?? _billingAddress,
+    id: id ?? _id,
+    clientPhoto: clientPhoto ?? _clientPhoto,
+    userId: userId ?? _userId,
+    v: v ?? _v,
+    shippingAddressDetails: shippingAddressDetails ?? _shippingAddressDetails,
+    billingAddressDetails: billingAddressDetails ?? _billingAddressDetails,
+  );
   Company? get company => _company;
   ShippingAddress? get shippingAddress => _shippingAddress;
   BillingAddress? get billingAddress => _billingAddress;
@@ -170,13 +170,13 @@ ClientData copyWith({  Company? company,
 
 class BillingAddressDetails {
   BillingAddressDetails({
-      String? city, 
-      String? state, 
-      String? country,}){
+    String? city,
+    String? state,
+    String? country,}){
     _city = city;
     _state = state;
     _country = country;
-}
+  }
 
   BillingAddressDetails.fromJson(dynamic json) {
     _city = json['city'];
@@ -186,13 +186,13 @@ class BillingAddressDetails {
   String? _city;
   String? _state;
   String? _country;
-BillingAddressDetails copyWith({  String? city,
-  String? state,
-  String? country,
-}) => BillingAddressDetails(  city: city ?? _city,
-  state: state ?? _state,
-  country: country ?? _country,
-);
+  BillingAddressDetails copyWith({  String? city,
+    String? state,
+    String? country,
+  }) => BillingAddressDetails(  city: city ?? _city,
+    state: state ?? _state,
+    country: country ?? _country,
+  );
   String? get city => _city;
   String? get state => _state;
   String? get country => _country;
@@ -225,13 +225,13 @@ BillingAddressDetails copyWith({  String? city,
 
 class ShippingAddressDetails {
   ShippingAddressDetails({
-      String? city, 
-      String? state, 
-      String? country,}){
+    String? city,
+    String? state,
+    String? country,}){
     _city = city;
     _state = state;
     _country = country;
-}
+  }
 
 
   set scity(String value) {
@@ -246,13 +246,13 @@ class ShippingAddressDetails {
   String? _city;
   String? _state;
   String? _country;
-ShippingAddressDetails copyWith({  String? city,
-  String? state,
-  String? country,
-}) => ShippingAddressDetails(  city: city ?? _city,
-  state: state ?? _state,
-  country: country ?? _country,
-);
+  ShippingAddressDetails copyWith({  String? city,
+    String? state,
+    String? country,
+  }) => ShippingAddressDetails(  city: city ?? _city,
+    state: state ?? _state,
+    country: country ?? _country,
+  );
   String? get city => _city;
   String? get state => _state;
   String? get country => _country;
@@ -282,17 +282,17 @@ ShippingAddressDetails copyWith({  String? city,
 
 class BillingAddress {
   BillingAddress({
-      String? addressLine, 
-      String? city, 
-      String? state, 
-      String? country, 
-      String? postalCode,}){
+    String? addressLine,
+    String? city,
+    String? state,
+    String? country,
+    String? postalCode,}){
     _addressLine = addressLine;
     _city = city;
     _state = state;
     _country = country;
     _postalCode = postalCode;
-}
+  }
 
   BillingAddress.fromJson(dynamic json) {
     _addressLine = json['addressLine'];
@@ -311,17 +311,17 @@ class BillingAddress {
 
   String? _country;
   String? _postalCode;
-BillingAddress copyWith({  String? addressLine,
-  String? city,
-  String? state,
-  String? country,
-  String? postalCode,
-}) => BillingAddress(  addressLine: addressLine ?? _addressLine,
-  city: city ?? _city,
-  state: state ?? _state,
-  country: country ?? _country,
-  postalCode: postalCode ?? _postalCode,
-);
+  BillingAddress copyWith({  String? addressLine,
+    String? city,
+    String? state,
+    String? country,
+    String? postalCode,
+  }) => BillingAddress(  addressLine: addressLine ?? _addressLine,
+    city: city ?? _city,
+    state: state ?? _state,
+    country: country ?? _country,
+    postalCode: postalCode ?? _postalCode,
+  );
   String? get addressLine => _addressLine;
   String? get city => _city;
   String? get state => _state;
@@ -363,17 +363,17 @@ BillingAddress copyWith({  String? addressLine,
 
 class ShippingAddress {
   ShippingAddress({
-      String? addressLine, 
-      String? city, 
-      String? state, 
-      String? country, 
-      String? postalCode,}){
+    String? addressLine,
+    String? city,
+    String? state,
+    String? country,
+    String? postalCode,}){
     _addressLine = addressLine;
     _city = city;
     _state = state;
     _country = country;
     _postalCode = postalCode;
-}
+  }
 
   set saddressLine(String value) {
     _addressLine = value;
@@ -391,17 +391,17 @@ class ShippingAddress {
   String? _state;
   String? _country;
   String? _postalCode;
-ShippingAddress copyWith({  String? addressLine,
-  String? city,
-  String? state,
-  String? country,
-  String? postalCode,
-}) => ShippingAddress(  addressLine: addressLine ?? _addressLine,
-  city: city ?? _city,
-  state: state ?? _state,
-  country: country ?? _country,
-  postalCode: postalCode ?? _postalCode,
-);
+  ShippingAddress copyWith({  String? addressLine,
+    String? city,
+    String? state,
+    String? country,
+    String? postalCode,
+  }) => ShippingAddress(  addressLine: addressLine ?? _addressLine,
+    city: city ?? _city,
+    state: state ?? _state,
+    country: country ?? _country,
+    postalCode: postalCode ?? _postalCode,
+  );
   String? get addressLine => _addressLine;
   String? get city => _city;
   String? get state => _state;
@@ -433,6 +433,7 @@ ShippingAddress copyWith({  String? addressLine,
   set spostalCode(String value) {
     _postalCode = value;
   }
+
 }
 
 /// name : "jvkv"
@@ -445,13 +446,13 @@ ShippingAddress copyWith({  String? addressLine,
 
 class Company {
   Company({
-      String? name, 
-      String? personName, 
-      String? mobileNumber, 
-      String? alternativeMobileNumber, 
-      String? gstNumber, 
-      String? email, 
-      String? website,}){
+    String? name,
+    String? personName,
+    String? mobileNumber,
+    String? alternativeMobileNumber,
+    String? gstNumber,
+    String? email,
+    String? website,}){
     _name = name;
     _personName = personName;
     _mobileNumber = mobileNumber;
@@ -459,7 +460,7 @@ class Company {
     _gstNumber = gstNumber;
     _email = email;
     _website = website;
-}
+  }
 
   Company.fromJson(dynamic json) {
     _name = json['name'];
@@ -477,22 +478,27 @@ class Company {
   String? _gstNumber;
   String? _email;
   String? _website;
-Company copyWith({  String? name,
-  String? personName,
-  String? mobileNumber,
-  String? alternativeMobileNumber,
-  String? gstNumber,
-  String? email,
-  String? website,
-}) => Company(  name: name ?? _name,
-  personName: personName ?? _personName,
-  mobileNumber: mobileNumber ?? _mobileNumber,
-  alternativeMobileNumber: alternativeMobileNumber ?? _alternativeMobileNumber,
-  gstNumber: gstNumber ?? _gstNumber,
-  email: email ?? _email,
-  website: website ?? _website,
-);
+  Company copyWith({  String? name,
+    String? personName,
+    String? mobileNumber,
+    String? alternativeMobileNumber,
+    String? gstNumber,
+    String? email,
+    String? website,
+  }) => Company(  name: name ?? _name,
+    personName: personName ?? _personName,
+    mobileNumber: mobileNumber ?? _mobileNumber,
+    alternativeMobileNumber: alternativeMobileNumber ?? _alternativeMobileNumber,
+    gstNumber: gstNumber ?? _gstNumber,
+    email: email ?? _email,
+    website: website ?? _website,
+  );
   String? get name => _name;
+
+  set sname(String value) {
+    _name = value;
+  }
+
   String? get personName => _personName;
   String? get mobileNumber => _mobileNumber;
   String? get alternativeMobileNumber => _alternativeMobileNumber;
@@ -512,4 +518,27 @@ Company copyWith({  String? name,
     return map;
   }
 
+  set spersonName(String value) {
+    _personName = value;
+  }
+
+  set smobileNumber(String value) {
+    _mobileNumber = value;
+  }
+
+  set salternativeMobileNumber(String value) {
+    _alternativeMobileNumber = value;
+  }
+
+  set sgstNumber(String value) {
+    _gstNumber = value;
+  }
+
+  set semail(String value) {
+    _email = value;
+  }
+
+  set swebsite(String value) {
+    _website = value;
+  }
 }

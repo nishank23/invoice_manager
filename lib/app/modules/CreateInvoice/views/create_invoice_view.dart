@@ -47,7 +47,8 @@ class CreateInvoiceView extends GetView<CreateInvoiceController> {
                   Expanded(flex: 5,
                     child: Center(
                       child: Text(
-                        controller.id!=null?"Edit Invoice":"Create Invoice" ,
+                        controller.id!=null?"Edit Invoice":
+                        "Create Invoice" ,
                         style: text700_18,
                       ),
                     ),
@@ -258,9 +259,7 @@ class CreateInvoiceView extends GetView<CreateInvoiceController> {
             Expanded(
               child: PageView(
                 controller: controller.pageController,
-/*
                 physics: const NeverScrollableScrollPhysics(),
-*/
                 onPageChanged: (value) {
                   controller.updateActive(value);
                 },

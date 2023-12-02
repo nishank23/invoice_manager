@@ -781,7 +781,8 @@ class InvoiceAddItemsView extends GetView<InvoiceAddItemsController> {
                       children: [
                         Text('Total Amount',
                             style: text700_18.copyWith(fontSize: 16.sp)),
-                        Text('₹7,250.99',
+                        Text('₹${num.parse(controller.getFinalTotal)
+                            .toStringAsFixed(2)}',
                             style: text700_18.copyWith(
                                 fontSize: 16.sp, color: AppColor.primaryBlue))
                       ],

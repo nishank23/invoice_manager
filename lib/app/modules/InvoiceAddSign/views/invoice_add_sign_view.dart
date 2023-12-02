@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +7,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
+import 'package:invoice_generator/app/modules/InvoiceAddItems/controllers/invoice_add_items_controller.dart';
+import 'package:invoice_generator/app/modules/InvoiceAddress/controllers/invoice_address_controller.dart';
 import 'package:invoice_generator/app/routes/app_pages.dart';
 
 import '../../../global/constants/app_asset.dart';
@@ -13,6 +17,7 @@ import '../../../global/constants/app_fonts.dart';
 import '../../../global/widgets/ImagePickerDialog.dart';
 import '../../../global/widgets/TitleWidget.dart';
 import '../../../global/widgets/myButton.dart';
+import '../../CreateInvoice/controllers/create_invoice_controller.dart';
 import '../../InvoiceAddClient/controllers/invoice_add_client_controller.dart';
 import '../controllers/invoice_add_sign_controller.dart';
 
@@ -161,6 +166,74 @@ class InvoiceAddSignView extends GetView<InvoiceAddSignController> {
 
 
 
+                    Map<String, dynamic> mydata = {};
+                    List<Map<String, dynamic>> myproductlist = [];
+                    List<Map<String, dynamic>> mytaxlist = [];
+                    InvoiceAddClientController myClientController = Get.put(InvoiceAddClientController());
+                    InvoiceAddressController myAddressController = Get.put(InvoiceAddressController());
+                     InvoiceAddItemsController myItemsController = Get.put(InvoiceAddItemsController());
+                    mydata["client"] =
+                        myClientController.selectedAddClient.value;
+                    for (var data in myItemsController.myaddedProductsList) {
+                      Map<String, dynamic> myproductData = {};
+                      myproductData["product"] = data.id;
+                      myproductData["quantity"] = data.qty;
+                      myproductlist.add(myproductData);
+                    }
+                    mydata["products"] = myproductlist;
+                    mydata["estimationDate"] =
+                        myClientController.selectedDate.toString();
+                    mydata["currency"] = myClientController
+                        .selectedCountry!.currencySymbol
+                        .toString();
+                    mydata["currencyId"] =
+                        myClientController.selectedCountry!.id.toString();
+// mydata[]
+                    mydata["itemTotal"] = myItemsController.subtotal.toString();
+
+                    print("myitemsTotal${myItemsController.subtotal}");
+
+                    mydata["subTotal"] =
+                        myItemsController.afterDiscountText.toString();
+
+                    if (myItemsController.myformattedDiscount.value == "%") {
+                      mydata["discount"] =
+                          myItemsController.dscCntlr.value.text;
+                      mydata["discountType"] = "0";
+                    } else {
+                      mydata["discount"] = myItemsController.dscCntlr.text;
+                      mydata["discountType"] = "1";
+                    }
+                    for (var data in myItemsController.myTextList) {
+                      Map<String, dynamic> mytaxdata = {};
+
+                      mytaxdata["percentage"] = data['taxValue'];
+                      mytaxdata["name"] = data['taxType'];
+                      mytaxdata["amount"] = data['value'];
+
+                      mytaxlist.add(mytaxdata);
+                    }
+                    mydata["taxes"] = mytaxlist;
+
+                    mydata["totalAmount"] = myItemsController.getFinalTotal;
+
+                    print(jsonEncode(mydata));
+                    String? id = Get.find<CreateInvoiceController>().id;
+
+                    // id != null
+                    //     ? controller.ApiEditEstimate(
+                    //     context: context,
+                    //     id: id,
+                    //     formData: mydata,
+                    //     filePaths: controller.selectedSign == null
+                    //         ? ""
+                    //         : controller.selectedSign!.path)
+                    //     : controller.ApiCreateEstimate(
+                    //     context: context,
+                    //     formData: mydata,
+                    //     filePaths: controller.selectedSign == null
+                    //         ? ""
+                    //         : controller.selectedSign!.path);
 
 
 
@@ -170,10 +243,7 @@ class InvoiceAddSignView extends GetView<InvoiceAddSignController> {
 
 
 
-
-
-
-                    Get.toNamed(Routes.INVOICE_PREVIEW);
+                    // Get.toNamed(Routes.INVOICE_PREVIEW);
                   },
                   title: "Submit",
                 );
