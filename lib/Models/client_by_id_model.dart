@@ -1,141 +1,429 @@
-// To parse this JSON data, do
-//
-//     final clientDataByIdModel = clientDataByIdModelFromJson(jsonString);
+/// success : true
+/// clientData : {"company":{"name":"jvkv","personName":"hxj","mobileNumber":"5656568868","alternativeMobileNumber":"5356565686","gstNumber":"yudufhfhfjfjjfj","email":"bansikathiriya65@gmail.com","website":"https.com"},"shippingAddress":{"addressLine":"ch cu","city":"611","state":"222","country":"7","postalCode":"123444"},"billingAddress":{"addressLine":"ch cu","city":"611","state":"222","country":"7","postalCode":"123444"},"_id":"65190f8c725e43398d190c55","clientPhoto":null,"userId":"65185847725e43398d190b2d","__v":0,"shippingAddressDetails":{"city":"Icolo e Bengo","state":"Luanda Province","country":"Angola"},"billingAddressDetails":{"city":"Icolo e Bengo","state":"Luanda Province","country":"Angola"}}
 
-import 'dart:convert';
-
-ClientDataByIdModel clientDataByIdModelFromJson(String str) => ClientDataByIdModel.fromJson(json.decode(str));
-
-String clientDataByIdModelToJson(ClientDataByIdModel data) => json.encode(data.toJson());
-
-class ClientDataByIdModel {
-  bool? success;
-  ClientDataById? clientDataById;
-
-  ClientDataByIdModel({
-    this.success,
-    this.clientDataById,
-  });
-
-  factory ClientDataByIdModel.fromJson(Map<String, dynamic> json) => ClientDataByIdModel(
-        success: json["success"],
-        clientDataById: json["clientData"] == null ? null : ClientDataById.fromJson(json["clientData"]),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "success": success,
-        "clientData": clientDataById?.toJson(),
-      };
+class ClientByIdModel {
+  ClientByIdModel({
+      bool? success, 
+      ClientData? clientData,}){
+    _success = success;
+    _clientData = clientData;
 }
 
-class ClientDataById {
-  Company? company;
-  IngAddress? shippingAddress;
-  IngAddress? billingAddress;
-  String? id;
-  dynamic clientPhoto;
-  String? userId;
-  int? v;
+  ClientByIdModel.fromJson(dynamic json) {
+    _success = json['success'];
+    _clientData = json['clientData'] != null ? ClientData.fromJson(json['clientData']) : null;
+  }
+  bool? _success;
+  ClientData? _clientData;
+ClientByIdModel copyWith({  bool? success,
+  ClientData? clientData,
+}) => ClientByIdModel(  success: success ?? _success,
+  clientData: clientData ?? _clientData,
+);
+  bool? get success => _success;
+  ClientData? get clientData => _clientData;
 
-  ClientDataById({
-    this.company,
-    this.shippingAddress,
-    this.billingAddress,
-    this.id,
-    this.clientPhoto,
-    this.userId,
-    this.v,
-  });
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['success'] = _success;
+    if (_clientData != null) {
+      map['clientData'] = _clientData?.toJson();
+    }
+    return map;
+  }
 
-  factory ClientDataById.fromJson(Map<String, dynamic> json) => ClientDataById(
-        company: json["company"] == null ? null : Company.fromJson(json["company"]),
-        shippingAddress: json["shippingAddress"] == null ? null : IngAddress.fromJson(json["shippingAddress"]),
-        billingAddress: json["billingAddress"] == null ? null : IngAddress.fromJson(json["billingAddress"]),
-        id: json["_id"],
-        clientPhoto: json["clientPhoto"],
-        userId: json["userId"],
-        v: json["__v"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "company": company?.toJson(),
-        "shippingAddress": shippingAddress?.toJson(),
-        "billingAddress": billingAddress?.toJson(),
-        "_id": id,
-        "clientPhoto": clientPhoto,
-        "userId": userId,
-        "__v": v,
-      };
 }
 
-class IngAddress {
-  String? addressLine;
-  String? city;
-  String? state;
-  String? country;
-  String? postalCode;
+/// company : {"name":"jvkv","personName":"hxj","mobileNumber":"5656568868","alternativeMobileNumber":"5356565686","gstNumber":"yudufhfhfjfjjfj","email":"bansikathiriya65@gmail.com","website":"https.com"}
+/// shippingAddress : {"addressLine":"ch cu","city":"611","state":"222","country":"7","postalCode":"123444"}
+/// billingAddress : {"addressLine":"ch cu","city":"611","state":"222","country":"7","postalCode":"123444"}
+/// _id : "65190f8c725e43398d190c55"
+/// clientPhoto : null
+/// userId : "65185847725e43398d190b2d"
+/// __v : 0
+/// shippingAddressDetails : {"city":"Icolo e Bengo","state":"Luanda Province","country":"Angola"}
+/// billingAddressDetails : {"city":"Icolo e Bengo","state":"Luanda Province","country":"Angola"}
 
-  IngAddress({
-    this.addressLine,
-    this.city,
-    this.state,
-    this.country,
-    this.postalCode,
-  });
-
-  factory IngAddress.fromJson(Map<String, dynamic> json) => IngAddress(
-        addressLine: json["addressLine"] ?? "",
-        city: json["city"] ?? "",
-        state: json["state"] ?? "",
-        country: json["country"] ?? "",
-        postalCode: json["postalCode"] ?? "",
-      );
-
-  Map<String, dynamic> toJson() => {
-        "addressLine": addressLine,
-        "city": city,
-        "state": state,
-        "country": country,
-        "postalCode": postalCode,
-      };
+class ClientData {
+  ClientData({
+      Company? company, 
+      ShippingAddress? shippingAddress, 
+      BillingAddress? billingAddress, 
+      String? id, 
+      dynamic clientPhoto, 
+      String? userId, 
+      num? v, 
+      ShippingAddressDetails? shippingAddressDetails, 
+      BillingAddressDetails? billingAddressDetails,}){
+    _company = company;
+    _shippingAddress = shippingAddress;
+    _billingAddress = billingAddress;
+    _id = id;
+    _clientPhoto = clientPhoto;
+    _userId = userId;
+    _v = v;
+    _shippingAddressDetails = shippingAddressDetails;
+    _billingAddressDetails = billingAddressDetails;
 }
+
+  ClientData.fromJson(dynamic json) {
+    _company = json['company'] != null ? Company.fromJson(json['company']) : null;
+    _shippingAddress = json['shippingAddress'] != null ? ShippingAddress.fromJson(json['shippingAddress']) : null;
+    _billingAddress = json['billingAddress'] != null ? BillingAddress.fromJson(json['billingAddress']) : null;
+    _id = json['_id'];
+    _clientPhoto = json['clientPhoto'];
+    _userId = json['userId'];
+    _v = json['__v'];
+    _shippingAddressDetails = json['shippingAddressDetails'] != null ? ShippingAddressDetails.fromJson(json['shippingAddressDetails']) : null;
+    _billingAddressDetails = json['billingAddressDetails'] != null ? BillingAddressDetails.fromJson(json['billingAddressDetails']) : null;
+  }
+  Company? _company;
+  ShippingAddress? _shippingAddress;
+  BillingAddress? _billingAddress;
+  String? _id;
+  dynamic _clientPhoto;
+  String? _userId;
+  num? _v;
+  ShippingAddressDetails? _shippingAddressDetails;
+  BillingAddressDetails? _billingAddressDetails;
+ClientData copyWith({  Company? company,
+  ShippingAddress? shippingAddress,
+  BillingAddress? billingAddress,
+  String? id,
+  dynamic clientPhoto,
+  String? userId,
+  num? v,
+  ShippingAddressDetails? shippingAddressDetails,
+  BillingAddressDetails? billingAddressDetails,
+}) => ClientData(  company: company ?? _company,
+  shippingAddress: shippingAddress ?? _shippingAddress,
+  billingAddress: billingAddress ?? _billingAddress,
+  id: id ?? _id,
+  clientPhoto: clientPhoto ?? _clientPhoto,
+  userId: userId ?? _userId,
+  v: v ?? _v,
+  shippingAddressDetails: shippingAddressDetails ?? _shippingAddressDetails,
+  billingAddressDetails: billingAddressDetails ?? _billingAddressDetails,
+);
+  Company? get company => _company;
+  ShippingAddress? get shippingAddress => _shippingAddress;
+  BillingAddress? get billingAddress => _billingAddress;
+  String? get id => _id;
+  dynamic get clientPhoto => _clientPhoto;
+  String? get userId => _userId;
+  num? get v => _v;
+  ShippingAddressDetails? get shippingAddressDetails => _shippingAddressDetails;
+  BillingAddressDetails? get billingAddressDetails => _billingAddressDetails;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    if (_company != null) {
+      map['company'] = _company?.toJson();
+    }
+    if (_shippingAddress != null) {
+      map['shippingAddress'] = _shippingAddress?.toJson();
+    }
+    if (_billingAddress != null) {
+      map['billingAddress'] = _billingAddress?.toJson();
+    }
+    map['_id'] = _id;
+    map['clientPhoto'] = _clientPhoto;
+    map['userId'] = _userId;
+    map['__v'] = _v;
+    if (_shippingAddressDetails != null) {
+      map['shippingAddressDetails'] = _shippingAddressDetails?.toJson();
+    }
+    if (_billingAddressDetails != null) {
+      map['billingAddressDetails'] = _billingAddressDetails?.toJson();
+    }
+    return map;
+  }
+
+}
+
+/// city : "Icolo e Bengo"
+/// state : "Luanda Province"
+/// country : "Angola"
+
+class BillingAddressDetails {
+  BillingAddressDetails({
+      String? city, 
+      String? state, 
+      String? country,}){
+    _city = city;
+    _state = state;
+    _country = country;
+}
+
+  BillingAddressDetails.fromJson(dynamic json) {
+    _city = json['city'];
+    _state = json['state'];
+    _country = json['country'];
+  }
+  String? _city;
+  String? _state;
+  String? _country;
+BillingAddressDetails copyWith({  String? city,
+  String? state,
+  String? country,
+}) => BillingAddressDetails(  city: city ?? _city,
+  state: state ?? _state,
+  country: country ?? _country,
+);
+  String? get city => _city;
+  String? get state => _state;
+  String? get country => _country;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['city'] = _city;
+    map['state'] = _state;
+    map['country'] = _country;
+    return map;
+  }
+
+}
+
+/// city : "Icolo e Bengo"
+/// state : "Luanda Province"
+/// country : "Angola"
+
+class ShippingAddressDetails {
+  ShippingAddressDetails({
+      String? city, 
+      String? state, 
+      String? country,}){
+    _city = city;
+    _state = state;
+    _country = country;
+}
+
+  ShippingAddressDetails.fromJson(dynamic json) {
+    _city = json['city'];
+    _state = json['state'];
+    _country = json['country'];
+  }
+  String? _city;
+  String? _state;
+  String? _country;
+ShippingAddressDetails copyWith({  String? city,
+  String? state,
+  String? country,
+}) => ShippingAddressDetails(  city: city ?? _city,
+  state: state ?? _state,
+  country: country ?? _country,
+);
+  String? get city => _city;
+  String? get state => _state;
+  String? get country => _country;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['city'] = _city;
+    map['state'] = _state;
+    map['country'] = _country;
+    return map;
+  }
+
+}
+
+/// addressLine : "ch cu"
+/// city : "611"
+/// state : "222"
+/// country : "7"
+/// postalCode : "123444"
+
+class BillingAddress {
+  BillingAddress({
+      String? addressLine, 
+      String? city, 
+      String? state, 
+      String? country, 
+      String? postalCode,}){
+    _addressLine = addressLine;
+    _city = city;
+    _state = state;
+    _country = country;
+    _postalCode = postalCode;
+}
+
+  BillingAddress.fromJson(dynamic json) {
+    _addressLine = json['addressLine'];
+    _city = json['city'];
+    _state = json['state'];
+    _country = json['country'];
+    _postalCode = json['postalCode'];
+  }
+  String? _addressLine;
+  String? _city;
+  String? _state;
+  String? _country;
+  String? _postalCode;
+BillingAddress copyWith({  String? addressLine,
+  String? city,
+  String? state,
+  String? country,
+  String? postalCode,
+}) => BillingAddress(  addressLine: addressLine ?? _addressLine,
+  city: city ?? _city,
+  state: state ?? _state,
+  country: country ?? _country,
+  postalCode: postalCode ?? _postalCode,
+);
+  String? get addressLine => _addressLine;
+  String? get city => _city;
+  String? get state => _state;
+  String? get country => _country;
+  String? get postalCode => _postalCode;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['addressLine'] = _addressLine;
+    map['city'] = _city;
+    map['state'] = _state;
+    map['country'] = _country;
+    map['postalCode'] = _postalCode;
+    return map;
+  }
+
+}
+
+/// addressLine : "ch cu"
+/// city : "611"
+/// state : "222"
+/// country : "7"
+/// postalCode : "123444"
+
+class ShippingAddress {
+  ShippingAddress({
+      String? addressLine, 
+      String? city, 
+      String? state, 
+      String? country, 
+      String? postalCode,}){
+    _addressLine = addressLine;
+    _city = city;
+    _state = state;
+    _country = country;
+    _postalCode = postalCode;
+}
+
+  ShippingAddress.fromJson(dynamic json) {
+    _addressLine = json['addressLine'];
+    _city = json['city'];
+    _state = json['state'];
+    _country = json['country'];
+    _postalCode = json['postalCode'];
+  }
+  String? _addressLine;
+  String? _city;
+  String? _state;
+  String? _country;
+  String? _postalCode;
+ShippingAddress copyWith({  String? addressLine,
+  String? city,
+  String? state,
+  String? country,
+  String? postalCode,
+}) => ShippingAddress(  addressLine: addressLine ?? _addressLine,
+  city: city ?? _city,
+  state: state ?? _state,
+  country: country ?? _country,
+  postalCode: postalCode ?? _postalCode,
+);
+  String? get addressLine => _addressLine;
+  String? get city => _city;
+  String? get state => _state;
+  String? get country => _country;
+  String? get postalCode => _postalCode;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['addressLine'] = _addressLine;
+    map['city'] = _city;
+    map['state'] = _state;
+    map['country'] = _country;
+    map['postalCode'] = _postalCode;
+    return map;
+  }
+
+}
+
+/// name : "jvkv"
+/// personName : "hxj"
+/// mobileNumber : "5656568868"
+/// alternativeMobileNumber : "5356565686"
+/// gstNumber : "yudufhfhfjfjjfj"
+/// email : "bansikathiriya65@gmail.com"
+/// website : "https.com"
 
 class Company {
-  String? name;
-  String? personName;
-  String? mobileNumber;
-  String? alternativeMobileNumber;
-  String? gstNumber;
-  String? email;
-  String? website;
-
   Company({
-    this.name,
-    this.personName,
-    this.mobileNumber,
-    this.alternativeMobileNumber,
-    this.gstNumber,
-    this.email,
-    this.website,
-  });
+      String? name, 
+      String? personName, 
+      String? mobileNumber, 
+      String? alternativeMobileNumber, 
+      String? gstNumber, 
+      String? email, 
+      String? website,}){
+    _name = name;
+    _personName = personName;
+    _mobileNumber = mobileNumber;
+    _alternativeMobileNumber = alternativeMobileNumber;
+    _gstNumber = gstNumber;
+    _email = email;
+    _website = website;
+}
 
-  factory Company.fromJson(Map<String, dynamic> json) => Company(
-        name: json["name"] ?? "",
-        personName: json["personName"] ?? "",
-        mobileNumber: json["mobileNumber"] ?? "",
-        alternativeMobileNumber: json["alternativeMobileNumber"] ?? "",
-        gstNumber: json["gstNumber"] ?? "",
-        email: json["email"] ?? "",
-        website: json["website"] ?? "",
-      );
+  Company.fromJson(dynamic json) {
+    _name = json['name'];
+    _personName = json['personName'];
+    _mobileNumber = json['mobileNumber'];
+    _alternativeMobileNumber = json['alternativeMobileNumber'];
+    _gstNumber = json['gstNumber'];
+    _email = json['email'];
+    _website = json['website'];
+  }
+  String? _name;
+  String? _personName;
+  String? _mobileNumber;
+  String? _alternativeMobileNumber;
+  String? _gstNumber;
+  String? _email;
+  String? _website;
+Company copyWith({  String? name,
+  String? personName,
+  String? mobileNumber,
+  String? alternativeMobileNumber,
+  String? gstNumber,
+  String? email,
+  String? website,
+}) => Company(  name: name ?? _name,
+  personName: personName ?? _personName,
+  mobileNumber: mobileNumber ?? _mobileNumber,
+  alternativeMobileNumber: alternativeMobileNumber ?? _alternativeMobileNumber,
+  gstNumber: gstNumber ?? _gstNumber,
+  email: email ?? _email,
+  website: website ?? _website,
+);
+  String? get name => _name;
+  String? get personName => _personName;
+  String? get mobileNumber => _mobileNumber;
+  String? get alternativeMobileNumber => _alternativeMobileNumber;
+  String? get gstNumber => _gstNumber;
+  String? get email => _email;
+  String? get website => _website;
 
-  Map<String, dynamic> toJson() => {
-        "name": name,
-        "personName": personName,
-        "mobileNumber": mobileNumber,
-        "alternativeMobileNumber": alternativeMobileNumber,
-        "gstNumber": gstNumber,
-        "email": email,
-        "website": website,
-      };
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['name'] = _name;
+    map['personName'] = _personName;
+    map['mobileNumber'] = _mobileNumber;
+    map['alternativeMobileNumber'] = _alternativeMobileNumber;
+    map['gstNumber'] = _gstNumber;
+    map['email'] = _email;
+    map['website'] = _website;
+    return map;
+  }
+
 }

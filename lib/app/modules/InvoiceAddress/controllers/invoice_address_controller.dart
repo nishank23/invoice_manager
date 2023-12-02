@@ -9,28 +9,26 @@ import '../../../global/constants/api_const.dart';
 class InvoiceAddressController extends GetxController {
   //TODO: Implement InvoiceAddressController
 
-
   final count = 0.obs;
-  InvoiceAddClientController addClientController = Get.find<InvoiceAddClientController>();
+  InvoiceAddClientController addClientController =
+      Get.find<InvoiceAddClientController>();
 
-  Rx<ClientDataById?> clientById = Rxn<ClientDataById>(null);
+  Rx<ClientByIdModel?> clientById = Rxn<ClientByIdModel>(null);
 
-
-
+RxBool isLoading =true.obs;
 
   @override
-  void onInit() {
-    // addClientController.s;
+  Future<void> onInit() async {
     super.onInit();
-  }
-
-  @override
-  Future<void> onReady() async {
-    super.onReady();
     if (addClientController.selectedAddClient.value != null) {
-      await callApiForGetClientById(context: Get.context!, id: addClientController.selectedAddClient.value.toString());
+      await callApiForGetClientById(
+          context: Get.context!,
+          id: addClientController.selectedAddClient.value.toString());
+
       //get client by id
     }
+    update();
+    refresh();
   }
 
   @override
@@ -41,17 +39,15 @@ class InvoiceAddressController extends GetxController {
   callApiForGetClientById({required BuildContext context, required String id}) {
     FocusScope.of(context).unfocus();
 
-    return NetworkClient.getInstance.callApi(context, baseURL, "${ApiConstant.getAllClients}/$id", MethodType.Get,
-        headers: NetworkClient.getInstance.getAuthHeaders(), successCallback: (response, message) async {
-          ClientDataByIdModel eventData = ClientDataByIdModel.fromJson(response);
-          clientById.value = eventData.clientDataById;
+    return NetworkClient.getInstance.callApi(
+        context, baseURL, "${ApiConstant.getAllClients}/$id", MethodType.Get,
+        headers: NetworkClient.getInstance.getAuthHeaders(),
+        successCallback: (response, message) async {
+          isLoading.value = false;
+          ClientByIdModel eventData = ClientByIdModel.fromJson(response);
+          clientById.value = eventData ;
 
-
-          print("::::::::::::::::::::$response");
-        }, failureCallback: (status, message) {
-
-        });
+      print("::::::::::::::::::::$response");
+    }, failureCallback: (status, message) {});
   }
-
-
 }

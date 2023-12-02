@@ -140,7 +140,7 @@ class InvoiceAddClientController extends GetxController {
      return NetworkClient.getInstance.callApi(
        context,
        baseURL,
-       "${ApiConstant.getAllClients}",
+       ApiConstant.getAllClients,
        MethodType.Get,
        headers: NetworkClient.getInstance.getAuthHeaders(),
        successCallback: (response, message) {

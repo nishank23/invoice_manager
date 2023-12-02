@@ -10,7 +10,7 @@ import 'package:invoice_generator/services/Connectivity/networkClient.dart';
 
 class AddNewClientController extends GetxController with SingleGetTickerProviderMixin {
   TabController? tabController;
-  Rx<ClientDataById?> clientById = Rxn<ClientDataById>(null);
+  Rx<ClientByIdModel?> clientById = Rxn<ClientByIdModel>(null);
   final count = 0.obs;
   String? id = Get.arguments;
   RxBool hasData = false.obs;
@@ -34,8 +34,8 @@ class AddNewClientController extends GetxController with SingleGetTickerProvider
 
     return NetworkClient.getInstance.callApi(context, baseURL, "${ApiConstant.getAllClients}/$id", MethodType.Get,
         headers: NetworkClient.getInstance.getAuthHeaders(), successCallback: (response, message) async {
-      ClientDataByIdModel eventData = ClientDataByIdModel.fromJson(response);
-      clientById.value = eventData.clientDataById;
+          ClientByIdModel eventData = ClientByIdModel.fromJson(response);
+      clientById.value = eventData ;
 
       hasData.value = true;
       print("::::::::::::::::::::$response");

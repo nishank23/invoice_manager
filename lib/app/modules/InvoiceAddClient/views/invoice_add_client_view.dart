@@ -53,7 +53,7 @@ class InvoiceAddClientView extends GetView<InvoiceAddClientController> {
                 lableText: 'Add client',
                 onChanged: (value) {
                   controller.selectedAddClient.value = value!;
-                  print(value);
+                  debugPrint(value);
                   controller.update();
                 },
               );
@@ -64,6 +64,7 @@ class InvoiceAddClientView extends GetView<InvoiceAddClientController> {
             ),
             MyTextFiled(
               onValidator: (value) {
+
                 if (value == null || value.toString().isEmpty) {
                   return "Please select date";
                 }

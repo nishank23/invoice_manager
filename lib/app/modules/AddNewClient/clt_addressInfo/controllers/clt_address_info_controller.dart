@@ -45,27 +45,27 @@ class CltAddressInfoController extends GetxController {
 
   getData() {
     //billing
-    nameBillController.value.text = addNewClientController.clientById.value!.company!.personName!;
-    mobileBillNumController.value.text = addNewClientController.clientById.value!.company!.mobileNumber!;
-    addressBillController.value.text = addNewClientController.clientById.value!.shippingAddress!.addressLine!;
-    zipBillController.value.text = addNewClientController.clientById.value!.shippingAddress!.postalCode!;
-    selectedCity.value = addNewClientController.clientById.value!.billingAddress!.city!;
+    nameBillController.value.text = addNewClientController.clientById.value!.clientData!.company!.personName!;
+    mobileBillNumController.value.text = addNewClientController.clientById.value!.clientData!.company!.mobileNumber!;
+    addressBillController.value.text = addNewClientController.clientById.value!.clientData!.shippingAddress!.addressLine!;
+    zipBillController.value.text = addNewClientController.clientById.value!.clientData!.shippingAddress!.postalCode!;
+    selectedCity.value = addNewClientController.clientById.value!.clientData!.billingAddress!.city!;
 
-    selectedCountry.value = addNewClientController.clientById.value!.billingAddress!.country!;
+    selectedCountry.value = addNewClientController.clientById.value!.clientData!.billingAddress!.country!;
 
     setSelectedCountry(selectedCountry.value.toString());
 
-    selectedState.value = addNewClientController.clientById.value!.billingAddress!.state!;
+    selectedState.value = addNewClientController.clientById.value!.clientData!.billingAddress!.state!;
 
     //shipping
 
-    nameShipController.value.text = addNewClientController.clientById.value!.company!.personName!;
-    mobileNumShipController.value.text = addNewClientController.clientById.value!.company!.mobileNumber!;
-    addressShipController.value.text = addNewClientController.clientById.value!.shippingAddress!.addressLine!;
-    zipShipController.value.text = addNewClientController.clientById.value!.shippingAddress!.postalCode!;
-    ship_selectedCity.value = addNewClientController.clientById.value!.shippingAddress!.city!;
-    ship_selectedCountry.value = addNewClientController.clientById.value!.shippingAddress!.country!;
-    ship_selectedState.value = addNewClientController.clientById.value!.shippingAddress!.state!;
+    nameShipController.value.text = addNewClientController.clientById.value!.clientData!.company!.personName!;
+    mobileNumShipController.value.text = addNewClientController.clientById.value!.clientData!.company!.mobileNumber!;
+    addressShipController.value.text = addNewClientController.clientById.value!.clientData!.shippingAddress!.addressLine!;
+    zipShipController.value.text = addNewClientController.clientById.value!.clientData!.shippingAddress!.postalCode!;
+    ship_selectedCity.value = addNewClientController.clientById.value!.clientData!.shippingAddress!.city!;
+    ship_selectedCountry.value = addNewClientController.clientById.value!.clientData!.shippingAddress!.country!;
+    ship_selectedState.value = addNewClientController.clientById.value!.clientData!.shippingAddress!.state!;
     // ship_selectedCity.value=addNewClientController.clientById.value.sh
     update();
     refresh();
@@ -307,9 +307,9 @@ class CltAddressInfoController extends GetxController {
       headers: NetworkClient.getInstance.getAuthHeaders(),
       successCallback: (response, message) {
         app.resolve<CustomDialogs>().hideCircularDialog(context);
-        mycountryshipDataList.value.clear();
-        mystateshipDataList.value.clear();
-        mycityshipDataList.value.clear();
+        mycountryshipDataList.clear();
+        mystateshipDataList.clear();
+        mycityshipDataList.clear();
         List<dynamic> countryDataList = response['country_data'];
         for (var countryData in countryDataList) {
           Map<String, dynamic> dropdownItem = {
@@ -335,7 +335,7 @@ class CltAddressInfoController extends GetxController {
 
     ApiGetAllStates(context: Get.context!, countryId: int.parse(value.toString()));
     if (addNewClientController.id != null) {
-      setSelectedState(addNewClientController.clientById.value!.billingAddress!.state!);
+      setSelectedState(addNewClientController.clientById.value!.clientData!.billingAddress!.state!);
       update();
     }
   }
@@ -346,15 +346,15 @@ class CltAddressInfoController extends GetxController {
 
     ApiGetAllCity(context: Get.context!, stateId: int.parse(value.toString()));
     if (addNewClientController.id != null) {
-      selectedCity.value = addNewClientController.clientById.value!.billingAddress!.city!.toString();
+      selectedCity.value = addNewClientController.clientById.value!.clientData!.billingAddress!.city!.toString();
       update();
     }
   }
 
   ApiGetAllStates({required BuildContext context, int? countryId}) async {
     app.resolve<CustomDialogs>().showCircularDialog(context);
-    mystateDataList.value.clear();
-    mycityDataList.value.clear();
+    mystateDataList.clear();
+    mycityDataList.clear();
     return NetworkClient.getInstance.callApi(
       context,
       baseURL,
@@ -363,8 +363,8 @@ class CltAddressInfoController extends GetxController {
       headers: NetworkClient.getInstance.getAuthHeaders(),
       successCallback: (response, message) {
         app.resolve<CustomDialogs>().hideCircularDialog(context);
-        mystateDataList.value.clear();
-        mycityDataList.value.clear();
+        mystateDataList.clear();
+        mycityDataList.clear();
         List<dynamic> statesDataList = response['states_data'];
 
         log(response.toString());
@@ -401,8 +401,8 @@ class CltAddressInfoController extends GetxController {
       headers: NetworkClient.getInstance.getAuthHeaders(),
       successCallback: (response, message) {
         app.resolve<CustomDialogs>().hideCircularDialog(context);
-        mystateshipDataList.value.clear();
-        mycityshipDataList.value.clear();
+        mystateshipDataList.clear();
+        mycityshipDataList.clear();
         List<dynamic> statesDataList = response['states_data'];
         for (var stateData in statesDataList) {
           Map<String, dynamic> dropdownItem = {
@@ -435,7 +435,7 @@ class CltAddressInfoController extends GetxController {
       successCallback: (response, message) {
         app.resolve<CustomDialogs>().hideCircularDialog(context);
 
-        mycityDataList.value.clear();
+        mycityDataList.clear();
 
         List<dynamic> statesDataList = response['city_data'];
         for (var stateData in statesDataList) {
@@ -468,7 +468,7 @@ class CltAddressInfoController extends GetxController {
       headers: NetworkClient.getInstance.getAuthHeaders(),
       successCallback: (response, message) {
         app.resolve<CustomDialogs>().hideCircularDialog(context);
-        mycityshipDataList.value.clear();
+        mycityshipDataList.clear();
 
         List<dynamic> statesDataList = response['city_data'];
         for (var stateData in statesDataList) {

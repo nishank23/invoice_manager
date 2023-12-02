@@ -1,32 +1,45 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
+import '../../../../Models/client_by_id_model.dart';
 import '../../../../main.dart';
 import '../../../../services/Connectivity/networkClient.dart';
 import '../../../global/constants/api_const.dart';
 import '../../../global/widgets/custom_dialog.dart';
 
 class EditAddressController extends GetxController {
-  late Map<String, dynamic> arguments;
-  late String id;
-  late String title;
+  late Map<String, dynamic> arguments   ;
+   late String title;
+  ClientData? clientData;
 
   final count = 0.obs;
 
   @override
   void onInit() {
-    arguments = Get.arguments;
-    id = arguments['id'];
-    title = arguments['title'];
-    print(id);
-    print(title);
+
     super.onInit();
   }
 
   @override
   void onReady() {
+    arguments = Get.arguments;
+    title = arguments['title'];
+    clientData = arguments['model'];
+    print("mytitle = ${arguments['title']}");
+
+    debugPrint(jsonEncode(clientData));
+    ApiGetAllCountry(context: Get.context!);
+
+     if (Get.arguments != null) {
+       nameBillController.value.text = clientData!.company!.name.toString() ;
+       mobileBillNumController.value.text =
+           clientData!.company!.mobileNumber.toString();
+       getData();
+     }
+    update();
     super.onReady();
   }
 
@@ -49,6 +62,27 @@ class EditAddressController extends GetxController {
   Rx<String?> selectedCity = Rx<String?>(null);
   Rx<String?> selectedState = Rx<String?>(null);
   Rx<String?> selectedCountry = Rx<String?>(null);
+
+  getData() {
+    if (title == "Billing Address") {
+      addressBillController.value.text =
+          clientData!.billingAddress!.addressLine.toString();
+      zipBillController.value.text = clientData!.billingAddress!.postalCode.toString();
+      selectedCity.value = clientData!.billingAddress!.city!;
+      selectedState.value = clientData!.billingAddress!.state!;
+      selectedCountry.value = clientData!.billingAddress!.country!;
+    } else if (title == "Shipping Address") {
+      addressBillController.value.text =
+          clientData!.shippingAddress!.addressLine.toString();
+      zipBillController.value.text =
+          clientData!.shippingAddress!.postalCode.toString();
+      selectedCity.value = clientData!.shippingAddress!.city!;
+      selectedState.value = clientData!.shippingAddress!.state!;
+      selectedCountry.value = clientData!.shippingAddress!.country!;
+    }
+
+    setSelectedCountry(selectedCountry.value.toString());
+  }
 
   ApiGetAllCountry({required BuildContext context}) async {
     FocusScope.of(context).unfocus();
@@ -74,7 +108,6 @@ class EditAddressController extends GetxController {
           mycountryDataList.add(dropdownItem);
         }
         update();
-        refresh();
       },
       failureCallback: (status, message) {
         app.resolve<CustomDialogs>().hideCircularDialog(context);
@@ -85,10 +118,29 @@ class EditAddressController extends GetxController {
     );
   }
 
+  setSelectedCountry(String value) {
+    selectedCountry.value = value;
+    ApiGetAllStates(context: Get.context!, countryId: int.parse(value.toString()));
+    if (clientData!.id != null) {
+      setSelectedState(clientData!.billingAddress!.state!);
+      update();
+    }
+  }
+
+  setSelectedState(String value) {
+    selectedState.value = value;
+
+    ApiGetAllCity(context: Get.context!, stateId: int.parse(value.toString()));
+    if (clientData!.id != null) {
+      selectedCity.value = clientData!.billingAddress!.city!.toString();
+      update();
+    }
+  }
+
   ApiGetAllStates({required BuildContext context, int? countryId}) async {
     app.resolve<CustomDialogs>().showCircularDialog(context);
-    mystateDataList.value.clear();
-    mycityDataList.value.clear();
+    mystateDataList.clear();
+    mycityDataList.clear();
     return NetworkClient.getInstance.callApi(
       context,
       baseURL,
@@ -97,8 +149,8 @@ class EditAddressController extends GetxController {
       headers: NetworkClient.getInstance.getAuthHeaders(),
       successCallback: (response, message) {
         app.resolve<CustomDialogs>().hideCircularDialog(context);
-        mystateDataList.value.clear();
-        mycityDataList.value.clear();
+        mystateDataList.clear();
+        mycityDataList.clear();
         List<dynamic> statesDataList = response['states_data'];
 
         log(response.toString());
@@ -135,7 +187,7 @@ class EditAddressController extends GetxController {
       successCallback: (response, message) {
         app.resolve<CustomDialogs>().hideCircularDialog(context);
 
-        mycityDataList.value.clear();
+        mycityDataList.clear();
 
         List<dynamic> statesDataList = response['city_data'];
         for (var stateData in statesDataList) {

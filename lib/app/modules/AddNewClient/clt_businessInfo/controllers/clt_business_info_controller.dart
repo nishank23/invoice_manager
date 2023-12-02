@@ -34,13 +34,13 @@ class CltBusinessInfoController extends GetxController {
   }
 
   getData() {
-    companyNameController.value.text = addNewClientController.clientById.value!.company!.name!;
-    ownerNameController.value.text = addNewClientController.clientById.value!.company!.personName!;
-    mobileNumberController.value.text = addNewClientController.clientById.value!.company!.mobileNumber!;
-    alterMobileNumberController.value.text = addNewClientController.clientById.value!.company!.alternativeMobileNumber!;
-    gstController.value.text = addNewClientController.clientById.value!.company!.gstNumber!;
-    businessEmailController.value.text = addNewClientController.clientById.value!.company!.email!;
-    businessWebsiteController.value.text = addNewClientController.clientById.value!.company!.website!;
+    companyNameController.value.text = addNewClientController.clientById.value!.clientData!.company!.name!;
+    ownerNameController.value.text = addNewClientController.clientById.value!.clientData!.company!.personName!;
+    mobileNumberController.value.text = addNewClientController.clientById.value!.clientData!.company!.mobileNumber!;
+    alterMobileNumberController.value.text = addNewClientController.clientById.value!.clientData!.company!.alternativeMobileNumber!;
+    gstController.value.text = addNewClientController.clientById.value!.clientData!.company!.gstNumber!;
+    businessEmailController.value.text = addNewClientController.clientById.value!.clientData!.company!.email!;
+    businessWebsiteController.value.text = addNewClientController.clientById.value!.clientData!.company!.website!;
     update();
     refresh();
   }
