@@ -23,6 +23,10 @@ ClientByIdModel copyWith({  bool? success,
   bool? get success => _success;
   ClientData? get clientData => _clientData;
 
+  set sClientData(ClientData value) {
+    _clientData = value;
+  }
+
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['success'] = _success;

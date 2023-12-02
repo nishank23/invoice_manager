@@ -26,7 +26,6 @@ class EditAddressController extends GetxController {
 
   @override
   Future<void> onReady() async {
-
     super.onReady();
     arguments = Get.arguments;
     title = arguments!['title'];
@@ -66,8 +65,7 @@ class EditAddressController extends GetxController {
 
   getData() {
     if (title == "Billing Address") {
-      addressBillController.value.text =
-          clientData!.billingAddress!.addressLine.toString();
+      addressBillController.value.text = clientData!.billingAddress!.addressLine.toString();
       zipBillController.value.text = clientData!.billingAddress!.postalCode.toString();
       selectedCity.value = clientData!.billingAddress!.city!;
       selectedState.value = clientData!.billingAddress!.state!;

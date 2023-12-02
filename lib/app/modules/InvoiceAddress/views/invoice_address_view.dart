@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -9,6 +11,7 @@ import 'package:invoice_generator/app/global/constants/app_fonts.dart';
 import 'package:invoice_generator/app/global/widgets/myButton.dart';
 import 'package:invoice_generator/app/routes/app_pages.dart';
 
+import '../../../../Models/client_by_id_model.dart';
 import '../../../global/widgets/TitleWidget.dart';
 import '../../CreateInvoice/controllers/create_invoice_controller.dart';
 import '../controllers/invoice_address_controller.dart';
@@ -19,19 +22,21 @@ class InvoiceAddressView extends GetView<InvoiceAddressController> {
   @override
   Widget build(BuildContext context) {
     Get.put(InvoiceAddressController());
-    CreateInvoiceController createInvoiceController = Get.find<CreateInvoiceController>();
+    CreateInvoiceController createInvoiceController =
+        Get.find<CreateInvoiceController>();
     return Scaffold(
         extendBody: true,
         backgroundColor: Colors.white,
         body: Obx(
-          () =>  Column(
+          () => Column(
             children: [
               Container(
                 padding: EdgeInsets.all(16.h),
                 decoration: ShapeDecoration(
                   color: Colors.white,
                   shape: RoundedRectangleBorder(
-                    side: const BorderSide(width: 0.50, color: Color(0x4C758090)),
+                    side:
+                        const BorderSide(width: 0.50, color: Color(0x4C758090)),
                     borderRadius: BorderRadius.circular(20),
                   ),
                 ),
@@ -42,27 +47,34 @@ class InvoiceAddressView extends GetView<InvoiceAddressController> {
                     SizedBox(
                       height: 16.h,
                     ),
-                    Text(controller.clientById.value?.clientData!.company!.name.toString() ?? "",
+                    Text(
+                        controller.clientById.value?.clientData!.company!.name
+                                .toString() ??
+                            "",
                         style: text600_16.copyWith(color: Colors.black)),
                     SizedBox(
                       height: 8.h,
                     ),
                     Text(
-                        controller.clientById.value?.clientData!.billingAddress!.addressLine
-                            .toString() ?? "",
+                        controller.clientById.value?.clientData!.billingAddress!
+                                .addressLine
+                                .toString() ??
+                            "",
                         style: text400_16black),
                     SizedBox(
                       height: 8.h,
                     ),
                     Text(
-                        controller.clientById.value?.clientData!.billingAddressDetails!.city
-                            .toString() ?? "",
+                        controller.clientById.value?.clientData!
+                                .billingAddressDetails!.city
+                                .toString() ??
+                            "",
                         style: text400_16black),
                     SizedBox(
                       height: 8.h,
                     ),
                     Text(
-                        "${controller.clientById.value?.clientData!.billingAddressDetails!.state ?? ""},${controller.clientById.value?.clientData!.billingAddressDetails!.country ?? ""}-${controller.clientById.value?.clientData!.billingAddress!.postalCode?? ""}",
+                        "${controller.clientById.value?.clientData!.billingAddressDetails!.state ?? ""},${controller.clientById.value?.clientData!.billingAddressDetails!.country ?? ""}-${controller.clientById.value?.clientData!.billingAddress!.postalCode ?? ""}",
                         style: text400_16black),
                     SizedBox(
                       height: 8.h,
@@ -72,19 +84,29 @@ class InvoiceAddressView extends GetView<InvoiceAddressController> {
                         myPreviewTitle(
                           title: 'Mobile No.: ',
                         ),
-                        Text(controller.clientById.value?.clientData!.company!.mobileNumber ?? "", style: text400_16black),
+                        Text(
+                            controller.clientById.value?.clientData!.company!
+                                    .mobileNumber ??
+                                "",
+                            style: text400_16black),
                       ],
                     ),
                     SizedBox(
                       height: 16.h,
                     ),
                     GestureDetector(
-                      onTap: () {
+                      onTap: () async {
                         String title = "Billing Address";
-                         Get.toNamed(Routes.EDIT_ADDRESS, arguments: {
+                        var myData =
+                            await Get.toNamed(Routes.EDIT_ADDRESS, arguments: {
                           'title': title,
-                          'model':controller.clientById.value!.clientData
+                          'model': controller.clientById.value!.clientData
                         });
+                        if (myData != null) {
+                          controller.clientById.value!.sClientData = myData;
+                          debugPrint("myData ${jsonEncode(myData)}");
+                          controller.update();
+                        }
                       },
                       child: Text('Edit Address',
                           style:
@@ -101,7 +123,8 @@ class InvoiceAddressView extends GetView<InvoiceAddressController> {
                 decoration: ShapeDecoration(
                   color: Colors.white,
                   shape: RoundedRectangleBorder(
-                    side: const BorderSide(width: 0.50, color: Color(0x4C758090)),
+                    side:
+                        const BorderSide(width: 0.50, color: Color(0x4C758090)),
                     borderRadius: BorderRadius.circular(20),
                   ),
                 ),
@@ -112,27 +135,34 @@ class InvoiceAddressView extends GetView<InvoiceAddressController> {
                     SizedBox(
                       height: 16.h,
                     ),
-                    Text(controller.clientById.value?.clientData!.company!.name.toString() ?? "",
+                    Text(
+                        controller.clientById.value?.clientData!.company!.name
+                                .toString() ??
+                            "",
                         style: text600_16.copyWith(color: Colors.black)),
                     SizedBox(
                       height: 8.h,
                     ),
                     Text(
-                        controller.clientById.value?.clientData!.shippingAddress!.addressLine
-                            .toString() ?? "",
+                        controller.clientById.value?.clientData!
+                                .shippingAddress!.addressLine
+                                .toString() ??
+                            "",
                         style: text400_16black),
                     SizedBox(
                       height: 8.h,
                     ),
                     Text(
-                        controller.clientById.value?.clientData!.shippingAddressDetails!.city
-                            .toString() ?? "",
+                        controller.clientById.value?.clientData!
+                                .shippingAddressDetails!.city
+                                .toString() ??
+                            "",
                         style: text400_16black),
                     SizedBox(
                       height: 8.h,
                     ),
                     Text(
-                        "${controller.clientById.value?.clientData!.shippingAddressDetails!.state ?? ""},${controller.clientById.value?.clientData!.shippingAddressDetails!.country ?? ""}-${controller.clientById.value?.clientData!.shippingAddress!.postalCode?? ""}",
+                        "${controller.clientById.value?.clientData!.shippingAddressDetails!.state ?? ""},${controller.clientById.value?.clientData!.shippingAddressDetails!.country ?? ""}-${controller.clientById.value?.clientData!.shippingAddress!.postalCode ?? ""}",
                         style: text400_16black),
                     SizedBox(
                       height: 8.h,
@@ -142,7 +172,11 @@ class InvoiceAddressView extends GetView<InvoiceAddressController> {
                         myPreviewTitle(
                           title: 'Mobile No.: ',
                         ),
-                        Text(controller.clientById.value?.clientData!.company!.mobileNumber ?? "", style: text400_16black),
+                        Text(
+                            controller.clientById.value?.clientData!.company!
+                                    .mobileNumber ??
+                                "",
+                            style: text400_16black),
                       ],
                     ),
                     SizedBox(
@@ -153,8 +187,8 @@ class InvoiceAddressView extends GetView<InvoiceAddressController> {
                         String title = "Shipping Address";
                         var id = "#${createInvoiceController.estimateNo}";
                         Get.toNamed(Routes.EDIT_ADDRESS, arguments: {
-                           'title': title,
-                          'model':controller.clientById.value!.clientData
+                          'title': title,
+                          'model': controller.clientById.value!.clientData
                         });
                       },
                       child: Text('Edit Address',
