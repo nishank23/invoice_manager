@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/widgets.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
 import '../../../../Models/client_by_id_model.dart';
@@ -11,8 +12,8 @@ import '../../../global/constants/api_const.dart';
 import '../../../global/widgets/custom_dialog.dart';
 
 class EditAddressController extends GetxController {
-  late Map<String, dynamic> arguments   ;
-   late String title;
+  Map<String, dynamic>? arguments   ;
+  String? title;
   ClientData? clientData;
 
   final count = 0.obs;
@@ -24,23 +25,23 @@ class EditAddressController extends GetxController {
   }
 
   @override
-  void onReady() {
+  Future<void> onReady() async {
+
+    super.onReady();
     arguments = Get.arguments;
-    title = arguments['title'];
-    clientData = arguments['model'];
-    print("mytitle = ${arguments['title']}");
+    title = arguments!['title'];
+    clientData = arguments!['model'];
+    print("mytitle = ${arguments!['title']}");
 
     debugPrint(jsonEncode(clientData));
-    ApiGetAllCountry(context: Get.context!);
+    await ApiGetAllCountry(context: Get.context!);
 
-     if (Get.arguments != null) {
-       nameBillController.value.text = clientData!.company!.name.toString() ;
-       mobileBillNumController.value.text =
-           clientData!.company!.mobileNumber.toString();
-       getData();
-     }
-    update();
-    super.onReady();
+    if (Get.arguments != null) {
+      nameBillController.value.text = clientData!.company!.name.toString() ;
+      mobileBillNumController.value.text =
+          clientData!.company!.mobileNumber.toString();
+      getData();
+    }
   }
 
   @override
@@ -79,7 +80,10 @@ class EditAddressController extends GetxController {
       selectedCity.value = clientData!.shippingAddress!.city!;
       selectedState.value = clientData!.shippingAddress!.state!;
       selectedCountry.value = clientData!.shippingAddress!.country!;
+
     }
+    update();
+    Fluttertoast.showToast(msg: selectedCountry.value.toString());
 
     setSelectedCountry(selectedCountry.value.toString());
   }
