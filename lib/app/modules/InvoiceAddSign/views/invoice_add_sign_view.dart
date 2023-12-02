@@ -157,6 +157,22 @@ class InvoiceAddSignView extends GetView<InvoiceAddSignController> {
                 return mybutton(
                   onTap: () {
                     print("taped");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                     Get.toNamed(Routes.INVOICE_PREVIEW);
                   },
                   title: "Submit",

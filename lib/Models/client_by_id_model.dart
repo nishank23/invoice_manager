@@ -119,6 +119,10 @@ ClientData copyWith({  Company? company,
   ShippingAddressDetails? get shippingAddressDetails => _shippingAddressDetails;
   BillingAddressDetails? get billingAddressDetails => _billingAddressDetails;
 
+  set scompany(Company value) {
+    _company = value;
+  }
+
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     if (_company != null) {
@@ -143,6 +147,21 @@ ClientData copyWith({  Company? company,
     return map;
   }
 
+  set sshippingAddress(ShippingAddress value) {
+    _shippingAddress = value;
+  }
+
+  set sbillingAddress(BillingAddress value) {
+    _billingAddress = value;
+  }
+
+  set sshippingAddressDetails(ShippingAddressDetails value) {
+    _shippingAddressDetails = value;
+  }
+
+  set sbillingAddressDetails(BillingAddressDetails value) {
+    _billingAddressDetails = value;
+  }
 }
 
 /// city : "Icolo e Bengo"
@@ -178,6 +197,11 @@ BillingAddressDetails copyWith({  String? city,
   String? get state => _state;
   String? get country => _country;
 
+
+  set scity(String value) {
+    _city = value;
+  }
+
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['city'] = _city;
@@ -186,6 +210,13 @@ BillingAddressDetails copyWith({  String? city,
     return map;
   }
 
+  set sstate(String value) {
+    _state = value;
+  }
+
+  set scountry(String value) {
+    _country = value;
+  }
 }
 
 /// city : "Icolo e Bengo"
@@ -201,6 +232,11 @@ class ShippingAddressDetails {
     _state = state;
     _country = country;
 }
+
+
+  set scity(String value) {
+    _city = value;
+  }
 
   ShippingAddressDetails.fromJson(dynamic json) {
     _city = json['city'];
@@ -229,6 +265,13 @@ ShippingAddressDetails copyWith({  String? city,
     return map;
   }
 
+  set sstate(String value) {
+    _state = value;
+  }
+
+  set scountry(String value) {
+    _country = value;
+  }
 }
 
 /// addressLine : "ch cu"
@@ -261,6 +304,11 @@ class BillingAddress {
   String? _addressLine;
   String? _city;
   String? _state;
+
+  set saddressLine(String value) {
+    _addressLine = value;
+  }
+
   String? _country;
   String? _postalCode;
 BillingAddress copyWith({  String? addressLine,
@@ -290,6 +338,21 @@ BillingAddress copyWith({  String? addressLine,
     return map;
   }
 
+  set scity(String value) {
+    _city = value;
+  }
+
+  set sstate(String value) {
+    _state = value;
+  }
+
+  set scountry(String value) {
+    _country = value;
+  }
+
+  set spostalCode(String value) {
+    _postalCode = value;
+  }
 }
 
 /// addressLine : "ch cu"
@@ -311,6 +374,10 @@ class ShippingAddress {
     _country = country;
     _postalCode = postalCode;
 }
+
+  set saddressLine(String value) {
+    _addressLine = value;
+  }
 
   ShippingAddress.fromJson(dynamic json) {
     _addressLine = json['addressLine'];
@@ -351,6 +418,21 @@ ShippingAddress copyWith({  String? addressLine,
     return map;
   }
 
+  set scity(String value) {
+    _city = value;
+  }
+
+  set sstate(String value) {
+    _state = value;
+  }
+
+  set scountry(String value) {
+    _country = value;
+  }
+
+  set spostalCode(String value) {
+    _postalCode = value;
+  }
 }
 
 /// name : "jvkv"

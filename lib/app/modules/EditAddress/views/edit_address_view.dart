@@ -15,7 +15,8 @@ import '../../CreateInvoice/controllers/create_invoice_controller.dart';
 import '../controllers/edit_address_controller.dart';
 
 class EditAddressView extends GetView<EditAddressController> {
-  const EditAddressView({Key? key}) : super(key: key);
+  EditAddressView({Key? key}) : super(key: key);
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +28,7 @@ class EditAddressView extends GetView<EditAddressController> {
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.white,
         body: SafeArea(
+           key: formKey,
           child: GetBuilder(builder: (EditAddressController controller) {
             return SingleChildScrollView(
               reverse: true,
@@ -147,6 +149,30 @@ class EditAddressView extends GetView<EditAddressController> {
                       lableText: 'Country',
                       onChanged: (value) {
                         controller.selectedCountry.value = value!;
+
+                        if(controller.title == "Billing Address") {
+
+                          controller.clientData!.billingAddress!.scountry = value;
+
+                          controller.mycountryDataList.forEach((element) {
+                            if (element['id'] == value) {
+                              controller.clientData!.billingAddressDetails!.scountry =
+                              element['name'];
+                            }
+                          });
+                        }else if(controller.title == "Shipping Address"){
+
+
+                          controller.clientData!.shippingAddress!.scountry = value;
+                          controller.mycountryDataList.forEach((element) {
+                            if (element['id'] == value) {
+                              controller.clientData!.shippingAddressDetails!.scountry=
+                              element['name'];
+                            }
+                          });
+                        }
+
+
                         controller.update();
 
                         controller.ApiGetAllStates(
@@ -164,6 +190,35 @@ class EditAddressView extends GetView<EditAddressController> {
                       lableText: 'State',
                       onChanged: (value) {
                         controller.selectedState.value = value!;
+
+
+                        if(controller.title == "Billing Address") {
+
+                          controller.clientData!.billingAddress!.sstate = value;
+
+                          controller.mystateDataList.forEach((element) {
+                            if (element['id'] == value) {
+                              controller.clientData!.billingAddressDetails!.sstate =
+                              element['name'];
+                            }
+                          });
+                        }else if(controller.title == "Shipping Address"){
+
+
+                          controller.clientData!.shippingAddress!.sstate = value;
+                          controller.mystateDataList.forEach((element) {
+                            if (element['id'] == value) {
+                              controller.clientData!.shippingAddressDetails!.sstate=
+                              element['name'];
+                            }
+                          });
+                        }
+
+
+
+
+
+
                         controller.update();
 
                         controller.ApiGetAllCity(
@@ -185,6 +240,32 @@ class EditAddressView extends GetView<EditAddressController> {
                       lableText: 'City',
                       onChanged: (value) {
                         controller.selectedCity.value = value!;
+
+
+                        if(controller.title == "Billing Address") {
+
+                          controller.clientData!.billingAddress!.scity = value;
+
+                          controller.mycityDataList.forEach((element) {
+                            if (element['id'] == value) {
+                              controller.clientData!.billingAddressDetails!.scity =
+                              element['name'];
+                            }
+                          });
+                        }else if(controller.title == "Shipping Address"){
+
+
+                          controller.clientData!.shippingAddress!.scity = value;
+                          controller.mycityDataList.forEach((element) {
+                            if (element['id'] == value) {
+                              controller.clientData!.shippingAddressDetails!.scity=
+                              element['name'];
+                            }
+                          });
+                        }
+
+
+
                         controller.update();
                       },
                     );
@@ -224,23 +305,31 @@ class EditAddressView extends GetView<EditAddressController> {
                     onTap: () {
                       print("taped");
 
-                      // if (
-                      //   title == "Billing Address") {
-                      //   addressBillController.value.text = clientData!.billingAddress!.addressLine.toString();
-                      //   zipBillController.value.text = clientData!.billingAddress!.postalCode.toString();
-                      //   selectedCity.value = clientData!.billingAddress!.city!;
-                      //   selectedState.value = clientData!.billingAddress!.state!;
-                      //   selectedCountry.value = clientData!.billingAddress!.country!;
-                      // } else if (title == "Shipping Address") {
-                      //   addressBillController.value.text =
-                      //       clientData!.shippingAddress!.addressLine.toString();
-                      //   zipBillController.value.text =
-                      //       clientData!.shippingAddress!.postalCode.toString();
-                      //   selectedCity.value = clientData!.shippingAddress!.city!;
-                      //   selectedState.value = clientData!.shippingAddress!.state!;
-                      //   selectedCountry.value = clientData!.shippingAddress!.country!;
-                      //
-                      // }
+                      if (formKey.currentState!.validate()) {
+
+                      }
+
+
+
+                        /*if (
+                          controller.title == "Billing Address") {
+                          controller.addressBillController.value.text = controller.clientData!.billingAddress!.addressLine.toString();
+                          controller.zipBillController.value.text = controller.clientData!.billingAddress!.postalCode.toString();
+                          controller. selectedCity.value = controller.clientData!.billingAddress!.city!;
+                          controller.selectedState.value =controller.clientData!.billingAddress!.state!;
+                          controller.selectedCountry.value = controller.clientData!.billingAddress!.country!;
+                        } else if (controller.title == "Shipping Address") {
+                          controller.addressBillController.value.text =
+                              clientData!.shippingAddress!.addressLine.toString();
+                          zipBillController.value.text =
+                              clientData!.shippingAddress!.postalCode.toString();
+                          selectedCity.value = clientData!.shippingAddress!.city!;
+                          selectedState.value = clientData!.shippingAddress!.state!;
+                          selectedCountry.value = clientData!.shippingAddress!.country!;
+
+                        }
+
+                      }*/
 
 
                       Get.back(result: controller.clientData);

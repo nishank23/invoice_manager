@@ -69,7 +69,7 @@ class InvoiceAddSignController extends GetxController {
     return NetworkClient.getInstance.callApiForm(
       context,
       baseURL,
-      ApiConstant.createEst,
+      ApiConstant.createInv,
       MethodType.Post,
       headers: NetworkClient.getInstance.getAuthHeaders(),
       params: form,
@@ -77,7 +77,7 @@ class InvoiceAddSignController extends GetxController {
         app.resolve<CustomDialogs>().hideCircularDialog(context);
 
         print(response["data"]["_id"]);
-        Get.offNamed(Routes.ESTIMATE_PREVIEW,
+        Get.offNamed(Routes.INVOICE_PREVIEW,
             arguments: response["data"]["_id"]);
 
         Fluttertoast.showToast(msg: "Estimate Created Successfully");
