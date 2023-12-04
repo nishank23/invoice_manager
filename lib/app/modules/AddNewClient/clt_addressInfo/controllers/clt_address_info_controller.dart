@@ -45,27 +45,25 @@ class CltAddressInfoController extends GetxController {
 
   getData() {
     //billing
-    nameBillController.value.text = addNewClientController.clientById.value!.clientData!.company!.personName!;
-    mobileBillNumController.value.text = addNewClientController.clientById.value!.clientData!.company!.mobileNumber!;
-    addressBillController.value.text = addNewClientController.clientById.value!.clientData!.shippingAddress!.addressLine!;
-    zipBillController.value.text = addNewClientController.clientById.value!.clientData!.shippingAddress!.postalCode!;
+    nameBillController.value.text = addNewClientController.clientById.value!.clientData!.billingAddress!.personName!;
+    mobileBillNumController.value.text = addNewClientController.clientById.value!.clientData!.billingAddress!.mobileNumber!;
+    addressBillController.value.text = addNewClientController.clientById.value!.clientData!.billingAddress!.addressLine!;
+    zipBillController.value.text = addNewClientController.clientById.value!.clientData!.billingAddress!.postalCode!;
     selectedCity.value = addNewClientController.clientById.value!.clientData!.billingAddress!.city!;
-
     selectedCountry.value = addNewClientController.clientById.value!.clientData!.billingAddress!.country!;
-
     setSelectedCountry(selectedCountry.value.toString());
-
     selectedState.value = addNewClientController.clientById.value!.clientData!.billingAddress!.state!;
 
     //shipping
 
-    nameShipController.value.text = addNewClientController.clientById.value!.clientData!.company!.personName!;
-    mobileNumShipController.value.text = addNewClientController.clientById.value!.clientData!.company!.mobileNumber!;
+    nameShipController.value.text = addNewClientController.clientById.value!.clientData!.shippingAddress!.personName!;
+    mobileNumShipController.value.text = addNewClientController.clientById.value!.clientData!.shippingAddress!.personName!;
     addressShipController.value.text = addNewClientController.clientById.value!.clientData!.shippingAddress!.addressLine!;
     zipShipController.value.text = addNewClientController.clientById.value!.clientData!.shippingAddress!.postalCode!;
     ship_selectedCity.value = addNewClientController.clientById.value!.clientData!.shippingAddress!.city!;
     ship_selectedCountry.value = addNewClientController.clientById.value!.clientData!.shippingAddress!.country!;
     ship_selectedState.value = addNewClientController.clientById.value!.clientData!.shippingAddress!.state!;
+    setShipSelectedCountry(ship_selectedCountry.value.toString());
     // ship_selectedCity.value=addNewClientController.clientById.value.sh
     update();
     refresh();
@@ -115,6 +113,8 @@ class CltAddressInfoController extends GetxController {
       'website': businesscntlr.businessWebsiteController.value.text,
     };
     requestData['billingAddress'] = {
+      'personName': nameBillController.value.text,
+      'mobileNumber': mobileBillNumController.value.text,
       'addressLine': addressBillController.value.text,
       'city': selectedCity.value,
       'state': selectedState.value,
@@ -124,6 +124,8 @@ class CltAddressInfoController extends GetxController {
 
     if (isAddressSame) {
       requestData['shippingAddress'] = {
+        'personName': nameBillController.value.text,
+        'mobileNumber': mobileBillNumController.value.text,
         'addressLine': addressBillController.value.text,
         'city': selectedCity.value,
         'state': selectedState.value,
@@ -132,6 +134,8 @@ class CltAddressInfoController extends GetxController {
       };
     } else {
       requestData['shippingAddress'] = {
+        'personName': nameShipController.value.text,
+        'mobileNumber': mobileNumShipController.value.text,
         'addressLine': addressShipController.value.text,
         'city': ship_selectedCity.value,
         'state': ship_selectedState.value,
@@ -347,6 +351,28 @@ class CltAddressInfoController extends GetxController {
     ApiGetAllCity(context: Get.context!, stateId: int.parse(value.toString()));
     if (addNewClientController.id != null) {
       selectedCity.value = addNewClientController.clientById.value!.clientData!.billingAddress!.city!.toString();
+      update();
+    }
+  }
+
+  setShipSelectedCountry(String value) {
+    ship_selectedCountry.value = value;
+    update();
+
+    ApiGetAllShipStates(context: Get.context!, countryId: int.parse(value.toString()));
+    if (addNewClientController.id != null) {
+      setShipSelectedState(addNewClientController.clientById.value!.clientData!.shippingAddress!.state!);
+      update();
+    }
+  }
+
+  setShipSelectedState(String value) {
+    ship_selectedState.value = value;
+    update();
+
+    ApiGetAllShipCity(context: Get.context!, stateId: int.parse(value.toString()));
+    if (addNewClientController.id != null) {
+      ship_selectedCity.value = addNewClientController.clientById.value!.clientData!.shippingAddress!.city!.toString();
       update();
     }
   }

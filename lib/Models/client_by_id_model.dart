@@ -279,14 +279,18 @@ class ShippingAddressDetails {
 /// state : "222"
 /// country : "7"
 /// postalCode : "123444"
-
 class BillingAddress {
   BillingAddress({
+    String? personName,
+    String? mobileNumber,
     String? addressLine,
     String? city,
     String? state,
     String? country,
     String? postalCode,}){
+
+    _personName = personName;
+    _mobileNumber = mobileNumber;
     _addressLine = addressLine;
     _city = city;
     _state = state;
@@ -294,34 +298,46 @@ class BillingAddress {
     _postalCode = postalCode;
   }
 
+  set saddressLine(String value) {
+    _addressLine = value;
+  }
+
   BillingAddress.fromJson(dynamic json) {
+    _personName = json['personName'];
+    _mobileNumber = json['mobileNumber'];
     _addressLine = json['addressLine'];
     _city = json['city'];
     _state = json['state'];
     _country = json['country'];
     _postalCode = json['postalCode'];
   }
+  String? _personName;
+  String? _mobileNumber;
   String? _addressLine;
   String? _city;
   String? _state;
-
-  set saddressLine(String value) {
-    _addressLine = value;
-  }
-
   String? _country;
   String? _postalCode;
-  BillingAddress copyWith({  String? addressLine,
+  BillingAddress copyWith({
+    String? personName,
+    String? mobileNumber,
+    String? addressLine,
     String? city,
     String? state,
     String? country,
     String? postalCode,
-  }) => BillingAddress(  addressLine: addressLine ?? _addressLine,
+  }) => BillingAddress(
+    personName: personName?? _personName,
+    mobileNumber: mobileNumber ??_mobileNumber,
+    addressLine: addressLine ?? _addressLine,
     city: city ?? _city,
     state: state ?? _state,
     country: country ?? _country,
     postalCode: postalCode ?? _postalCode,
   );
+
+  String? get personName => _personName;
+  String? get mobileNumber => _mobileNumber;
   String? get addressLine => _addressLine;
   String? get city => _city;
   String? get state => _state;
@@ -330,6 +346,8 @@ class BillingAddress {
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
+    map['personName'] = _personName;
+    map['mobileNumber'] = _mobileNumber;
     map['addressLine'] = _addressLine;
     map['city'] = _city;
     map['state'] = _state;
@@ -338,6 +356,12 @@ class BillingAddress {
     return map;
   }
 
+  set spersonName(String value) {
+    _personName = value;
+  }
+  set smobileNumber(String value) {
+    _mobileNumber = value;
+  }
   set scity(String value) {
     _city = value;
   }
@@ -353,7 +377,9 @@ class BillingAddress {
   set spostalCode(String value) {
     _postalCode = value;
   }
+
 }
+
 
 /// addressLine : "ch cu"
 /// city : "611"
@@ -363,11 +389,16 @@ class BillingAddress {
 
 class ShippingAddress {
   ShippingAddress({
+    String? personName,
+    String? mobileNumber,
     String? addressLine,
     String? city,
     String? state,
     String? country,
     String? postalCode,}){
+
+    _personName = personName;
+    _mobileNumber = mobileNumber;
     _addressLine = addressLine;
     _city = city;
     _state = state;
@@ -380,28 +411,41 @@ class ShippingAddress {
   }
 
   ShippingAddress.fromJson(dynamic json) {
+    _personName = json['personName'];
+    _mobileNumber = json['mobileNumber'];
     _addressLine = json['addressLine'];
     _city = json['city'];
     _state = json['state'];
     _country = json['country'];
     _postalCode = json['postalCode'];
   }
+  String? _personName;
+  String? _mobileNumber;
   String? _addressLine;
   String? _city;
   String? _state;
   String? _country;
   String? _postalCode;
-  ShippingAddress copyWith({  String? addressLine,
+  ShippingAddress copyWith({
+    String? personName,
+    String? mobileNumber,
+    String? addressLine,
     String? city,
     String? state,
     String? country,
     String? postalCode,
-  }) => ShippingAddress(  addressLine: addressLine ?? _addressLine,
+  }) => ShippingAddress(
+     personName: personName?? _personName,
+     mobileNumber: mobileNumber ??_mobileNumber,
+    addressLine: addressLine ?? _addressLine,
     city: city ?? _city,
     state: state ?? _state,
     country: country ?? _country,
     postalCode: postalCode ?? _postalCode,
   );
+
+  String? get personName => _personName;
+  String? get mobileNumber => _mobileNumber;
   String? get addressLine => _addressLine;
   String? get city => _city;
   String? get state => _state;
@@ -410,6 +454,8 @@ class ShippingAddress {
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
+    map['personName'] = _personName;
+    map['mobileNumber'] = _mobileNumber;
     map['addressLine'] = _addressLine;
     map['city'] = _city;
     map['state'] = _state;
@@ -418,6 +464,12 @@ class ShippingAddress {
     return map;
   }
 
+  set spersonName(String value) {
+    _personName = value;
+  }
+  set smobileNumber(String value) {
+    _mobileNumber = value;
+  }
   set scity(String value) {
     _city = value;
   }

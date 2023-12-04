@@ -288,11 +288,14 @@ class CltAddressInfoView extends GetView<CltAddressInfoController> {
                               value: controller.ship_selectedCountry.value,
                               lableText: 'Country',
                               onChanged: (value) {
-                                controller.ship_selectedCountry.value = value!;
-                                controller.update();
-                                controller.ApiGetAllShipStates(
-                                    context: Get.context!,
-                                    countryId: int.parse(value.toString()));
+
+                                controller.setShipSelectedCountry(value!);
+
+                                // controller.ship_selectedCountry.value = value!;
+                                // controller.update();
+                                // controller.ApiGetAllShipStates(
+                                //     context: Get.context!,
+                                //     countryId: int.parse(value.toString()));
                               },
                             );
                           }),
@@ -307,13 +310,16 @@ class CltAddressInfoView extends GetView<CltAddressInfoController> {
                               value: controller.ship_selectedState.value,
                               lableText: 'State',
                               onChanged: (value) {
-                                controller.ship_selectedState.value = value!;
 
-                                controller.update();
+                                controller.setShipSelectedState(value!);
 
-                                controller.ApiGetAllShipCity(
-                                    context: Get.context!,
-                                    stateId: int.parse(value.toString()));
+                                // controller.ship_selectedState.value = value!;
+                                //
+                                // controller.update();
+                                //
+                                // controller.ApiGetAllShipCity(
+                                //     context: Get.context!,
+                                //     stateId: int.parse(value.toString()));
                               },
                             );
                           }),
