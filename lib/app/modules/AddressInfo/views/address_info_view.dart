@@ -112,10 +112,12 @@ class AddressInfoView extends GetView<AddressInfoController> {
                   return CustomDropdown(
                     prefixIcon: SvgPicture.asset(AppAsset.countryIcon),
                     items: controller.mycountryDataList,
-                    value: controller.selectedCountry!.value,
+                    value: controller.selectedCountry.value,
                     lableText: 'Country',
                     onChanged: (value) {
                       controller.setSelectedCountry(value!);
+                      controller.selectedState.value = null;
+                      controller.selectedCity.value = null;
                     },
                   );
                 }),
@@ -126,10 +128,12 @@ class AddressInfoView extends GetView<AddressInfoController> {
                   return CustomDropdown(
                     prefixIcon: SvgPicture.asset(AppAsset.stateIcon),
                     items: controller.mystateDataList,
-                    value: controller.selectedState!.value,
+                    value: controller.selectedState.value,
                     lableText: 'State',
                     onChanged: (value) {
                       controller.setSelectedState(value!);
+
+                      controller.selectedCity.value = null;
                     },
                   );
                 }),
@@ -140,10 +144,10 @@ class AddressInfoView extends GetView<AddressInfoController> {
                   return CustomDropdown(
                     prefixIcon: SvgPicture.asset(AppAsset.cityIcon),
                     items: controller.mycityDataList,
-                    value: controller.selectedCity!.value,
+                    value: controller.selectedCity.value,
                     lableText: 'City',
                     onChanged: (value) {
-                      controller.selectedCity!.value = value!;
+                      controller.selectedCity.value = value!;
                       controller.update();
                     },
                   );
@@ -243,14 +247,16 @@ class AddressInfoView extends GetView<AddressInfoController> {
                           return CustomDropdown(
                             prefixIcon: SvgPicture.asset(AppAsset.countryIcon),
                             items: controller.mycountryshipDataList,
-                            value: controller.ship_selectedCountry!.value,
+                            value: controller.ship_selectedCountry.value,
                             lableText: 'Country',
                             onChanged: (value) {
-                              controller.ship_selectedCountry!.value = value!;
+                              controller.ship_selectedCountry.value = value!;
                               controller.update();
                               controller.ApiGetAllShipStates(
                                   context: Get.context!,
                                   countryId: int.parse(value.toString()));
+                              controller.ship_selectedState.value = null;
+                              controller.ship_selectedCity.value = null;
                             },
                           );
                         }),
@@ -262,16 +268,17 @@ class AddressInfoView extends GetView<AddressInfoController> {
                           return CustomDropdown(
                             prefixIcon: SvgPicture.asset(AppAsset.stateIcon),
                             items: controller.mystateshipDataList,
-                            value: controller.ship_selectedState!.value,
+                            value: controller.ship_selectedState.value,
                             lableText: 'State',
                             onChanged: (value) {
-                              controller.ship_selectedState!.value = value!;
+                              controller.ship_selectedState.value = value!;
 
                               controller.update();
 
                               controller.ApiGetAllShipCity(
                                   context: Get.context!,
                                   stateId: int.parse(value.toString()));
+                               controller.ship_selectedCity.value = null;
                             },
                           );
                         }),
@@ -283,10 +290,10 @@ class AddressInfoView extends GetView<AddressInfoController> {
                           return CustomDropdown(
                             prefixIcon: SvgPicture.asset(AppAsset.cityIcon),
                             items: controller.mycityshipDataList,
-                            value: controller.ship_selectedCity!.value,
+                            value: controller.ship_selectedCity.value,
                             lableText: 'City',
                             onChanged: (value) {
-                              controller.ship_selectedCity!.value = value!;
+                              controller.ship_selectedCity.value = value!;
                               controller.update();
                             },
                           );

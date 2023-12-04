@@ -155,28 +155,38 @@ class EditAddressView extends GetView<EditAddressController> {
                             controller.clientData!.billingAddress!.scountry =
                                 value;
 
-                            controller.mycountryDataList.forEach((element) {
+                            for (var element in controller.mycountryDataList) {
                               if (element['id'] == value) {
+                                print("object value = $value");
+                                print("object id = ${element['id']}");
                                 controller.clientData!.billingAddressDetails!
-                                    .scountry = element['name'];
+                                    .scountry = element['title'];
                               }
-                            });
+                            }
                           } else if (controller.title == "Shipping Address") {
                             controller.clientData!.shippingAddress!.scountry =
                                 value;
-                            controller.mycountryDataList.forEach((element) {
+                            for (var element in controller.mycountryDataList) {
                               if (element['id'] == value) {
+                                print("object value = $value");
+                                print("object id = ${element['id']}");
+                                print("object title = ${element['title']}");
+
                                 controller.clientData!.shippingAddressDetails!
-                                    .scountry = element['name'];
+                                    .scountry = element['title'];
                               }
-                            });
+                            }
                           }
 
-                          controller.update();
 
                           controller.ApiGetAllStates(
                               context: context,
                               countryId: int.parse(value.toString()));
+
+                          controller.update();
+                          controller.selectedState.value = null;
+                          controller.selectedCity.value = null;
+
                         },
                       );
                     }).paddingSymmetric(horizontal: 20.w),
@@ -193,21 +203,21 @@ class EditAddressView extends GetView<EditAddressController> {
                           if (controller.title == "Billing Address") {
                             controller.clientData!.billingAddress!.sstate = value;
 
-                            controller.mystateDataList.forEach((element) {
+                            for (var element in controller.mystateDataList) {
                               if (element['id'] == value) {
                                 controller.clientData!.billingAddressDetails!
-                                    .sstate = element['name'];
+                                    .sstate = element['title'];
                               }
-                            });
+                            }
                           } else if (controller.title == "Shipping Address") {
                             controller.clientData!.shippingAddress!.sstate =
                                 value;
-                            controller.mystateDataList.forEach((element) {
+                            for (var element in controller.mystateDataList) {
                               if (element['id'] == value) {
                                 controller.clientData!.shippingAddressDetails!
-                                    .sstate = element['name'];
+                                    .sstate = element['title'];
                               }
-                            });
+                            }
                           }
 
                           controller.update();
@@ -215,6 +225,7 @@ class EditAddressView extends GetView<EditAddressController> {
                           controller.ApiGetAllCity(
                               context: context,
                               stateId: int.parse(value.toString()));
+                          controller.selectedCity.value = null;
                         },
                       );
                     }).paddingSymmetric(
@@ -235,20 +246,20 @@ class EditAddressView extends GetView<EditAddressController> {
                           if (controller.title == "Billing Address") {
                             controller.clientData!.billingAddress!.scity = value;
 
-                            controller.mycityDataList.forEach((element) {
+                            for (var element in controller.mycityDataList) {
                               if (element['id'] == value) {
                                 controller.clientData!.billingAddressDetails!
-                                    .scity = element['name'];
+                                    .scity = element['title'];
                               }
-                            });
+                            }
                           } else if (controller.title == "Shipping Address") {
                             controller.clientData!.shippingAddress!.scity = value;
-                            controller.mycityDataList.forEach((element) {
+                            for (var element in controller.mycityDataList) {
                               if (element['id'] == value) {
                                 controller.clientData!.shippingAddressDetails!
-                                    .scity = element['name'];
+                                    .scity = element['title'];
                               }
-                            });
+                            }
                           }
 
                           controller.update();
@@ -294,8 +305,8 @@ class EditAddressView extends GetView<EditAddressController> {
 
                         if (controller.title == "Billing Address") {
 
-                          controller.clientData!.company!.sname = controller.nameBillController.value.text;
-                          controller.clientData!.company!.smobileNumber = controller.mobileBillNumController.value.text;
+                          controller.clientData!.billingAddress!.spersonName = controller.nameBillController.value.text;
+                          controller.clientData!.billingAddress!.smobileNumber = controller.mobileBillNumController.value.text;
                           controller.clientData!.billingAddress!.saddressLine = controller.addressBillController.value.text;
                           controller.clientData!.billingAddress!.spostalCode = controller.zipBillController.value.text;
                           controller.clientData!.billingAddress!.scity = controller.selectedCity.value!;
@@ -303,8 +314,8 @@ class EditAddressView extends GetView<EditAddressController> {
                           controller.clientData!.billingAddress!.scountry = controller.selectedCountry.value!;
 
                         } else if (controller.title == "Shipping Address") {
-                          controller.clientData!.company!.sname = controller.nameBillController.value.text;
-                          controller.clientData!.company!.smobileNumber = controller.mobileBillNumController.value.text;
+                          controller.clientData!.shippingAddress!.spersonName = controller.nameBillController.value.text;
+                          controller.clientData!.shippingAddress!.smobileNumber = controller.mobileBillNumController.value.text;
                           controller.clientData!.shippingAddress!.saddressLine = controller.addressBillController.value.text;
                           controller.clientData!.shippingAddress!.spostalCode = controller.zipBillController.value.text;
                           controller.clientData!.shippingAddress!.scity = controller.selectedCity.value!;

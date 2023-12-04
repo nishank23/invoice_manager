@@ -45,7 +45,7 @@ abstract class Routes {
   static const CLT_ADDRESS_INFO =
       _Paths.ADD_NEW_CLIENT + _Paths.CLT_ADDRESS_INFO;
   static const INVOICE_PDF = _Paths.INVOICE_PDF;
-}
+ }
 
 abstract class _Paths {
   _Paths._();
@@ -79,12 +79,12 @@ abstract class _Paths {
   static const INVOICE_ADD_SIGN = '/invoice-add-sign';
   static const INVOICES = '/invoices';
   static const EDIT_ADDRESS = '/edit-address';
-  static const INVOICE_PREVIEW = '/invoice-preview';
-  static const BACKUP_RESTORE = '/backup-restore';
+   static const BACKUP_RESTORE = '/backup-restore';
   static const BACKUP = '/backup';
   static const RESTORE = '/restore';
   static const CONFIRMATION_REGISTER = '/confirmation-register';
   static const CLT_BUSINESS_INFO = '/clt-business-info';
   static const CLT_ADDRESS_INFO = '/clt-address-info';
   static const INVOICE_PDF = '/invoice-pdf';
+  static const INVOICE_PREVIEW = '/invoice-preview';
 }

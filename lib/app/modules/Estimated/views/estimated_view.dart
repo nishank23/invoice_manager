@@ -215,9 +215,9 @@ class EstimatedView extends GetView<EstimatedController> {
                                                         ),
                                                         SizedBox(width: 10.w),
                                                         Text(
-                                                          data.client!.company!
+                                                          data.client?.company!
                                                               .personName
-                                                              .toString(),
+                                                              .toString() ??"",
                                                           style: text400_16grey
                                                               .copyWith(
                                                                   color: const Color(
@@ -361,7 +361,10 @@ class EstimatedView extends GetView<EstimatedController> {
                                                       ),
                                                       Expanded(
                                                           child: mybutton(
-                                                              onTap: () {},
+                                                              onTap: () {
+
+                                                                controller.apiDeleteClient(context: context, EstId: data.id!);
+                                                              },
                                                               title:
                                                                   "Yes, Delete",
                                                               textStyle: text400_14
@@ -405,8 +408,8 @@ class EstimatedView extends GetView<EstimatedController> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                            data.client!.company!.personName
-                                                .toString(),
+                                            data.client?.company!.personName
+                                                .toString() ?? "",
                                             style: text400_16grey.copyWith(
                                                 color: const Color(0xff1D1B20)),
                                           ),

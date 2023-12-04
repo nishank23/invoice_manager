@@ -114,7 +114,7 @@ class ClientsView extends GetView<ClientsController> {
                     height: 20.h,
                   ),
                   mySearchFiled(
-                    texthint: "Search estimates...",
+                    texthint: "Search Clients...",
                     height: 56.h,
                     controller: controller.searchController.value,
                     onChanged: (value) {
@@ -181,7 +181,7 @@ class ClientsView extends GetView<ClientsController> {
                                                         alignment:
                                                             Alignment.center,
                                                         child: Text(
-                                                          "Estimated",
+                                                          "Client",
                                                           style: text700_18,
                                                         ),
                                                       ),
@@ -274,7 +274,12 @@ class ClientsView extends GetView<ClientsController> {
                                                       ),
                                                       Expanded(
                                                           child: mybutton(
-                                                              onTap: () {},
+                                                              onTap: () {
+                                                                controller.apiDeleteClient(
+                                                                    context: context,
+                                                                    clientId: controller.filteredList[index].id!,
+                                                                );
+                                                              },
                                                               title:
                                                                   "Yes, Delete",
                                                               textStyle: text400_14

@@ -44,6 +44,8 @@ import '../modules/ForgotPassword/bindings/forgot_password_binding.dart';
 import '../modules/ForgotPassword/views/forgot_password_view.dart';
 import '../modules/Home/home_binding.dart';
 import '../modules/Home/home_view.dart';
+import '../modules/INVOICE_PREVIEW/bindings/invoice_preview_binding.dart';
+import '../modules/INVOICE_PREVIEW/views/invoice_preview_view.dart';
 import '../modules/InvoiceAddClient/bindings/invoice_add_client_binding.dart';
 import '../modules/InvoiceAddClient/views/invoice_add_client_view.dart';
 import '../modules/InvoiceAddItems/bindings/invoice_add_items_binding.dart';
@@ -140,7 +142,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.BANK_INFO,
-      page: () =>  BankInfoView(),
+      page: () => BankInfoView(),
       binding: BankInfoBinding(),
     ),
     GetPage(
@@ -267,14 +269,14 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.EDIT_ADDRESS,
-      page: () =>   EditAddressView(),
+      page: () => EditAddressView(),
       binding: EditAddressBinding(),
     ),
-    /* GetPage(
+    GetPage(
       name: _Paths.INVOICE_PREVIEW,
       page: () => const InvoicePreviewView(),
       binding: InvoicePreviewBinding(),
-    ),*/
+    ),
     GetPage(
       name: _Paths.BACKUP_RESTORE,
       page: () => const BackupRestoreView(),
@@ -292,12 +294,12 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.CONFIRMATION_REGISTER,
-      page: () =>  ConfirmationRegisterView(),
+      page: () => ConfirmationRegisterView(),
       binding: ConfirmationRegisterBinding(),
     ),
     GetPage(
       name: _Paths.INVOICE_PDF,
-      page: () =>  InvoicePdfView(),
+      page: () => InvoicePdfView(),
       binding: InvoicePdfBinding(),
     ),
   ];

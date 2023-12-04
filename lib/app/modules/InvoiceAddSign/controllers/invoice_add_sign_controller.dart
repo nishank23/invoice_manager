@@ -20,13 +20,13 @@ class InvoiceAddSignController extends GetxController {
   //TODO: Implement InvoiceAddSignController
 
 
-  CreateInvoiceController createEstimatedController =
+  CreateInvoiceController createInvoicedController =
   Get.put(CreateInvoiceController());
   final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
-    // createEstimatedController.ApiEstimatePreview(context: Get.context!);
+    // createInvoicedController.ApiInvoicePreview(context: Get.context!);
   }
 
   @override
@@ -41,7 +41,7 @@ class InvoiceAddSignController extends GetxController {
 
   File? selectedSign;
 
-  ApiCreateEstimate(
+  ApiCreateInvoice(
       {required BuildContext context,
         String? filePaths,
         Map<String, dynamic>? formData}) async {
@@ -59,7 +59,9 @@ class InvoiceAddSignController extends GetxController {
 
     formData!.forEach((key, value) {
       if (value is List<Map<String, dynamic>>) {
+        print(jsonEncode("jsonString = $value"));
         final jsonString = jsonEncode(value);
+
         form.fields.add(MapEntry(key, jsonString));
       } else {
         form.fields.add(MapEntry(key, value));
@@ -80,7 +82,7 @@ class InvoiceAddSignController extends GetxController {
         Get.offNamed(Routes.INVOICE_PREVIEW,
             arguments: response["data"]["_id"]);
 
-        Fluttertoast.showToast(msg: "Estimate Created Successfully");
+        Fluttertoast.showToast(msg: "Invoice Created Successfully");
       },
       failureCallback: (status, message) {
         app.resolve<CustomDialogs>().hideCircularDialog(context);
@@ -91,7 +93,7 @@ class InvoiceAddSignController extends GetxController {
     );
   }
 
-  ApiEditEstimate(
+  ApiEditInvoice(
       {required BuildContext context,
         required String id,
         String? filePaths,
@@ -116,11 +118,11 @@ class InvoiceAddSignController extends GetxController {
         form.fields.add(MapEntry(key, value));
       }
     });
-    debugPrint("Edit Estimate API Url ==> $baseURL${ApiConstant.editEst}/$id");
+    debugPrint("Edit Invoice API Url ==> $baseURL${ApiConstant.editInv}/$id");
     return NetworkClient.getInstance.callApiForm(
       context,
       baseURL,
-      "${ApiConstant.editEst}/$id",
+      "${ApiConstant.editInv}/$id",
       MethodType.Put,
       headers: NetworkClient.getInstance.getAuthHeaders(),
       params: form,
@@ -128,10 +130,10 @@ class InvoiceAddSignController extends GetxController {
         app.resolve<CustomDialogs>().hideCircularDialog(context);
 
         print(response["data"]["_id"]);
-        Get.offNamed(Routes.ESTIMATE_PREVIEW,
+        Get.offNamed(Routes.INVOICE_PREVIEW,
             arguments: response["data"]["_id"]);
 
-        Fluttertoast.showToast(msg: "Estimate Edited Successfully");
+        Fluttertoast.showToast(msg: "Invoice Edited Successfully");
       },
       failureCallback: (status, message) {
         app.resolve<CustomDialogs>().hideCircularDialog(context);

@@ -26,7 +26,8 @@ import '../../../../global/widgets/myButton.dart';
 
 class CltAddressInfoController extends GetxController {
   //TODO: Implement CltAddressInfoController
-  AddNewClientController addNewClientController = Get.put(AddNewClientController());
+  AddNewClientController addNewClientController =
+      Get.put(AddNewClientController());
   final count = 0.obs;
 
   bool isAddressSame = false;
@@ -45,24 +46,38 @@ class CltAddressInfoController extends GetxController {
 
   getData() {
     //billing
-    nameBillController.value.text = addNewClientController.clientById.value!.clientData!.billingAddress!.personName!;
-    mobileBillNumController.value.text = addNewClientController.clientById.value!.clientData!.billingAddress!.mobileNumber!;
-    addressBillController.value.text = addNewClientController.clientById.value!.clientData!.billingAddress!.addressLine!;
-    zipBillController.value.text = addNewClientController.clientById.value!.clientData!.billingAddress!.postalCode!;
-    selectedCity.value = addNewClientController.clientById.value!.clientData!.billingAddress!.city!;
-    selectedCountry.value = addNewClientController.clientById.value!.clientData!.billingAddress!.country!;
+    nameBillController.value.text = addNewClientController
+        .clientById.value!.clientData!.billingAddress!.personName!;
+    mobileBillNumController.value.text = addNewClientController
+        .clientById.value!.clientData!.billingAddress!.mobileNumber!;
+    addressBillController.value.text = addNewClientController
+        .clientById.value!.clientData!.billingAddress!.addressLine!;
+    zipBillController.value.text = addNewClientController
+        .clientById.value!.clientData!.billingAddress!.postalCode!;
+    selectedCity.value = addNewClientController
+        .clientById.value!.clientData!.billingAddress!.city!;
+    selectedCountry.value = addNewClientController
+        .clientById.value!.clientData!.billingAddress!.country!;
     setSelectedCountry(selectedCountry.value.toString());
-    selectedState.value = addNewClientController.clientById.value!.clientData!.billingAddress!.state!;
+    selectedState.value = addNewClientController
+        .clientById.value!.clientData!.billingAddress!.state!;
 
     //shipping
 
-    nameShipController.value.text = addNewClientController.clientById.value!.clientData!.shippingAddress!.personName!;
-    mobileNumShipController.value.text = addNewClientController.clientById.value!.clientData!.shippingAddress!.personName!;
-    addressShipController.value.text = addNewClientController.clientById.value!.clientData!.shippingAddress!.addressLine!;
-    zipShipController.value.text = addNewClientController.clientById.value!.clientData!.shippingAddress!.postalCode!;
-    ship_selectedCity.value = addNewClientController.clientById.value!.clientData!.shippingAddress!.city!;
-    ship_selectedCountry.value = addNewClientController.clientById.value!.clientData!.shippingAddress!.country!;
-    ship_selectedState.value = addNewClientController.clientById.value!.clientData!.shippingAddress!.state!;
+    nameShipController.value.text = addNewClientController
+        .clientById.value!.clientData!.shippingAddress!.personName!;
+    mobileNumShipController.value.text = addNewClientController
+        .clientById.value!.clientData!.shippingAddress!.mobileNumber!;
+    addressShipController.value.text = addNewClientController
+        .clientById.value!.clientData!.shippingAddress!.addressLine!;
+    zipShipController.value.text = addNewClientController
+        .clientById.value!.clientData!.shippingAddress!.postalCode!;
+    ship_selectedCity.value = addNewClientController
+        .clientById.value!.clientData!.shippingAddress!.city!;
+    ship_selectedCountry.value = addNewClientController
+        .clientById.value!.clientData!.shippingAddress!.country!;
+    ship_selectedState.value = addNewClientController
+        .clientById.value!.clientData!.shippingAddress!.state!;
     setShipSelectedCountry(ship_selectedCountry.value.toString());
     // ship_selectedCity.value=addNewClientController.clientById.value.sh
     update();
@@ -70,18 +85,21 @@ class CltAddressInfoController extends GetxController {
   }
 
   Rx<TextEditingController> nameBillController = TextEditingController().obs;
-  Rx<TextEditingController> mobileBillNumController = TextEditingController().obs;
+  Rx<TextEditingController> mobileBillNumController =
+      TextEditingController().obs;
   Rx<TextEditingController> addressBillController = TextEditingController().obs;
   Rx<TextEditingController> zipBillController = TextEditingController().obs;
 
   Rx<TextEditingController> nameShipController = TextEditingController().obs;
-  Rx<TextEditingController> mobileNumShipController = TextEditingController().obs;
+  Rx<TextEditingController> mobileNumShipController =
+      TextEditingController().obs;
   Rx<TextEditingController> addressShipController = TextEditingController().obs;
   Rx<TextEditingController> zipShipController = TextEditingController().obs;
 
   var items = <Map<String, dynamic>>[].obs;
 
-  RxList<Map<String, dynamic>> mycountryDataList = RxList<Map<String, dynamic>>();
+  RxList<Map<String, dynamic>> mycountryDataList =
+      RxList<Map<String, dynamic>>();
   RxList<Map<String, dynamic>> mystateDataList = RxList<Map<String, dynamic>>();
   RxList<Map<String, dynamic>> mycityDataList = RxList<Map<String, dynamic>>();
 
@@ -97,17 +115,21 @@ class CltAddressInfoController extends GetxController {
   CltBusinessInfoController businesscntlr = Get.find();
   AddNewClientController addnewcntlr = Get.find();
 
-  RxList<Map<String, dynamic>> mycountryshipDataList = RxList<Map<String, dynamic>>();
+  RxList<Map<String, dynamic>> mycountryshipDataList =
+      RxList<Map<String, dynamic>>();
 
-  RxList<Map<String, dynamic>> mystateshipDataList = RxList<Map<String, dynamic>>();
-  RxList<Map<String, dynamic>> mycityshipDataList = RxList<Map<String, dynamic>>();
+  RxList<Map<String, dynamic>> mystateshipDataList =
+      RxList<Map<String, dynamic>>();
+  RxList<Map<String, dynamic>> mycityshipDataList =
+      RxList<Map<String, dynamic>>();
 
   void submitProfileData(BuildContext context) {
     requestData['company'] = {
       'name': businesscntlr.companyNameController.value.text,
       'personName': businesscntlr.ownerNameController.value.text,
       'mobileNumber': businesscntlr.mobileNumberController.value.text,
-      'alternativeMobileNumber': businesscntlr.alterMobileNumberController.value.text,
+      'alternativeMobileNumber':
+          businesscntlr.alterMobileNumberController.value.text,
       'gstNumber': businesscntlr.gstController.value.text,
       'email': businesscntlr.businessEmailController.value.text,
       'website': businesscntlr.businessWebsiteController.value.text,
@@ -144,57 +166,67 @@ class CltAddressInfoController extends GetxController {
       };
     }
 
-    CltBusinessInfoController businessInfoController = Get.put(CltBusinessInfoController());
+    CltBusinessInfoController businessInfoController =
+        Get.put(CltBusinessInfoController());
 
-    var selectedphoto = businessInfoController.selectedPhoto == null ? "" : businessInfoController.selectedPhoto!.path;
+    var selectedphoto = businessInfoController.selectedPhoto == null
+        ? ""
+        : businessInfoController.selectedPhoto!.path;
 
-    ApiCallAddNewClient(context: context, requestBody: requestData, filepath: selectedphoto);
-  }
+    ApiCallAddNewClient(
+        {required BuildContext context,
+        required Map<String, dynamic> requestBody,
+        String? filepath}) async {
+      final form = DIO.FormData();
 
-  ApiCallAddNewClient(
-      {required BuildContext context, required Map<String, dynamic> requestBody, String? filepath}) async {
-    final form = DIO.FormData();
-
-    if (filepath != null && filepath.isNotEmpty) {
-      final file = await DIO.MultipartFile.fromFile(
-        filepath,
-        filename: path.basename(filepath),
-      );
-      form.files.add(MapEntry('file', file));
-    }
-
-    requestBody.forEach((key, value) {
-      if (value is List<Map<String, dynamic>>) {
-        final jsonString = jsonEncode(value);
-        form.fields.add(MapEntry<String, String>(key, jsonString));
-      } else {
-        final jsonString = jsonEncode(value);
-        form.fields.add(MapEntry<String, String>(key, jsonString));
+      if (filepath != null && filepath.isNotEmpty) {
+        final file = await DIO.MultipartFile.fromFile(
+          filepath,
+          filename: path.basename(filepath),
+        );
+        form.files.add(MapEntry('file', file));
       }
-    });
 
-    FocusScope.of(context).unfocus();
-    app.resolve<CustomDialogs>().showCircularDialog(context);
+      requestBody.forEach((key, value) {
+        if (value is List<Map<String, dynamic>>) {
+          final jsonString = jsonEncode(value);
+          form.fields.add(MapEntry<String, String>(key, jsonString));
+        } else {
+          final jsonString = jsonEncode(value);
+          form.fields.add(MapEntry<String, String>(key, jsonString));
+        }
+      });
+      String clientId = addNewClientController.id != null &&
+              addNewClientController.id!.isNotEmpty
+          ? addNewClientController.id ?? ''
+          : ':clientId';
 
-    return NetworkClient.getInstance.callApiForm(
-      context,
-      baseURL,
-      "${ApiConstant.createUpdateClient}/:clientId",
-      MethodType.Post,
-      headers: NetworkClient.getInstance.getAuthHeaders(),
-      params: form,
-      successCallback: (response, message) {
-        app.resolve<CustomDialogs>().hideCircularDialog(context);
-        showSuccessDialog(context, businesscntlr.companyNameController.value.text);
+      FocusScope.of(context).unfocus();
+      app.resolve<CustomDialogs>().showCircularDialog(context);
 
-        Fluttertoast.showToast(msg: "Client Added Successfully");
-      },
-      failureCallback: (status, message) {
-        app.resolve<CustomDialogs>().hideCircularDialog(context);
+      return NetworkClient.getInstance.callApiForm(
+        context,
+        baseURL,
+        "${ApiConstant.createUpdateClient}/$clientId",
+        MethodType.Post,
+        headers: NetworkClient.getInstance.getAuthHeaders(),
+        params: form,
+        successCallback: (response, message) {
+          app.resolve<CustomDialogs>().hideCircularDialog(context);
+          showSuccessDialog(
+              context, businesscntlr.companyNameController.value.text);
 
-        app.resolve<CustomDialogs>().getDialog(title: "Failed", desc: message);
-      },
-    );
+          Fluttertoast.showToast(msg: "Client Added Successfully");
+        },
+        failureCallback: (status, message) {
+          app.resolve<CustomDialogs>().hideCircularDialog(context);
+
+          app
+              .resolve<CustomDialogs>()
+              .getDialog(title: "Failed", desc: message);
+        },
+      );
+    }
   }
 
   showSuccessDialog(BuildContext context, String clientname) {
@@ -228,7 +260,8 @@ class CltAddressInfoController extends GetxController {
                     horizontal: 3.w,
                   ),
                   decoration: BoxDecoration(
-                      color: AppColor.primaryBlue.withOpacity(.20), borderRadius: BorderRadius.circular(3.r)),
+                      color: AppColor.primaryBlue.withOpacity(.20),
+                      borderRadius: BorderRadius.circular(3.r)),
                   child: Text(
                     clientname,
                     style: text400_16purple.copyWith(
@@ -254,8 +287,11 @@ class CltAddressInfoController extends GetxController {
                   Get.back();
                 },
                 title: "Close",
-                textStyle:
-                    TextStyle(color: AppColor.primaryBlue, fontSize: 16.sp, fontFamily: fontFamily, fontWeight: w600),
+                textStyle: TextStyle(
+                    color: AppColor.primaryBlue,
+                    fontSize: 16.sp,
+                    fontFamily: fontFamily,
+                    fontWeight: w600),
                 backgroundColor: Colors.transparent,
                 borderColor: AppColor.primaryBlue)
           ],
@@ -267,9 +303,12 @@ class CltAddressInfoController extends GetxController {
   ApiGetAllCountry({required BuildContext context}) async {
     FocusScope.of(context).unfocus();
     app.resolve<CustomDialogs>().showCircularDialog(context);
+
     mycountryDataList.clear();
     mystateDataList.clear();
     mycityDataList.clear();
+
+
     return NetworkClient.getInstance.callApi(
       context,
       baseURL,
@@ -311,6 +350,7 @@ class CltAddressInfoController extends GetxController {
       headers: NetworkClient.getInstance.getAuthHeaders(),
       successCallback: (response, message) {
         app.resolve<CustomDialogs>().hideCircularDialog(context);
+
         mycountryshipDataList.clear();
         mystateshipDataList.clear();
         mycityshipDataList.clear();
@@ -333,46 +373,55 @@ class CltAddressInfoController extends GetxController {
     );
   }
 
-  setSelectedCountry(String value) {
+  setSelectedCountry(String? value) {
     selectedCountry.value = value;
     update();
 
-    ApiGetAllStates(context: Get.context!, countryId: int.parse(value.toString()));
+    ApiGetAllStates(
+        context: Get.context!, countryId: int.parse(value.toString()));
     if (addNewClientController.id != null) {
-      setSelectedState(addNewClientController.clientById.value!.clientData!.billingAddress!.state!);
+      setSelectedState(addNewClientController
+          .clientById.value!.clientData!.billingAddress!.state!);
       update();
     }
   }
 
-  setSelectedState(String value) {
+  setSelectedState(String? value) {
     selectedState.value = value;
     update();
 
     ApiGetAllCity(context: Get.context!, stateId: int.parse(value.toString()));
     if (addNewClientController.id != null) {
-      selectedCity.value = addNewClientController.clientById.value!.clientData!.billingAddress!.city!.toString();
+      selectedCity.value = addNewClientController
+          .clientById.value!.clientData!.billingAddress!.city!
+          .toString();
       update();
     }
   }
 
-  setShipSelectedCountry(String value) {
+  setShipSelectedCountry(String? value) {
     ship_selectedCountry.value = value;
     update();
 
-    ApiGetAllShipStates(context: Get.context!, countryId: int.parse(value.toString()));
+    ApiGetAllShipStates(
+        context: Get.context!, countryId: int.parse(value.toString()));
     if (addNewClientController.id != null) {
-      setShipSelectedState(addNewClientController.clientById.value!.clientData!.shippingAddress!.state!);
+      setShipSelectedState(addNewClientController
+          .clientById.value!.clientData!.shippingAddress!.state!);
       update();
     }
   }
 
-  setShipSelectedState(String value) {
+  setShipSelectedState(String? value) {
     ship_selectedState.value = value;
     update();
 
-    ApiGetAllShipCity(context: Get.context!, stateId: int.parse(value.toString()));
+    ApiGetAllShipCity(
+        context: Get.context!, stateId: int.parse(value.toString()));
     if (addNewClientController.id != null) {
-      ship_selectedCity.value = addNewClientController.clientById.value!.clientData!.shippingAddress!.city!.toString();
+      ship_selectedCity.value = addNewClientController
+          .clientById.value!.clientData!.shippingAddress!.city!
+          .toString();
       update();
     }
   }
@@ -418,7 +467,8 @@ class CltAddressInfoController extends GetxController {
   ApiGetAllShipStates({required BuildContext context, int? countryId}) async {
     FocusScope.of(context).unfocus();
     app.resolve<CustomDialogs>().showCircularDialog(context);
-
+    mystateshipDataList.clear();
+    mycityshipDataList.clear();
     return NetworkClient.getInstance.callApi(
       context,
       baseURL,

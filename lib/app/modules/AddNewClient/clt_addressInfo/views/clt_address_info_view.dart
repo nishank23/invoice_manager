@@ -11,15 +11,18 @@ import '../../../../global/widgets/TitleWidget.dart';
 import '../../../../global/widgets/myButton.dart';
 import '../../../../global/widgets/myDropDown.dart';
 import '../../../../global/widgets/mytextfiled.dart';
+import '../../controllers/add_new_client_controller.dart';
 import '../controllers/clt_address_info_controller.dart';
 
 class CltAddressInfoView extends GetView<CltAddressInfoController> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   CltAddressInfoView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     Get.put(CltAddressInfoController());
+    AddNewClientController addNewClientController = Get.find<AddNewClientController>();
     return Scaffold(
         // resizeToAvoidBottomInset: false,
         backgroundColor: Colors.white,
@@ -112,6 +115,8 @@ class CltAddressInfoView extends GetView<CltAddressInfoController> {
                       lableText: 'Country',
                       onChanged: (value) {
                         controller.setSelectedCountry(value!);
+                        controller.selectedState.value = null;
+                        controller.selectedCity.value = null;
                       },
                     );
                   }),
@@ -126,6 +131,7 @@ class CltAddressInfoView extends GetView<CltAddressInfoController> {
                       lableText: 'State',
                       onChanged: (value) {
                         controller.setSelectedState(value!);
+                        controller.selectedCity.value = null;
                       },
                     );
                   }),
@@ -288,9 +294,10 @@ class CltAddressInfoView extends GetView<CltAddressInfoController> {
                               value: controller.ship_selectedCountry.value,
                               lableText: 'Country',
                               onChanged: (value) {
-
+                                print("myState = ${controller.ship_selectedState.value}");
                                 controller.setShipSelectedCountry(value!);
-
+                                controller.ship_selectedState.value = null;
+                                controller.ship_selectedCity.value = null;
                                 // controller.ship_selectedCountry.value = value!;
                                 // controller.update();
                                 // controller.ApiGetAllShipStates(
@@ -310,9 +317,8 @@ class CltAddressInfoView extends GetView<CltAddressInfoController> {
                               value: controller.ship_selectedState.value,
                               lableText: 'State',
                               onChanged: (value) {
-
                                 controller.setShipSelectedState(value!);
-
+                                controller.ship_selectedCity.value = null;
                                 // controller.ship_selectedState.value = value!;
                                 //
                                 // controller.update();
@@ -334,7 +340,7 @@ class CltAddressInfoView extends GetView<CltAddressInfoController> {
                               value: controller.ship_selectedCity.value,
                               lableText: 'City',
                               onChanged: (value) {
-                                controller.ship_selectedCity.value = value!;
+                                controller.ship_selectedCity.value = value;
                                 controller.update();
                               },
                             );
@@ -383,13 +389,11 @@ class CltAddressInfoView extends GetView<CltAddressInfoController> {
                         onTap: () {
                           print("taped");
 
-                          print("taped");
-
                           if (formKey.currentState!.validate()) {
                             controller.submitProfileData(context);
                           }
                         },
-                        title: "Create Client",
+                        title:  addNewClientController.id !=null ?"Edit Client" : "Create Client",
                       );
                     },
                   ),

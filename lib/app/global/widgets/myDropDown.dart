@@ -59,7 +59,7 @@ class CustomDropdownState extends State<CustomDropdown> {
               validator: widget.onValidator,
               decoration: InputDecoration(
                 filled: true,
-                prefixIconConstraints: BoxConstraints(
+                prefixIconConstraints: const BoxConstraints(
                   minWidth: 40,
                   minHeight: 25,
                 ),
@@ -96,11 +96,6 @@ class CustomDropdownState extends State<CustomDropdown> {
                   borderRadius: BorderRadius.circular(widget.radius.r),
                 ),
 
-
-
-
-
-
               ),
               style: text400_16grey.copyWith(color: AppColor.black),
               isDense: true,
@@ -128,9 +123,11 @@ class CustomDropdownState extends State<CustomDropdown> {
               onChanged: widget.onChanged,
 
               iconStyleData: const IconStyleData(
-                icon: Icon(
-                  Icons.arrow_drop_down,
-                  color: AppColor.textFiledGrey,
+                icon: Flexible(
+                  child: Icon(
+                    Icons.arrow_drop_down,
+                    color: AppColor.textFiledGrey,
+                  ),
                 ),
               ),
               buttonStyleData: ButtonStyleData(

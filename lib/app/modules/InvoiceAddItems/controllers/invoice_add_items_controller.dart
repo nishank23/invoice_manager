@@ -55,7 +55,8 @@ class InvoiceAddItemsController extends GetxController {
 
     afterdiscount = afterdiscount + allTaxes;
 
-    return afterdiscount.toString();
+    return afterdiscount.toStringAsFixed(2).toString();
+
   }
 
   getDiscountAmount() {
@@ -84,6 +85,8 @@ class InvoiceAddItemsController extends GetxController {
     for (var data in myaddedProductsList) {
       subtotal = subtotal + (data.qty * data.price!);
     }
+    update();
+    refresh();
   }
 
   var selectedEstimateCurrency;

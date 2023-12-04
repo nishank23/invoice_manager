@@ -42,13 +42,13 @@ class InvoiceAddressView extends GetView<InvoiceAddressController> {
                 controller.update();
               },
                 title: "Billing Address",
-                companyName: controller.clientById.value?.clientData!.company!.name.toString() ?? "",
+                companyName: controller.clientById.value?.clientData!.billingAddress!.personName.toString() ?? "",
                 addressLine: controller.clientById.value?.clientData!.billingAddress!.addressLine.toString() ?? "",
                 city: controller.clientById.value?.clientData!.billingAddressDetails!.city.toString() ?? "",
                 state: controller.clientById.value?.clientData!.billingAddressDetails!.state ?? "",
                 country: controller.clientById.value?.clientData!.billingAddressDetails!.country ?? "",
                 postalCode: controller.clientById.value?.clientData!.billingAddress!.postalCode ?? "",
-                mobileNumber: controller.clientById.value?.clientData!.company!.mobileNumber ?? "",
+                mobileNumber: controller.clientById.value?.clientData!.billingAddress!.mobileNumber.toString() ?? "",
 
             ),
             SizedBox(height: 16.h),
@@ -72,13 +72,13 @@ class InvoiceAddressView extends GetView<InvoiceAddressController> {
 
               },
               title: "Shipping Address",
-              companyName: controller.clientById.value?.clientData!.company!.name.toString() ?? "",
+              companyName: controller.clientById.value?.clientData!.shippingAddress!.personName.toString() ?? "",
               addressLine: controller.clientById.value?.clientData!.shippingAddress!.addressLine.toString() ?? "",
               city: controller.clientById.value?.clientData!.shippingAddressDetails!.city.toString() ?? "",
               state: controller.clientById.value?.clientData!.shippingAddressDetails!.state ?? "",
               country: controller.clientById.value?.clientData!.shippingAddressDetails!.country ?? "",
               postalCode: controller.clientById.value?.clientData!.shippingAddress!.postalCode ?? "",
-              mobileNumber: controller.clientById.value?.clientData!.company!.mobileNumber ?? "",
+              mobileNumber: controller.clientById.value?.clientData!.shippingAddress!.mobileNumber.toString() ?? "",
 
             ),
             const Spacer(),

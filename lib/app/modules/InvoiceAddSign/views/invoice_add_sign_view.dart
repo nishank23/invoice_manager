@@ -74,8 +74,7 @@ class InvoiceAddSignView extends GetView<InvoiceAddSignController> {
                                       controller.selectedSign = p0;
 
                                       controller.update();
-
-                                     },
+                                    },
                                   );
                                 },
                                 title: "Browse"));
@@ -85,9 +84,7 @@ class InvoiceAddSignView extends GetView<InvoiceAddSignController> {
                 ),
               ),
             ),
-            SizedBox(
-              height: 20.h
-            ),
+            SizedBox(height: 20.h),
             GetBuilder<InvoiceAddSignController>(builder: (controller) {
               return controller.selectedSign != null
                   ? Container(
@@ -146,7 +143,7 @@ class InvoiceAddSignView extends GetView<InvoiceAddSignController> {
                       child: CachedNetworkImage(
                         fit: BoxFit.cover,
                         imageUrl:
-                            "${controller.createEstimatedController.estimation.value?.sign}",
+                            "${controller.createInvoicedController.estimation.value?.sign}",
                         placeholder: (context, url) =>
                             const Center(child: CircularProgressIndicator()),
                         errorWidget: (context, url, error) =>
@@ -158,37 +155,44 @@ class InvoiceAddSignView extends GetView<InvoiceAddSignController> {
               height: 12,
             ),
             GetBuilder(
-              builder: (InvoiceAddClientController controller) {
+              builder: (InvoiceAddSignController controller) {
                 return mybutton(
                   onTap: () {
                     print("taped");
 
-
-
-
                     Map<String, dynamic> mydata = {};
                     List<Map<String, dynamic>> myproductlist = [];
                     List<Map<String, dynamic>> mytaxlist = [];
-                    InvoiceAddClientController myClientController = Get.put(InvoiceAddClientController());
-                    InvoiceAddressController myAddressController = Get.put(InvoiceAddressController());
-                     InvoiceAddItemsController myItemsController = Get.put(InvoiceAddItemsController());
+                    InvoiceAddClientController myClientController =
+                        Get.put(InvoiceAddClientController());
+                    InvoiceAddressController myAddressController =
+                        Get.put(InvoiceAddressController());
+                    InvoiceAddItemsController myItemsController =
+                        Get.put(InvoiceAddItemsController());
                     mydata["client"] =
                         myClientController.selectedAddClient.value;
                     for (var data in myItemsController.myaddedProductsList) {
                       Map<String, dynamic> myproductData = {};
                       myproductData["product"] = data.id;
-                      myproductData["quantity"] = data.qty;
+                      myproductData["quantity"] = data.qty.toString();
                       myproductlist.add(myproductData);
                     }
                     mydata["products"] = myproductlist;
-                    mydata["estimationDate"] =
-                        myClientController.selectedDate.toString();
+                    mydata["invoiceDate"] =
+                        myClientController.selectedInvoiceDate.toString();
+                    mydata["dueDate"] =
+                        myClientController.selectedDueDate.toString();
                     mydata["currency"] = myClientController
                         .selectedCountry!.currencySymbol
                         .toString();
                     mydata["currencyId"] =
                         myClientController.selectedCountry!.id.toString();
-// mydata[]
+                    mydata["shippingAddress"] = myAddressController
+                        .clientById.value!.clientData!.shippingAddress!
+                        .toJson();
+                    mydata["billingAddress"] = myAddressController
+                        .clientById.value!.clientData!.billingAddress!
+                        .toJson();
                     mydata["itemTotal"] = myItemsController.subtotal.toString();
 
                     print("myitemsTotal${myItemsController.subtotal}");
@@ -209,7 +213,7 @@ class InvoiceAddSignView extends GetView<InvoiceAddSignController> {
 
                       mytaxdata["percentage"] = data['taxValue'];
                       mytaxdata["name"] = data['taxType'];
-                      mytaxdata["amount"] = data['value'];
+                      mytaxdata["amount"] = data['value'].toString();
 
                       mytaxlist.add(mytaxdata);
                     }
@@ -217,33 +221,27 @@ class InvoiceAddSignView extends GetView<InvoiceAddSignController> {
 
                     mydata["totalAmount"] = myItemsController.getFinalTotal;
 
-                    print(jsonEncode(mydata));
+                    print("myData = ${jsonEncode(mydata)}");
+
+
+
                     String? id = Get.find<CreateInvoiceController>().id;
 
-                    // id != null
-                    //     ? controller.ApiEditEstimate(
-                    //     context: context,
-                    //     id: id,
-                    //     formData: mydata,
-                    //     filePaths: controller.selectedSign == null
-                    //         ? ""
-                    //         : controller.selectedSign!.path)
-                    //     : controller.ApiCreateEstimate(
-                    //     context: context,
-                    //     formData: mydata,
-                    //     filePaths: controller.selectedSign == null
-                    //         ? ""
-                    //         : controller.selectedSign!.path);
+                    id != null
+                        ? controller.ApiEditInvoice(
+                        context: context,
+                        id: id,
+                        formData: mydata,
+                        filePaths: controller.selectedSign == null
+                            ? ""
+                            : controller.selectedSign!.path)
+                        : controller.ApiCreateInvoice(
+                        context: context,
+                        formData: mydata,
+                        filePaths: controller.selectedSign == null
+                            ? ""
+                            : controller.selectedSign!.path);
 
-
-
-
-
-
-
-
-
-                    // Get.toNamed(Routes.INVOICE_PREVIEW);
                   },
                   title: "Submit",
                 );

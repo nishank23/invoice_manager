@@ -40,7 +40,7 @@ class InvoiceAddClientController extends GetxController {
 
   Rx<String?> selectedCurrency = Rx<String?>(null);
   Rx<String?> selectedAddClient = Rx<String?>(null);
-  String? selectedCountryIcon ="🌐" ;
+  String? selectedCountryIcon ="🌐";
   DateTime? selectedInvoiceDate;
   DateTime? selectedDueDate;
    CountryData? selectedCountry;
@@ -102,15 +102,15 @@ class InvoiceAddClientController extends GetxController {
          CountryModelBottomSheetController());
 
 
-     final selectedCountry = await countryModelBottomSheetController
+       selectedCountry = await countryModelBottomSheetController
          .GetCountryModelSheet(context: context);
      if (selectedCountry != null) {
        // Handle the selected country
-       print(selectedCountry.currency);
+       print(selectedCountry!.currency);
 
-       selectedCountry.currency.toString();
-       selectedCountry.currencySymbol.toString();
-       selectedCurrency.value = selectedCountry.currencySymbol.toString();
+       selectedCountry!.currency.toString();
+       selectedCountry!.currencySymbol.toString();
+       selectedCurrency.value = selectedCountry!.currencySymbol.toString();
 
        final addcontroller = Get.put(EstAddItemsController());
 
@@ -123,11 +123,11 @@ class InvoiceAddClientController extends GetxController {
          addcontroller.menuItems[1]=myselectedSymbol;
        }
 
-       selectedCountryIcon = selectedCountry.emoji.toString();
+       selectedCountryIcon = selectedCountry!.emoji.toString();
 /*
       selectedCountryIcon = selectedCountry.currencySymbol.toString();
 */
-       currencyController.value.text ="${selectedCountry.currencySymbol}  ${selectedCountry.currency}";
+       currencyController.value.text ="${selectedCountry!.currencySymbol}  ${selectedCountry!.currency}";
        update();
      }
    }

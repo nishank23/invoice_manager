@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
@@ -7,19 +8,22 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:invoice_generator/app/global/widgets/TitleWidget.dart';
 import 'package:invoice_generator/app/global/widgets/myButton.dart';
+
 import '../../../global/constants/api_const.dart';
 import '../../../global/constants/app_asset.dart';
 import '../../../global/constants/app_color.dart';
 import '../../../global/constants/app_fonts.dart';
 import '../../../routes/app_pages.dart';
-import '../controllers/estimate_preview_controller.dart';
+import 'package:get/get.dart';
 
-class EstimatePreviewView extends GetView<EstimatePreviewController> {
-  const EstimatePreviewView({Key? key}) : super(key: key);
+import '../controllers/invoice_preview_controller.dart';
+
+class InvoicePreviewView extends GetView<InvoicePreviewController> {
+  const InvoicePreviewView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Get.put(EstimatePreviewController());
+    Get.put(InvoicePreviewController());
     return Scaffold(
         backgroundColor: AppColor.white,
         body: SafeArea(
@@ -41,7 +45,7 @@ class EstimatePreviewView extends GetView<EstimatePreviewController> {
                   ),
                   const Spacer(),
                   Text(
-                    "Estimate Preview",
+                    "Invoice Preview",
                     style: text700_18,
                   ),
                   const Spacer(),
@@ -62,7 +66,7 @@ class EstimatePreviewView extends GetView<EstimatePreviewController> {
               SizedBox(
                 height: 8.h,
               ),
-              GetBuilder<EstimatePreviewController>(builder: (controller) {
+              GetBuilder<InvoicePreviewController>(builder: (controller) {
                 return !controller.isLoading.value
                     ? Expanded(
                         child: ListView(
@@ -235,9 +239,23 @@ class EstimatePreviewView extends GetView<EstimatePreviewController> {
                                     Divider(
                                       height: 35.h,
                                     ),
-                                    myPreviewTitle(
-                                      title: 'ESTIMATE BILLED TO',
+                                    Row(
+                                      children: [
+                                        myPreviewTitle(
+                                          title: 'GST: ',
+                                        ),
+                                        Text(
+                                            controller.userprofile!.pcompany!
+                                                .gstNumber
+                                                .toString(),
+                                            style: text400_16grey.copyWith(
+                                                color: Colors.black)),
+                                      ],
                                     ),
+                                    SizedBox(
+                                      height: 8.h,
+                                    ),
+                                    myPreviewTitle(title: 'BILLED TO'),
                                     SizedBox(
                                       height: 8.h,
                                     ),
@@ -288,6 +306,75 @@ class EstimatePreviewView extends GetView<EstimatePreviewController> {
                                                 color: Colors.black)),
                                       ],
                                     ),
+                                    SizedBox(
+                                      height: 12.h,
+                                    ),
+
+                                    myPreviewTitle(title: 'SHIPPED TO'),
+                                    SizedBox(
+                                      height: 8.h,
+                                    ),
+                                    Text(
+                                        controller.estimation!.client!.company!
+                                            .personName
+                                            .toString(),
+                                        style: text600_16.copyWith(
+                                            color: Colors.black)),
+                                    SizedBox(
+                                      height: 8.h,
+                                    ),
+                                    Text(
+                                        controller
+                                            .estimation!.client!.company!.name
+                                            .toString(),
+                                        style: text600_16.copyWith(
+                                            color: Colors.black)),
+                                    SizedBox(
+                                      height: 8.h,
+                                    ),
+                                    Text(
+                                        controller.estimation!.client!
+                                            .billingAddress!.city
+                                            .toString(),
+                                        style: text400_16grey.copyWith(
+                                            color: Colors.black)),
+                                    SizedBox(
+                                      height: 8.h,
+                                    ),
+                                    Text(
+                                        "${controller.estimation!.client!.billingAddress!.state},${controller.estimation!.client!.billingAddress!.country}-${controller.estimation!.client!.billingAddress!.postalCode}",
+                                        style: text400_16grey.copyWith(
+                                            color: Colors.black)),
+                                    SizedBox(
+                                      height: 8.h,
+                                    ),
+                                    Row(
+                                      children: [
+                                        myPreviewTitle(
+                                          title: 'MOBILE NO.: ',
+                                        ),
+                                        Text(
+                                            controller.estimation!.client!
+                                                .company!.mobileNumber
+                                                .toString(),
+                                            style: text400_16grey.copyWith(
+                                                color: Colors.black)),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 14.h,
+                                    ),
+
+                                    Container(
+                                      padding: const EdgeInsets.all(8),
+                                      clipBehavior: Clip.antiAlias,
+                                      decoration: ShapeDecoration(
+                                        color: Color(0x0C663CEF),
+                                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                                      ),
+                                      child: Text('Due Date: 10/04/2023',style: text600_16.copyWith(color: AppColor.primaryBlue),),
+                                    )
+
                                   ]),
                             ),
                             SizedBox(
@@ -671,7 +758,7 @@ class EstimatePreviewView extends GetView<EstimatePreviewController> {
                             SizedBox(
                               height: 20.h,
                             ),
-                            GetBuilder<EstimatePreviewController>(
+                            GetBuilder<InvoicePreviewController>(
                                 builder: (controller) {
                               return mybutton(
                                   onTap: () {
@@ -707,47 +794,4 @@ class EstimatePreviewView extends GetView<EstimatePreviewController> {
           ),
         ));
   }
-}
-
-class TicketClipper extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    final path = Path();
-
-    // Calculate the radius for the semi-circles
-    final radius = size.height / 2;
-
-    // Calculate the width of the ticket body
-    final ticketWidth = size.width - (2 * radius);
-
-    // Move to the starting point
-    path.moveTo(radius, 0);
-
-    // Draw the left semi-circle
-    path.arcToPoint(
-      Offset(0, radius),
-      radius: Radius.circular(radius),
-      clockwise: false,
-    );
-
-    // Draw the left side of the ticket body
-    path.lineTo(0, size.height);
-
-    // Draw the right side of the ticket body
-    path.lineTo(size.width, size.height);
-
-    // Draw the right semi-circle
-    path.arcToPoint(
-      Offset(size.width - radius, radius),
-      radius: Radius.circular(radius),
-      clockwise: false,
-    );
-
-    path.close();
-
-    return path;
-  }
-
-  @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
 }
