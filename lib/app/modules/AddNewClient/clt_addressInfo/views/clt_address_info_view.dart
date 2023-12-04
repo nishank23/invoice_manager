@@ -62,6 +62,9 @@ class CltAddressInfoView extends GetView<CltAddressInfoController> {
                           keyboardType: TextInputType.phone,
                           controller: controller.mobileBillNumController.value,
                           onValidator: (value) {
+                            if (controller.isAddressSame) {
+                              return null; // Skip validation if address is same as billing
+                            }
                             if (value!.contains(RegExp(r'[^0-9]'))) {
                               return "Only numbers are allowed";
                             } else if (value.length < 10) {
@@ -88,6 +91,9 @@ class CltAddressInfoView extends GetView<CltAddressInfoController> {
                         lableText: "Address",
                         height: 120.h,
                         onValidator: (value) {
+                          if (controller.isAddressSame) {
+                            return null; // Skip validation if address is same as billing
+                          }
                           if (value.toString().isEmpty) {
                             return "Address can't be empty";
                           }
@@ -160,6 +166,9 @@ class CltAddressInfoView extends GetView<CltAddressInfoController> {
                         lableText: "ZIP/Postal code",
                         maxLength: 6,
                         onValidator: (value) {
+                          if (controller.isAddressSame) {
+                            return null; // Skip validation if address is same as billing
+                          }
                           if (value!.isEmpty) {
                             return 'ZIP/Postal code cannot be empty';
                           } else if (value.length < 6) {
@@ -389,7 +398,12 @@ class CltAddressInfoView extends GetView<CltAddressInfoController> {
                         onTap: () {
                           print("taped");
 
+
+
                           if (formKey.currentState!.validate()) {
+
+
+
                             controller.submitProfileData(context);
                           }
                         },

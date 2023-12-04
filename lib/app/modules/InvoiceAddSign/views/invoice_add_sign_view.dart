@@ -1,10 +1,12 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:get/get.dart';
 import 'package:invoice_generator/app/modules/InvoiceAddItems/controllers/invoice_add_items_controller.dart';
@@ -171,6 +173,7 @@ class InvoiceAddSignView extends GetView<InvoiceAddSignController> {
                         Get.put(InvoiceAddItemsController());
                     mydata["client"] =
                         myClientController.selectedAddClient.value;
+
                     for (var data in myItemsController.myaddedProductsList) {
                       Map<String, dynamic> myproductData = {};
                       myproductData["product"] = data.id;
@@ -188,11 +191,9 @@ class InvoiceAddSignView extends GetView<InvoiceAddSignController> {
                     mydata["currencyId"] =
                         myClientController.selectedCountry!.id.toString();
                     mydata["shippingAddress"] = myAddressController
-                        .clientById.value!.clientData!.shippingAddress!
-                        .toJson();
+                        .clientById.value!.clientData!.shippingAddress!.toJson();
                     mydata["billingAddress"] = myAddressController
-                        .clientById.value!.clientData!.billingAddress!
-                        .toJson();
+                        .clientById.value!.clientData!.billingAddress!.toJson();
                     mydata["itemTotal"] = myItemsController.subtotal.toString();
 
                     print("myitemsTotal${myItemsController.subtotal}");
@@ -221,8 +222,11 @@ class InvoiceAddSignView extends GetView<InvoiceAddSignController> {
 
                     mydata["totalAmount"] = myItemsController.getFinalTotal;
 
-                    print("myData = ${jsonEncode(mydata)}");
 
+
+                    log(jsonEncode(mydata));/*
+                    print("myData = ${jsonEncode(mydata)}");
+*/
 
 
                     String? id = Get.find<CreateInvoiceController>().id;

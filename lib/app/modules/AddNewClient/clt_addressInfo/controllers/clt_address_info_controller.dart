@@ -172,7 +172,10 @@ class CltAddressInfoController extends GetxController {
     var selectedphoto = businessInfoController.selectedPhoto == null
         ? ""
         : businessInfoController.selectedPhoto!.path;
+    ApiCallAddNewClient(context: context, requestBody: requestData, filepath: selectedphoto);
 
+
+  }
     ApiCallAddNewClient(
         {required BuildContext context,
         required Map<String, dynamic> requestBody,
@@ -196,10 +199,9 @@ class CltAddressInfoController extends GetxController {
           form.fields.add(MapEntry<String, String>(key, jsonString));
         }
       });
-      String clientId = addNewClientController.id != null &&
+      String? clientId = addNewClientController.id != null &&
               addNewClientController.id!.isNotEmpty
-          ? addNewClientController.id ?? ''
-          : ':clientId';
+          ? addNewClientController.id :'';
 
       FocusScope.of(context).unfocus();
       app.resolve<CustomDialogs>().showCircularDialog(context);
@@ -207,7 +209,7 @@ class CltAddressInfoController extends GetxController {
       return NetworkClient.getInstance.callApiForm(
         context,
         baseURL,
-        "${ApiConstant.createUpdateClient}/$clientId",
+        "${ApiConstant.createUpdateClient}/${clientId}",
         MethodType.Post,
         headers: NetworkClient.getInstance.getAuthHeaders(),
         params: form,
@@ -216,7 +218,10 @@ class CltAddressInfoController extends GetxController {
           showSuccessDialog(
               context, businesscntlr.companyNameController.value.text);
 
-          Fluttertoast.showToast(msg: "Client Added Successfully");
+
+
+
+          Fluttertoast.showToast(msg: response["message"]);
         },
         failureCallback: (status, message) {
           app.resolve<CustomDialogs>().hideCircularDialog(context);
@@ -227,7 +232,7 @@ class CltAddressInfoController extends GetxController {
         },
       );
     }
-  }
+
 
   showSuccessDialog(BuildContext context, String clientname) {
     Dialogs.materialDialog(

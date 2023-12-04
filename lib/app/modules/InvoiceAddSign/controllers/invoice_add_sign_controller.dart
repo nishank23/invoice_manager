@@ -61,9 +61,12 @@ class InvoiceAddSignController extends GetxController {
       if (value is List<Map<String, dynamic>>) {
         print(jsonEncode("jsonString = $value"));
         final jsonString = jsonEncode(value);
-
         form.fields.add(MapEntry(key, jsonString));
-      } else {
+      } else if(value is Map<String, dynamic>){
+        final jsonString = jsonEncode(value);
+        form.fields.add(MapEntry<String, String>(key, jsonString));
+        /*form.fields.add(MapEntry(key, value));*/
+      }else{
         form.fields.add(MapEntry(key, value));
       }
     });
