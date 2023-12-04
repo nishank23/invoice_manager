@@ -349,30 +349,22 @@ class InvoicesView extends GetView<InvoicesController> {
                                                                     data.id);
                                                               },
                                                               title: "Edit",
-                                                              backgroundColor:
-                                                              Colors.white,
+                                                              backgroundColor: Colors.white,
                                                               borderColor:
-                                                              const Color(
-                                                                  0x4C97A1B1),
-                                                              textStyle: text400_16grey
-                                                                  .copyWith(
-                                                                  color: Colors
-                                                                      .black))),
+                                                              const Color(0x4C97A1B1),
+                                                              textStyle: text400_16grey.copyWith(color: Colors.black))),
                                                       SizedBox(
                                                         width: 8.w,
                                                       ),
                                                       Expanded(
                                                           child: mybutton(
                                                               onTap: () {
-
+                                                                controller.apiDeleteClient(context: context, clientId: data.id!)   ;
                                                                 Get.back();
                                                               },
                                                               title:
                                                               "Yes, Delete",
-                                                              textStyle: text400_14
-                                                                  .copyWith(
-                                                                  color: AppColor
-                                                                      .white),
+                                                              textStyle: text400_14.copyWith(color: AppColor.white),
                                                               backgroundColor:
                                                               const Color(
                                                                   0xFFFF8080)))

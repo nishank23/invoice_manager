@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -81,6 +83,30 @@ class InvoicesController extends GetxController {
     String formattedDate = dateFormat.format(dateTime);
     return formattedDate;
   }
+
+
+  apiDeleteClient({required BuildContext context, required String clientId}) {
+    FocusScope.of(context).unfocus();
+    isLoading = true.obs;
+    return NetworkClient.getInstance.callApi(
+      context,
+      baseURL,
+      '${ApiConstant.editInv}/$clientId',
+      MethodType.Delete,
+      headers: NetworkClient.getInstance.getAuthHeaders(),
+      successCallback: (response, message) {
+        isLoading = false.obs;
+        app.resolve<CustomDialogs>().getDialog(title: 'Success', desc: message);
+        log(response.toString());
+        ApiGetAllEstimate(context: context);
+      },
+      failureCallback: (message, statusCode) {
+        isLoading = false.obs;
+        app.resolve<CustomDialogs>().getDialog(title: "Failed", desc: message);
+      },
+    );
+  }
+
 
 }
 
