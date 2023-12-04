@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-import '../../../../Models/getAllEstimate.dart';
+import '../../../../Models/getAllInvoice.dart';
 import '../../../../main.dart';
 import '../../../../services/Connectivity/networkClient.dart';
 import '../../../global/constants/api_const.dart';
@@ -12,15 +12,15 @@ class InvoicesController extends GetxController {
   //TODO: Implement InvoicesController
 
   final count = 0.obs;
+
   void onInit() {
     super.onInit();
   }
 
   @override
   void onReady() {
-
     super.onReady();
-    ApiGetAllEstimate( context: Get.context!,);
+    ApiGetAllEstimate(context: Get.context!);
   }
 
   @override
@@ -28,13 +28,12 @@ class InvoicesController extends GetxController {
     super.onClose();
   }
 
-  Rx<TextEditingController> searchController =  TextEditingController().obs;
+  Rx<TextEditingController> searchController = TextEditingController().obs;
 
   RxList<Data> myEstimatelist = <Data>[].obs;
 
 
-  RxBool isLoading =false.obs;
-
+  RxBool isLoading = false.obs;
 
 
   ApiGetAllEstimate({required BuildContext context}) async {
@@ -43,7 +42,7 @@ class InvoicesController extends GetxController {
 /*
     app.resolve<CustomDialogs>().showCircularDialog(context);
 */
-    isLoading =true.obs;
+    isLoading = true.obs;
     return NetworkClient.getInstance.callApi(
       context,
       baseURL,
@@ -55,16 +54,16 @@ class InvoicesController extends GetxController {
         app.resolve<CustomDialogs>().hideCircularDialog(context);
 */
         myEstimatelist.clear();
-        isLoading =false.obs;
+        isLoading = false.obs;
 
-        GetAllEstimate getAllClients = GetAllEstimate.fromJson(response);
+        GetAllInvoice getAllClients = GetAllInvoice.fromJson(response);
         myEstimatelist.value = getAllClients.data!;
 
 
         update();
       },
       failureCallback: (status, message) {
-        isLoading =false.obs;
+        isLoading = false.obs;
 
 /*
         app.resolve<CustomDialogs>().hideCircularDialog(context);
@@ -75,6 +74,7 @@ class InvoicesController extends GetxController {
       },
     );
   }
+
   String convertDateFormat(String dateString) {
     DateTime dateTime = DateTime.parse(dateString);
     DateFormat dateFormat = DateFormat('dd MMM, yyyy');

@@ -64,7 +64,6 @@ class InvoiceAddClientView extends GetView<InvoiceAddClientController> {
             ),
             MyTextFiled(
               onValidator: (value) {
-
                 if (value == null || value.toString().isEmpty) {
                   return "Please select date";
                 }

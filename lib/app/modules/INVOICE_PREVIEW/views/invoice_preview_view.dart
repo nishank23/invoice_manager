@@ -135,7 +135,7 @@ class InvoicePreviewView extends GetView<InvoicePreviewController> {
                                                     color: AppColor.primaryBlue
                                                         .withOpacity(.05)),
                                                 child: Text(
-                                                  "#${controller.estimation!.estimationNo.toString()}",
+                                                  "#${controller.invoice!.estimationNo.toString()}",
                                                   style: text300_14.copyWith(
                                                       color:
                                                           AppColor.primaryBlue),
@@ -157,8 +157,8 @@ class InvoicePreviewView extends GetView<InvoicePreviewController> {
                                               Text(
                                                   DateFormat("dd/MM/yyyy")
                                                       .format(DateTime.parse(
-                                                          controller.estimation!
-                                                              .estimationDate
+                                                          controller.invoice!
+                                                              .invoiceDate
                                                               .toString())),
                                                   style:
                                                       text400_16grey.copyWith(
@@ -178,10 +178,10 @@ class InvoicePreviewView extends GetView<InvoicePreviewController> {
                                     Text(
                                         controller
                                             .formatPriceWithThousandSeparator(
-                                                controller.estimation!.currency
+                                                controller.invoice!.currency
                                                     .toString(),
                                                 controller
-                                                    .estimation!.totalAmount!),
+                                                    .invoice!.totalAmount!),
                                         style: text400_16purple),
                                     SizedBox(
                                       height: 14.h,
@@ -245,7 +245,7 @@ class InvoicePreviewView extends GetView<InvoicePreviewController> {
                                           title: 'GST: ',
                                         ),
                                         Text(
-                                            controller.userprofile!.pcompany!
+                                            controller.invoice!.client!.company!
                                                 .gstNumber
                                                 .toString(),
                                             style: text400_16grey.copyWith(
@@ -260,17 +260,8 @@ class InvoicePreviewView extends GetView<InvoicePreviewController> {
                                       height: 8.h,
                                     ),
                                     Text(
-                                        controller.estimation!.client!.company!
-                                            .personName
-                                            .toString(),
-                                        style: text600_16.copyWith(
-                                            color: Colors.black)),
-                                    SizedBox(
-                                      height: 8.h,
-                                    ),
-                                    Text(
                                         controller
-                                            .estimation!.client!.company!.name
+                                            .invoice!.billingAddress!.personName
                                             .toString(),
                                         style: text600_16.copyWith(
                                             color: Colors.black)),
@@ -278,8 +269,16 @@ class InvoicePreviewView extends GetView<InvoicePreviewController> {
                                       height: 8.h,
                                     ),
                                     Text(
-                                        controller.estimation!.client!
-                                            .billingAddress!.city
+                                        controller.invoice!.billingAddress!
+                                            .addressLine
+                                            .toString(),
+                                        style: text600_16.copyWith(
+                                            color: Colors.black)),
+                                    SizedBox(
+                                      height: 8.h,
+                                    ),
+                                    Text(
+                                        controller.invoice!.billingAddress!.city
                                             .toString(),
                                         style: text400_16grey.copyWith(
                                             color: Colors.black)),
@@ -287,7 +286,7 @@ class InvoicePreviewView extends GetView<InvoicePreviewController> {
                                       height: 8.h,
                                     ),
                                     Text(
-                                        "${controller.estimation!.client!.billingAddress!.state},${controller.estimation!.client!.billingAddress!.country}-${controller.estimation!.client!.billingAddress!.postalCode}",
+                                        "${controller.invoice!.billingAddress!.state},${controller.invoice!.billingAddress!.country}-${controller.invoice!.billingAddress!.postalCode}",
                                         style: text400_16grey.copyWith(
                                             color: Colors.black)),
                                     SizedBox(
@@ -299,8 +298,8 @@ class InvoicePreviewView extends GetView<InvoicePreviewController> {
                                           title: 'MOBILE NO.: ',
                                         ),
                                         Text(
-                                            controller.estimation!.client!
-                                                .company!.mobileNumber
+                                            controller.invoice!.billingAddress!
+                                                .mobileNumber
                                                 .toString(),
                                             style: text400_16grey.copyWith(
                                                 color: Colors.black)),
@@ -309,13 +308,12 @@ class InvoicePreviewView extends GetView<InvoicePreviewController> {
                                     SizedBox(
                                       height: 12.h,
                                     ),
-
                                     myPreviewTitle(title: 'SHIPPED TO'),
                                     SizedBox(
                                       height: 8.h,
                                     ),
                                     Text(
-                                        controller.estimation!.client!.company!
+                                        controller.invoice!.shippingAddress!
                                             .personName
                                             .toString(),
                                         style: text600_16.copyWith(
@@ -324,8 +322,8 @@ class InvoicePreviewView extends GetView<InvoicePreviewController> {
                                       height: 8.h,
                                     ),
                                     Text(
-                                        controller
-                                            .estimation!.client!.company!.name
+                                        controller.invoice!.shippingAddress!
+                                            .addressLine
                                             .toString(),
                                         style: text600_16.copyWith(
                                             color: Colors.black)),
@@ -333,8 +331,8 @@ class InvoicePreviewView extends GetView<InvoicePreviewController> {
                                       height: 8.h,
                                     ),
                                     Text(
-                                        controller.estimation!.client!
-                                            .billingAddress!.city
+                                        controller
+                                            .invoice!.shippingAddress!.city
                                             .toString(),
                                         style: text400_16grey.copyWith(
                                             color: Colors.black)),
@@ -342,7 +340,7 @@ class InvoicePreviewView extends GetView<InvoicePreviewController> {
                                       height: 8.h,
                                     ),
                                     Text(
-                                        "${controller.estimation!.client!.billingAddress!.state},${controller.estimation!.client!.billingAddress!.country}-${controller.estimation!.client!.billingAddress!.postalCode}",
+                                        "${controller.invoice!.shippingAddress!.state},${controller.invoice!.shippingAddress!.country}-${controller.invoice!.shippingAddress!.postalCode}",
                                         style: text400_16grey.copyWith(
                                             color: Colors.black)),
                                     SizedBox(
@@ -354,8 +352,8 @@ class InvoicePreviewView extends GetView<InvoicePreviewController> {
                                           title: 'MOBILE NO.: ',
                                         ),
                                         Text(
-                                            controller.estimation!.client!
-                                                .company!.mobileNumber
+                                            controller.invoice!.shippingAddress!
+                                                .mobileNumber
                                                 .toString(),
                                             style: text400_16grey.copyWith(
                                                 color: Colors.black)),
@@ -364,17 +362,21 @@ class InvoicePreviewView extends GetView<InvoicePreviewController> {
                                     SizedBox(
                                       height: 14.h,
                                     ),
-
                                     Container(
                                       padding: const EdgeInsets.all(8),
                                       clipBehavior: Clip.antiAlias,
                                       decoration: ShapeDecoration(
                                         color: Color(0x0C663CEF),
-                                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(5)),
                                       ),
-                                      child: Text('Due Date: 10/04/2023',style: text600_16.copyWith(color: AppColor.primaryBlue),),
+                                      child: Text(
+                                        'Due Date: ${DateFormat("dd/MM/yyyy").format(DateTime.parse(controller.invoice!.dueDate.toString()))}',
+                                        style: text600_16.copyWith(
+                                            color: AppColor.primaryBlue),
+                                      ),
                                     )
-
                                   ]),
                             ),
                             SizedBox(
@@ -387,7 +389,7 @@ class InvoicePreviewView extends GetView<InvoicePreviewController> {
                                 padding: EdgeInsets.symmetric(vertical: 20.h),
                                 itemBuilder: (context, index) {
                                   var data =
-                                      controller.estimation!.products![index];
+                                      controller.invoice!.products![index];
 
                                   String? productImage;
 
@@ -497,7 +499,7 @@ class InvoicePreviewView extends GetView<InvoicePreviewController> {
                                       height: 8.h,
                                     ),
                                 itemCount:
-                                    controller.estimation!.products!.length),
+                                    controller.invoice!.products!.length),
                             myTitleWidget(title: "Total Paid Amount"),
                             SizedBox(
                               height: 24.h,
@@ -522,11 +524,10 @@ class InvoicePreviewView extends GetView<InvoicePreviewController> {
                                         Text(
                                             controller
                                                 .formatPriceWithThousandSeparator(
-                                                    controller
-                                                        .estimation!.currency
+                                                    controller.invoice!.currency
                                                         .toString(),
-                                                    controller.estimation!
-                                                        .itemTotal!),
+                                                    controller
+                                                        .invoice!.subTotal!),
                                             style: text400_16black)
                                       ],
                                     ),
@@ -564,24 +565,23 @@ class InvoicePreviewView extends GetView<InvoicePreviewController> {
                                                   ),
                                                 ),
                                                 child: Text(
-                                                    controller.estimation!
+                                                    controller.invoice!
                                                                 .discountType ==
                                                             0
-                                                        ? ((controller
-                                                                    .estimation!
+                                                        ? ((controller.invoice!
                                                                     .itemTotal! /
                                                                 num.parse(controller
-                                                                            .estimation
+                                                                            .invoice
                                                                             ?.discount !=
                                                                         null
                                                                     ? controller
-                                                                        .estimation!
+                                                                        .invoice!
                                                                         .discount!
                                                                         .toString()
                                                                     : "0")))
                                                             .toStringAsFixed(2)
-                                                        : controller.estimation!
-                                                            .discount!
+                                                        : controller
+                                                            .invoice!.discount!
                                                             .toStringAsFixed(2),
                                                     style: text400_16black),
                                               ),
@@ -601,8 +601,7 @@ class InvoicePreviewView extends GetView<InvoicePreviewController> {
                                                   ),
                                                 ),
                                                 child: Text(
-                                                  controller
-                                                      .estimation!.currency
+                                                  controller.invoice!.currency
                                                       .toString(),
                                                   style: text600_16.copyWith(
                                                       color: Colors.black),
@@ -622,8 +621,8 @@ class InvoicePreviewView extends GetView<InvoicePreviewController> {
                                         physics:
                                             const NeverScrollableScrollPhysics(),
                                         itemBuilder: (context, index) {
-                                          var data = controller
-                                              .estimation!.taxes![index];
+                                          var data =
+                                              controller.invoice!.taxes![index];
                                           return Row(
                                             children: [
                                               Text(data.name.toString(),
@@ -660,8 +659,8 @@ class InvoicePreviewView extends GetView<InvoicePreviewController> {
                                               Text(
                                                   controller
                                                       .formatPriceWithThousandSeparator(
-                                                          controller.estimation!
-                                                              .currency
+                                                          controller
+                                                              .invoice!.currency
                                                               .toString(),
                                                           data.amount!),
                                                   style: text400_16black),
@@ -672,8 +671,8 @@ class InvoicePreviewView extends GetView<InvoicePreviewController> {
                                             SizedBox(
                                               height: 24.h,
                                             ),
-                                        itemCount: controller
-                                            .estimation!.taxes!.length),
+                                        itemCount:
+                                            controller.invoice!.taxes!.length),
                                     Opacity(
                                       opacity: 0.20,
                                       child: const DottedLine(
@@ -699,10 +698,10 @@ class InvoicePreviewView extends GetView<InvoicePreviewController> {
                                             controller
                                                 .formatPriceWithThousandSeparator(
                                                     controller
-                                                        .estimation!.currency!
+                                                        .invoice!.currency!
                                                         .toString(),
-                                                    controller.estimation!
-                                                        .totalAmount!),
+                                                    controller
+                                                        .invoice!.totalAmount!),
                                             style: text700_18.copyWith(
                                                 fontSize: 16.sp,
                                                 color: AppColor.primaryBlue))
@@ -719,7 +718,7 @@ class InvoicePreviewView extends GetView<InvoicePreviewController> {
                             SizedBox(
                               height: 20.h,
                             ),
-                            controller.estimation!.sign != null
+                            controller.invoice!.sign != null
                                 ? Container(
                                     width: 150,
                                     height: 100,
@@ -747,7 +746,7 @@ class InvoicePreviewView extends GetView<InvoicePreviewController> {
                                             child: Image.network(
                                               fit: BoxFit.fill,
                                               ibaseURL +
-                                                  controller.estimation!.sign!,
+                                                  controller.invoice!.sign!,
                                             ),
                                           ),
                                         ),
@@ -765,8 +764,8 @@ class InvoicePreviewView extends GetView<InvoicePreviewController> {
                                     Get.toNamed(Routes.INVOICE_PDF, arguments: {
                                       'pdfSite':
                                           "$baseURL${ApiConstant.getEstPdf}/${controller.id}",
-                                      'name': controller.estimation!.client!
-                                          .company!.personName
+                                      'name': controller
+                                          .invoice!.client!.company!.personName
                                     });
 
                                     /* controller.ApiEstimatePdfView(

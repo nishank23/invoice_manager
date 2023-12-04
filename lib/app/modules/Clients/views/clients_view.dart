@@ -279,6 +279,7 @@ class ClientsView extends GetView<ClientsController> {
                                                                     context: context,
                                                                     clientId: controller.filteredList[index].id!,
                                                                 );
+                                                                Get.back();
                                                               },
                                                               title:
                                                                   "Yes, Delete",

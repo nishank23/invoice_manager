@@ -363,7 +363,10 @@ class InvoicesView extends GetView<InvoicesController> {
                                                       ),
                                                       Expanded(
                                                           child: mybutton(
-                                                              onTap: () {},
+                                                              onTap: () {
+
+                                                                Get.back();
+                                                              },
                                                               title:
                                                               "Yes, Delete",
                                                               textStyle: text400_14
@@ -424,7 +427,7 @@ class InvoicesView extends GetView<InvoicesController> {
                                                       color: Colors.black)),
                                               Text(
                                                   controller.convertDateFormat(
-                                                  data.estimationDate!),
+                                                  data.invoiceDate!),
                                                   style: text400_13grey),
                                             ],
                                           ),

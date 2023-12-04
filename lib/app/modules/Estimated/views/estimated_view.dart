@@ -216,8 +216,9 @@ class EstimatedView extends GetView<EstimatedController> {
                                                         SizedBox(width: 10.w),
                                                         Text(
                                                           data.client?.company!
-                                                              .personName
-                                                              .toString() ??"",
+                                                                  .personName
+                                                                  .toString() ??
+                                                              "",
                                                           style: text400_16grey
                                                               .copyWith(
                                                                   color: const Color(
@@ -362,8 +363,12 @@ class EstimatedView extends GetView<EstimatedController> {
                                                       Expanded(
                                                           child: mybutton(
                                                               onTap: () {
-
-                                                                controller.apiDeleteClient(context: context, EstId: data.id!);
+                                                                controller.apiDeleteClient(
+                                                                    context:
+                                                                        context,
+                                                                    EstId: data
+                                                                        .id!);
+                                                                Get.back();
                                                               },
                                                               title:
                                                                   "Yes, Delete",
@@ -409,7 +414,8 @@ class EstimatedView extends GetView<EstimatedController> {
                                         children: [
                                           Text(
                                             data.client?.company!.personName
-                                                .toString() ?? "",
+                                                    .toString() ??
+                                                "",
                                             style: text400_16grey.copyWith(
                                                 color: const Color(0xff1D1B20)),
                                           ),
@@ -419,9 +425,7 @@ class EstimatedView extends GetView<EstimatedController> {
                                           Row(
                                             children: [
                                               Text(
-                                                  "${data.currency} ${data.totalAmount!
-                                                          .abs()
-                                                          .toStringAsFixed(0)} • ",
+                                                  "${data.currency} ${data.totalAmount!.abs().toStringAsFixed(0)} • ",
                                                   style: text600_16.copyWith(
                                                       color: Colors.black)),
                                               Text(

@@ -526,10 +526,18 @@ class InvoiceAddItemsView extends GetView<InvoiceAddItemsController> {
                       Obx(
                             () => ListView.separated(
                           itemCount: controller.myTextList.length,
+                          
                           padding: EdgeInsets.zero,
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
                           itemBuilder: (context, index) {
+
+                            controller.myTextList[index]['value'] =
+                                num.parse(controller.afterDiscountText) *
+                                    (num.parse(controller.myTextList[index]
+                                    ['taxValue']) /
+                                        100);
+
                             return Row(
                               children: [
                                 GestureDetector(

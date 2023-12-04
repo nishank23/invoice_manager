@@ -322,6 +322,7 @@ class MyProductsView extends GetView<MyProductsController> {
                                                                             controller.ApiDeleteProduct(
                                                                                 context: context,
                                                                                 productId: controller.filteredList![i].id.toString());
+                                                                            Get.back();
                                                                           },
                                                                           title: "Yes, Delete",
                                                                           textStyle: text400_14.copyWith(color: AppColor.white),

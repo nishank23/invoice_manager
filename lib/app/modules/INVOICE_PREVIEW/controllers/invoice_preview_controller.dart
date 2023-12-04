@@ -4,9 +4,8 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:invoice_generator/Models/estimatePreviewModel.dart';
-import 'package:invoice_generator/app/modules/InvoicePdf/views/invoice_pdf_view.dart';
 
+import '../../../../Models/getInvoiceData.dart';
 import '../../../../main.dart';
 import '../../../../services/Connectivity/networkClient.dart';
 import '../../../global/constants/api_const.dart';
@@ -39,8 +38,8 @@ class InvoicePreviewController extends GetxController {
 
   RxBool isLoading = false.obs;
 
-  EstimatePreviewModel? estimatePreviewModel;
-  Estimation? estimation;
+  GetInvoiceData? invoicePreviewModel;
+  Invoice? invoice;
   Userprofile? userprofile;
 
   ApiEstimatePreview(
@@ -51,16 +50,17 @@ class InvoicePreviewController extends GetxController {
     return NetworkClient.getInstance.callApi(
       context,
       baseURL,
-      "${ApiConstant.getEstPreview}/$invoiceId",
+      "${ApiConstant.getInvPreview}/$invoiceId",
       MethodType.Get,
       headers: NetworkClient.getInstance.getAuthHeaders(),
       successCallback: (response, message) {
         isLoading = false.obs;
 
-        estimatePreviewModel = EstimatePreviewModel.fromJson(response);
+        invoicePreviewModel = GetInvoiceData.fromJson(response);
 
-        estimation = estimatePreviewModel!.estimation!;
-        userprofile = estimatePreviewModel!.userprofile!;
+        invoice = invoicePreviewModel!.invoice!;
+        userprofile = invoicePreviewModel!.userprofile!;
+
         update();
       },
       failureCallback: (status, message) {
@@ -80,7 +80,7 @@ class InvoicePreviewController extends GetxController {
     return NetworkClient.getInstance.callApi(
       context,
       baseURL,
-      "${ApiConstant.getEstPdf}/$invoiceId",
+      "${ApiConstant.getInvPdf}/$invoiceId",
       MethodType.Get,
       headers: NetworkClient.getInstance.getAuthHeaders(),
       successCallback: (response, message) {
