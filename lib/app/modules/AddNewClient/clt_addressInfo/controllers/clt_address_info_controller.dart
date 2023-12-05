@@ -209,7 +209,7 @@ class CltAddressInfoController extends GetxController {
       return NetworkClient.getInstance.callApiForm(
         context,
         baseURL,
-        "${ApiConstant.createUpdateClient}/${clientId}",
+        "${ApiConstant.createUpdateClient}/$clientId",
         MethodType.Post,
         headers: NetworkClient.getInstance.getAuthHeaders(),
         params: form,

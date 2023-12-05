@@ -763,7 +763,7 @@ class InvoicePreviewView extends GetView<InvoicePreviewController> {
                                   onTap: () {
                                     Get.toNamed(Routes.INVOICE_PDF, arguments: {
                                       'pdfSite':
-                                          "$baseURL${ApiConstant.getEstPdf}/${controller.id}",
+                                          "$baseURL${ApiConstant.getInvPdf}/${controller.id}",
                                       'name': controller
                                           .invoice!.client!.company!.personName
                                     });
