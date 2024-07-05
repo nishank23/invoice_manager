@@ -1,5 +1,5 @@
-**Invoice Generator**
-Invoice Generator is a Flutter application designed to simplify the process of creating and managing invoices. It provides a user-friendly interface to quickly generate professional-looking invoices that can be customized to suit various business needs. The app is perfect for freelancers, small business owners, and anyone else who needs to issue invoices on-the-go.
+Invoice Generator
+Invoice Generator is a Flutter application designed to simplify the process of creating and managing invoices. It provides a user-friendly interface to quickly generate professional-looking invoices that can be customized to suit various business needs. Ideal for freelancers, small business owners, and anyone else needing to issue invoices on the go.
 
 Features
 Create Invoices: Easily create detailed invoices with items, prices, and descriptions.
@@ -8,20 +8,17 @@ Export and Share: Export invoices as PDF files and share them directly from the 
 Save Client Details: Save and manage client information for quicker invoice creation.
 Offline Access: Generate and manage invoices without needing an internet connection.
 Getting Started
-To get started with Invoice Generator, you need to have Flutter installed on your machine. Follow these steps to set up the project locally:
-
 Prerequisites
-Ensure you have the following installed:
+Before you begin, ensure you have the following installed:
 
-Flutter SDK (Channel stable, latest version recommended)
-Dart SDK (latest version)
-An IDE (VSCode or Android Studio recommended)
+Flutter SDK: Channel stable, latest version recommended.
+Dart SDK: Latest version.
+IDE: VSCode or Android Studio recommended.
 Installation
 Clone the repository:
 bash
 Copy code
-```git clone git@github.com:nishank23/invoice_manager.git
-```
+git clone git@github.com:nishank23/invoice_manager.git
 Navigate to the project directory:
 bash
 Copy code
@@ -43,17 +40,17 @@ Select a template and any additional options like taxes or discounts.
 Preview the invoice and make any necessary adjustments.
 Save or export the invoice as a PDF, or share it directly via email or other platforms.
 Contributing
-Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are greatly appreciated.
+Contributions make the open-source community an amazing place to learn, inspire, and create. Any contributions you make are greatly appreciated.
 
-Fork the Project
-Create your Feature Branch (git checkout -b feature/AmazingFeature)
-Commit your Changes (git commit -m 'Add some AmazingFeature')
-Push to the Branch (git push origin feature/AmazingFeature)
-Open a Pull Request
+Fork the Project.
+Create your Feature Branch (git checkout -b feature/AmazingFeature).
+Commit your Changes (git commit -m 'Add some AmazingFeature').
+Push to the Branch (git push origin feature/AmazingFeature).
+Open a Pull Request.
 License
-Distributed under the MIT License. See LICENSE for more information.
+This project is licensed under the MIT License - see the LICENSE file for details.
 
 Contact
-Your Name - NishankBansal - email - bansalnishank4@gmail.com
-
-Project Link: https://www.github.com:nishank23/invoice_manager
+Your Name: Nishank Bansal
+Email: bansalnishank4@gmail.com
+GitHub Project Link: Invoice Manager
